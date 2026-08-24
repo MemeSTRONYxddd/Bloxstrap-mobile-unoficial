@@ -2,317 +2,1021 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+
 <title>Bloxstrap Mobile</title>
 
 <style>
-* {
-    box-sizing: border-box;
+*{
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
 }
 
-body {
-    margin: 0;
-    background: #f5f6f8;
-    color: #202124;
-    font-family: Arial, sans-serif;
+html{
+    scroll-behavior:smooth;
 }
 
-.header {
-    background: #ffffff;
-    padding: 24px 20px 18px;
-    border-bottom: 1px solid #e5e7eb;
-    position: sticky;
-    top: 0;
-    z-index: 10;
+body{
+    margin:0;
+    font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+    background:
+        radial-gradient(circle at 15% 0%,rgba(88,101,242,.12),transparent 28%),
+        radial-gradient(circle at 90% 15%,rgba(139,92,246,.10),transparent 25%),
+        #f5f7fb;
+    color:#171923;
+    min-height:100vh;
 }
 
-.logo {
-    font-size: 27px;
-    font-weight: 800;
+.header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(255,255,255,.84);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    border-bottom:1px solid rgba(220,223,232,.8);
 }
 
-.subtitle {
-    color: #777;
-    margin-top: 5px;
-    font-size: 14px;
+.header-inner{
+    max-width:780px;
+    margin:auto;
+    padding:22px 18px 18px;
 }
 
-.container {
-    max-width: 700px;
-    margin: auto;
-    padding: 18px;
+.brand{
+    display:flex;
+    align-items:center;
+    gap:13px;
 }
 
-.card {
-    background: white;
-    border-radius: 18px;
-    padding: 18px;
-    margin-bottom: 16px;
-    box-shadow: 0 3px 12px rgba(0,0,0,.06);
+.logo{
+    width:48px;
+    height:48px;
+    border-radius:15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#5865f2,#8b5cf6);
+    color:white;
+    font-size:22px;
+    font-weight:900;
+    box-shadow:0 8px 25px rgba(88,101,242,.28);
+    animation:logoFloat 3s ease-in-out infinite;
 }
 
-.category {
-    font-size: 19px;
-    font-weight: 800;
-    margin-bottom: 12px;
+@keyframes logoFloat{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-3px)}
 }
 
-.performance { color: #5865f2; }
-.graphics { color: #8b5cf6; }
-.network { color: #06b6d4; }
-.interface { color: #f59e0b; }
-
-.flag {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 0;
-    border-top: 1px solid #eee;
-    gap: 10px;
+.title{
+    font-size:26px;
+    font-weight:900;
+    letter-spacing:-.8px;
 }
 
-.flag:first-of-type {
-    border-top: 0;
+.subtitle{
+    color:#858b99;
+    font-size:13px;
+    margin-top:2px;
 }
 
-.flag-name {
-    font-size: 14px;
-    word-break: break-word;
+.container{
+    width:100%;
+    max-width:780px;
+    margin:auto;
+    padding:18px;
 }
 
-.switch {
-    width: 48px;
-    height: 27px;
-    flex-shrink: 0;
-    position: relative;
+.status{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:linear-gradient(135deg,#eef1ff,#f5f0ff);
+    color:#5146d8;
+    border:1px solid #e1e3ff;
+    border-radius:18px;
+    padding:15px 17px;
+    margin-bottom:14px;
+    box-shadow:0 8px 25px rgba(88,101,242,.06);
+    transition:.25s ease;
 }
 
-.switch input {
-    display: none;
+.status.bump{
+    animation:statusPop .3s ease;
 }
 
-.slider {
-    position: absolute;
-    inset: 0;
-    background: #d1d5db;
-    border-radius: 30px;
-    transition: .2s;
+@keyframes statusPop{
+    0%{transform:scale(1)}
+    45%{transform:scale(1.025)}
+    100%{transform:scale(1)}
 }
 
-.slider:before {
-    content: "";
-    position: absolute;
-    width: 21px;
-    height: 21px;
-    left: 3px;
-    top: 3px;
-    background: white;
-    border-radius: 50%;
-    transition: .2s;
+.search-wrap{
+    position:relative;
+    margin-bottom:16px;
 }
 
-input:checked + .slider {
-    background: #5865f2;
+.search{
+    width:100%;
+    border:1px solid #e0e3ea;
+    background:rgba(255,255,255,.9);
+    border-radius:17px;
+    padding:15px 17px 15px 45px;
+    outline:none;
+    font-size:15px;
+    color:#171923;
+    box-shadow:0 6px 20px rgba(20,25,40,.04);
+    transition:.25s ease;
 }
 
-input:checked + .slider:before {
-    transform: translateX(21px);
+.search:focus{
+    border-color:#5865f2;
+    box-shadow:0 0 0 4px rgba(88,101,242,.10);
 }
 
-.buttons {
-    display: grid;
-    gap: 10px;
+.search-icon{
+    position:absolute;
+    left:16px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#9298a5;
+    font-size:17px;
+    pointer-events:none;
 }
 
-button {
-    border: 0;
-    border-radius: 14px;
-    padding: 15px;
-    color: white;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
+.card{
+    background:rgba(255,255,255,.94);
+    border:1px solid rgba(225,228,235,.85);
+    border-radius:23px;
+    padding:18px;
+    margin-bottom:16px;
+    box-shadow:
+        0 10px 35px rgba(25,30,50,.055),
+        0 2px 8px rgba(25,30,50,.025);
+    animation:cardIn .5s cubic-bezier(.2,.8,.2,1) both;
+    transition:.25s ease;
 }
 
-.export {
-    background: #10b981;
+.card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 16px 42px rgba(25,30,50,.08);
 }
 
-.clear {
-    background: #ef4444;
+@keyframes cardIn{
+    from{
+        opacity:0;
+        transform:translateY(18px) scale(.985);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
 }
 
-.reset {
-    background: #64748b;
+.category{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:20px;
+    font-weight:850;
+    margin-bottom:13px;
 }
 
-.status {
-    background: #eef2ff;
-    color: #4f46e5;
-    border-radius: 12px;
-    padding: 12px;
-    text-align: center;
-    margin-bottom: 16px;
-    font-size: 14px;
+.category::before{
+    content:"";
+    width:8px;
+    height:25px;
+    border-radius:8px;
 }
 
-.footer {
-    text-align: center;
-    color: #999;
-    font-size: 12px;
-    padding: 20px;
+.performance{color:#5865f2}
+.performance::before{
+    background:linear-gradient(#5865f2,#7280ff);
+}
+
+.graphics{color:#8b5cf6}
+.graphics::before{
+    background:linear-gradient(#8b5cf6,#a879ff);
+}
+
+.network{color:#089dbb}
+.network::before{
+    background:linear-gradient(#06b6d4,#22d3ee);
+}
+
+.interface{color:#e99500}
+.interface::before{
+    background:linear-gradient(#f59e0b,#fbbf24);
+}
+
+.mode-buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.mode{
+    border:0;
+    border-radius:15px;
+    padding:14px;
+    background:#eef0f5;
+    color:#555b68;
+    font-size:15px;
+    font-weight:800;
+    cursor:pointer;
+    transition:.2s ease;
+    box-shadow:none;
+}
+
+.mode:hover{
+    transform:translateY(-1px);
+}
+
+.mode.active{
+    color:white;
+    background:linear-gradient(135deg,#5865f2,#7c5cff);
+    box-shadow:0 8px 20px rgba(88,101,242,.22);
+}
+
+.mode-description{
+    margin-top:12px;
+    padding:12px;
+    border-radius:13px;
+    background:#f6f7fb;
+    color:#7b8190;
+    font-size:13px;
+    line-height:1.5;
+}
+
+.flag{
+    padding:15px 0;
+    border-top:1px solid #edf0f4;
+    transition:.2s ease;
+}
+
+.flag:first-of-type{
+    border-top:0;
+}
+
+.flag:hover{
+    padding-left:4px;
+}
+
+.flag-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+}
+
+.flag-name{
+    font-size:14px;
+    font-weight:650;
+    line-height:1.4;
+    word-break:break-word;
+}
+
+.toggle{
+    width:49px;
+    height:28px;
+    position:relative;
+    flex-shrink:0;
+}
+
+.toggle input{
+    display:none;
+}
+
+.slider{
+    position:absolute;
+    inset:0;
+    background:#d7dae2;
+    border-radius:30px;
+    transition:.25s cubic-bezier(.2,.8,.2,1);
+}
+
+.slider::before{
+    content:"";
+    position:absolute;
+    width:22px;
+    height:22px;
+    top:3px;
+    left:3px;
+    border-radius:50%;
+    background:white;
+    box-shadow:0 2px 7px rgba(0,0,0,.22);
+    transition:.25s cubic-bezier(.2,.8,.2,1);
+}
+
+.toggle input:checked+.slider{
+    background:linear-gradient(135deg,#5865f2,#7c5cff);
+    box-shadow:0 5px 14px rgba(88,101,242,.28);
+}
+
+.toggle input:checked+.slider::before{
+    transform:translateX(21px);
+}
+
+.value{
+    width:100%;
+    margin-top:10px;
+    padding:12px 13px;
+    border:1px solid #e1e4eb;
+    border-radius:14px;
+    background:#fafbfe;
+    color:#171923;
+    outline:none;
+    font-size:14px;
+    transition:.2s ease;
+}
+
+.value:focus{
+    border-color:#5865f2;
+    background:white;
+    box-shadow:0 0 0 4px rgba(88,101,242,.08);
+}
+
+.value:disabled{
+    opacity:.4;
+}
+
+.buttons{
+    display:grid;
+    gap:10px;
+}
+
+button{
+    border:0;
+    border-radius:16px;
+    padding:15px;
+    color:white;
+    font-size:15px;
+    font-weight:800;
+    cursor:pointer;
+    transition:.15s ease;
+}
+
+button:active{
+    transform:scale(.965);
+}
+
+.export{
+    background:linear-gradient(135deg,#10b981,#06a77b);
+}
+
+.copy{
+    background:linear-gradient(135deg,#5865f2,#7c5cff);
+}
+
+.clear{
+    background:linear-gradient(135deg,#ef4444,#e33b58);
+}
+
+.reset{
+    background:linear-gradient(135deg,#64748b,#536273);
+}
+
+.preview{
+    display:none;
+    margin-top:15px;
+}
+
+.preview textarea{
+    width:100%;
+    min-height:180px;
+    resize:vertical;
+    padding:14px;
+    border:1px solid #e1e4eb;
+    border-radius:15px;
+    background:#11141c;
+    color:#dfe5ff;
+    font-family:monospace;
+    font-size:12px;
+    outline:none;
+}
+
+.empty{
+    display:none;
+    text-align:center;
+    color:#8c919d;
+    padding:25px;
+}
+
+.author{
+    text-align:center;
+    padding:14px 0 4px;
+    color:#8b909c;
+    font-size:12px;
+}
+
+.author strong{
+    color:#5865f2;
+}
+
+.footer{
+    text-align:center;
+    color:#a0a5b0;
+    font-size:11px;
+    padding:5px 10px 25px;
+}
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:22px;
+    transform:translate(-50%,20px);
+    background:#181b24;
+    color:white;
+    padding:12px 17px;
+    border-radius:14px;
+    font-size:13px;
+    opacity:0;
+    pointer-events:none;
+    transition:.3s ease;
+    z-index:100;
+    box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+
+.toast.show{
+    opacity:1;
+    transform:translate(-50%,0);
+}
+
+@media(max-width:500px){
+    .title{
+        font-size:23px;
+    }
+
+    .logo{
+        width:44px;
+        height:44px;
+    }
+
+    .container{
+        padding:13px;
+    }
+
+    .card{
+        border-radius:20px;
+        padding:16px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="header">
-    <div class="logo">Bloxstrap Mobile</div>
-    <div class="subtitle">Roblox Fast Flags Manager</div>
+<header class="header">
+
+<div class="header-inner">
+
+<div class="brand">
+
+<div class="logo">B</div>
+
+<div>
+<div class="title">Bloxstrap Mobile</div>
+<div class="subtitle">Roblox Fast Flags Manager</div>
 </div>
 
-<div class="container">
-
-<div class="status">
-    Selected flags: <span id="count">0</span>
 </div>
+
+</div>
+
+</header>
+
+<main class="container">
+
+<div class="status" id="status">
+<span>Selected flags</span>
+<strong id="count">0</strong>
+</div>
+
+<div class="search-wrap">
+
+<span class="search-icon">⌕</span>
+
+<input
+class="search"
+id="search"
+type="search"
+placeholder="Search Fast Flags..."
+>
+
+</div>
+
+<!-- INSTALLATION MODE -->
 
 <div class="card">
-    <div class="category performance">Performance</div>
 
-    <div class="flag">
-        <span class="flag-name">DFIntTaskSchedulerTargetFps</span>
-        <label class="switch">
-            <input type="checkbox" data-flag="DFIntTaskSchedulerTargetFps">
-            <span class="slider"></span>
-        </label>
-    </div>
-
-    <div class="flag">
-        <span class="flag-name">FFlagDebugGraphicsPreferD3D11</span>
-        <label class="switch">
-            <input type="checkbox" data-flag="FFlagDebugGraphicsPreferD3D11">
-            <span class="slider"></span>
-        </label>
-    </div>
-
-    <div class="flag">
-        <span class="flag-name">FFlagDebugGraphicsPreferVulkan</span>
-        <label class="switch">
-            <input type="checkbox" data-flag="FFlagDebugGraphicsPreferVulkan">
-            <span class="slider"></span>
-        </label>
-    </div>
+<div class="category interface">
+Installation Mode
 </div>
+
+<div class="mode-buttons">
+
+<button
+type="button"
+class="mode active"
+id="rootMode"
+onclick="setMode('root')"
+>
+Root
+</button>
+
+<button
+type="button"
+class="mode"
+id="nonRootMode"
+onclick="setMode('nonroot')"
+>
+Non-Root
+</button>
+
+</div>
+
+<div class="mode-description" id="modeDescription">
+Root mode exports ClientAppSettings.json for rooted devices.
+</div>
+
+</div>
+
+<!-- PERFORMANCE -->
 
 <div class="card">
-    <div class="category graphics">Graphics</div>
 
-    <div class="flag">
-        <span class="flag-name">FFlagDebugDisableDPIScale</span>
-        <label class="switch">
-            <input type="checkbox" data-flag="FFlagDebugDisableDPIScale">
-            <span class="slider"></span>
-        </label>
-    </div>
-
-    <div class="flag">
-        <span class="flag-name">FFlagDebugGraphicsDisableVulkan</span>
-        <label class="switch">
-            <input type="checkbox" data-flag="FFlagDebugGraphicsDisableVulkan">
-            <span class="slider"></span>
-        </label>
-    </div>
-
-    <div class="flag">
-        <span class="flag-name">FFlagDebugAdornRender</span>
-        <label class="switch">
-            <input type="checkbox" data-flag="FFlagDebugAdornRender">
-            <span class="slider"></span>
-        </label>
-    </div>
+<div class="category performance">
+Performance
 </div>
+
+<div class="flag">
+
+<div class="flag-top">
+
+<span class="flag-name">
+DFIntTaskSchedulerTargetFps
+</span>
+
+<label class="toggle">
+
+<input
+type="checkbox"
+data-flag="DFIntTaskSchedulerTargetFps"
+>
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+<input
+class="value"
+data-value="DFIntTaskSchedulerTargetFps"
+type="number"
+placeholder="FPS value, e.g. 120"
+disabled
+>
+
+</div>
+
+<div class="flag">
+
+<div class="flag-top">
+
+<span class="flag-name">
+DFIntTaskSchedulerAutoThreadLimit
+</span>
+
+<label class="toggle">
+
+<input
+type="checkbox"
+data-flag="DFIntTaskSchedulerAutoThreadLimit"
+>
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+<input
+class="value"
+data-value="DFIntTaskSchedulerAutoThreadLimit"
+type="number"
+placeholder="Value"
+disabled
+>
+
+</div>
+
+<div class="flag">
+
+<div class="flag-top">
+
+<span class="flag-name">
+FFlagDebugGraphicsPreferD3D11
+</span>
+
+<label class="toggle">
+
+<input
+type="checkbox"
+data-flag="FFlagDebugGraphicsPreferD3D11"
+>
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+</div>
+
+<div class="flag">
+
+<div class="flag-top">
+
+<span class="flag-name">
+FFlagDebugGraphicsPreferVulkan
+</span>
+
+<label class="toggle">
+
+<input
+type="checkbox"
+data-flag="FFlagDebugGraphicsPreferVulkan"
+>
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- GRAPHICS -->
 
 <div class="card">
-    <div class="category network">Network</div>
 
-    <div class="flag">
-        <span class="flag-name">DFIntHttpRbxApiRequestsPerMinute</span>
-        <label class="switch">
-            <input type="checkbox" data-flag="DFIntHttpRbxApiRequestsPerMinute">
-            <span class="slider"></span>
-        </label>
-    </div>
-
-    <div class="flag">
-        <span class="flag-name">DFIntTaskSchedulerAutoThreadLimit</span>
-        <label class="switch">
-            <input type="checkbox" data-flag="DFIntTaskSchedulerAutoThreadLimit">
-            <span class="slider"></span>
-        </label>
-    </div>
+<div class="category graphics">
+Graphics
 </div>
+
+<div class="flag">
+
+<div class="flag-top">
+
+<span class="flag-name">
+FFlagDebugDisableDPIScale
+</span>
+
+<label class="toggle">
+
+<input
+type="checkbox"
+data-flag="FFlagDebugDisableDPIScale"
+>
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+</div>
+
+<div class="flag">
+
+<div class="flag-top">
+
+<span class="flag-name">
+FFlagDebugGraphicsDisableVulkan
+</span>
+
+<label class="toggle">
+
+<input
+type="checkbox"
+data-flag="FFlagDebugGraphicsDisableVulkan"
+>
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+</div>
+
+<div class="flag">
+
+<div class="flag-top">
+
+<span class="flag-name">
+FFlagDebugShowRenderStats
+</span>
+
+<label class="toggle">
+
+<input
+type="checkbox"
+data-flag="FFlagDebugShowRenderStats"
+>
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- NETWORK -->
 
 <div class="card">
-    <div class="category interface">Interface</div>
 
-    <div class="flag">
-        <span class="flag-name">FFlagDebugShowRenderStats</span>
-        <label class="switch">
-            <input type="checkbox" data-flag="FFlagDebugShowRenderStats">
-            <span class="slider"></span>
-        </label>
-    </div>
-
-    <div class="flag">
-        <span class="flag-name">FFlagHandleAltEnterFullscreenManually</span>
-        <label class="switch">
-            <input type="checkbox" data-flag="FFlagHandleAltEnterFullscreenManually">
-            <span class="slider"></span>
-        </label>
-    </div>
+<div class="category network">
+Network
 </div>
+
+<div class="flag">
+
+<div class="flag-top">
+
+<span class="flag-name">
+DFIntHttpRbxApiRequestsPerMinute
+</span>
+
+<label class="toggle">
+
+<input
+type="checkbox"
+data-flag="DFIntHttpRbxApiRequestsPerMinute"
+>
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+<input
+class="value"
+data-value="DFIntHttpRbxApiRequestsPerMinute"
+type="number"
+placeholder="Value"
+disabled
+>
+
+</div>
+
+<div class="flag">
+
+<div class="flag-top">
+
+<span class="flag-name">
+DFIntHttpConnectTimeoutMilliseconds
+</span>
+
+<label class="toggle">
+
+<input
+type="checkbox"
+data-flag="DFIntHttpConnectTimeoutMilliseconds"
+>
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+<input
+class="value"
+data-value="DFIntHttpConnectTimeoutMilliseconds"
+type="number"
+placeholder="Milliseconds"
+disabled
+>
+
+</div>
+
+</div>
+
+<!-- INTERFACE -->
+
+<div class="card">
+
+<div class="category interface">
+Interface
+</div>
+
+<div class="flag">
+
+<div class="flag-top">
+
+<span class="flag-name">
+FFlagHandleAltEnterFullscreenManually
+</span>
+
+<label class="toggle">
+
+<input
+type="checkbox"
+data-flag="FFlagHandleAltEnterFullscreenManually"
+>
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+</div>
+
+<div class="flag">
+
+<div class="flag-top">
+
+<span class="flag-name">
+FFlagDebugAdornRender
+</span>
+
+<label class="toggle">
+
+<input
+type="checkbox"
+data-flag="FFlagDebugAdornRender"
+>
+
+<span class="slider"></span>
+
+</label>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- ACTIONS -->
 
 <div class="card buttons">
-    <button class="export" onclick="exportFlags()">
-        Export ClientAppSettings.json
-    </button>
 
-    <button class="clear" onclick="clearFlags()">
-        Clear selected flags
-    </button>
+<button
+class="export"
+onclick="exportFlags()"
+>
+Export ClientAppSettings.json
+</button>
 
-    <button class="reset" onclick="resetSettings()">
-        Reset everything
-    </button>
+<button
+class="copy"
+onclick="copyFlags()"
+>
+Copy FFlags JSON
+</button>
+
+<button
+class="clear"
+onclick="clearFlags()"
+>
+Clear selected flags
+</button>
+
+<button
+class="reset"
+onclick="resetSettings()"
+>
+Reset everything
+</button>
+
+<div class="preview" id="preview">
+
+<textarea
+id="jsonPreview"
+readonly
+></textarea>
+
+</div>
+
+</div>
+
+<div
+class="empty"
+id="empty"
+>
+No Fast Flags found.
+</div>
+
+<div class="author">
+Created by <strong>@MemeSTRONYxddd</strong>
 </div>
 
 <div class="footer">
-    Bloxstrap Mobile • Settings are stored locally in your browser.
+Bloxstrap Mobile • Unofficial project
 </div>
 
-</div>
+</main>
+
+<div class="toast" id="toast"></div>
 
 <script>
 
-const switches = document.querySelectorAll("input[data-flag]");
+let installationMode="root";
 
-function updateCount() {
-    let count = 0;
+const switches=document.querySelectorAll("input[data-flag]");
+const values=document.querySelectorAll("input[data-value]");
+const status=document.getElementById("status");
+const toast=document.getElementById("toast");
 
-    switches.forEach(input => {
-        if (input.checked) count++;
-    });
+function showToast(text){
 
-    document.getElementById("count").textContent = count;
+    toast.textContent=text;
+
+    toast.classList.add("show");
+
+    setTimeout(()=>{
+        toast.classList.remove("show");
+    },1800);
+
 }
 
-function saveSettings() {
-    const settings = {};
+function setMode(mode){
 
-    switches.forEach(input => {
-        settings[input.dataset.flag] = input.checked;
+    installationMode=mode;
+
+    const root=document.getElementById("rootMode");
+    const nonRoot=document.getElementById("nonRootMode");
+    const description=document.getElementById("modeDescription");
+
+    root.classList.toggle("active",mode==="root");
+    nonRoot.classList.toggle("active",mode==="nonroot");
+
+    if(mode==="nonroot"){
+
+        description.textContent=
+        "Non-Root mode exports the selected Fast Flags as JSON. No root access is required.";
+
+    }else{
+
+        description.textContent=
+        "Root mode exports ClientAppSettings.json for rooted devices.";
+
+    }
+
+}
+
+function updateCount(){
+
+    let count=0;
+
+    switches.forEach(input=>{
+
+        if(input.checked){
+            count++;
+        }
+
+    });
+
+    document.getElementById("count").textContent=count;
+
+    status.classList.remove("bump");
+
+    void status.offsetWidth;
+
+    status.classList.add("bump");
+
+}
+
+function saveSettings(){
+
+    const settings={};
+
+    switches.forEach(input=>{
+
+        const name=input.dataset.flag;
+
+        const value=document.querySelector(
+            `[data-value="${name}"]`
+        );
+
+        settings[name]={
+
+            enabled:input.checked,
+
+            value:value ? value.value : ""
+
+        };
+
     });
 
     localStorage.setItem(
@@ -321,92 +1025,334 @@ function saveSettings() {
     );
 
     updateCount();
+
 }
 
-function loadSettings() {
-    const saved = localStorage.getItem(
+function loadSettings(){
+
+    const saved=localStorage.getItem(
         "bloxstrap_mobile_flags"
     );
 
-    if (!saved) return;
-
-    try {
-        const settings = JSON.parse(saved);
-
-        switches.forEach(input => {
-            input.checked = settings[input.dataset.flag] === true;
-        });
-    } catch (e) {
-        console.log("Could not load settings");
-    }
-
-    updateCount();
-}
-
-switches.forEach(input => {
-    input.addEventListener("change", saveSettings);
-});
-
-function exportFlags() {
-
-    const selected = {};
-
-    switches.forEach(input => {
-
-        if (input.checked) {
-            selected[input.dataset.flag] = "True";
-        }
-
-    });
-
-    if (Object.keys(selected).length === 0) {
-        alert("Select at least one Fast Flag first.");
+    if(!saved){
         return;
     }
 
-    const json = JSON.stringify(selected, null, 2);
+    try{
 
-    const blob = new Blob(
-        [json],
-        { type: "application/json" }
+        const settings=JSON.parse(saved);
+
+        switches.forEach(input=>{
+
+            const name=input.dataset.flag;
+            const data=settings[name];
+
+            if(!data){
+                return;
+            }
+
+            input.checked=data.enabled===true;
+
+            const value=document.querySelector(
+                `[data-value="${name}"]`
+            );
+
+            if(value){
+
+                value.value=data.value||"";
+                value.disabled=!input.checked;
+
+            }
+
+        });
+
+    }catch(e){
+
+        console.log("Could not load settings.");
+
+    }
+
+    updateCount();
+
+}
+
+switches.forEach(input=>{
+
+    input.addEventListener("change",()=>{
+
+        const value=document.querySelector(
+            `[data-value="${input.dataset.flag}"]`
+        );
+
+        if(value){
+
+            value.disabled=!input.checked;
+
+        }
+
+        saveSettings();
+
+    });
+
+});
+
+values.forEach(input=>{
+
+    input.addEventListener(
+        "input",
+        saveSettings
     );
 
-    const url = URL.createObjectURL(blob);
+});
 
-    const link = document.createElement("a");
+function createJSON(){
 
-    link.href = url;
-    link.download = "ClientAppSettings.json";
+    const output={};
+
+    for(const input of switches){
+
+        if(!input.checked){
+            continue;
+        }
+
+        const name=input.dataset.flag;
+
+        const value=document.querySelector(
+            `[data-value="${name}"]`
+        );
+
+        if(value){
+
+            const raw=value.value.trim();
+
+            if(raw===""){
+
+                alert(
+                    "Enter a value for "+name
+                );
+
+                value.focus();
+
+                return null;
+
+            }
+
+            if(/^-?\d+$/.test(raw)){
+
+                output[name]=Number(raw);
+
+            }else{
+
+                output[name]=raw;
+
+            }
+
+        }else{
+
+            output[name]=true;
+
+        }
+
+    }
+
+    if(Object.keys(output).length===0){
+
+        alert(
+            "Select at least one Fast Flag."
+        );
+
+        return null;
+
+    }
+
+    return JSON.stringify(
+        output,
+        null,
+        2
+    );
+
+}
+
+function exportFlags(){
+
+    const json=createJSON();
+
+    if(!json){
+        return;
+    }
+
+    const blob=new Blob(
+        [json],
+        {
+            type:"application/json"
+        }
+    );
+
+    const url=URL.createObjectURL(blob);
+
+    const link=document.createElement("a");
+
+    link.href=url;
+
+    link.download="ClientAppSettings.json";
 
     document.body.appendChild(link);
+
     link.click();
 
     link.remove();
 
     URL.revokeObjectURL(url);
+
+    if(installationMode==="nonroot"){
+
+        showToast(
+            "FFlags JSON exported"
+        );
+
+    }else{
+
+        showToast(
+            "ClientAppSettings.json exported"
+        );
+
+    }
+
 }
 
-function clearFlags() {
+async function copyFlags(){
 
-    switches.forEach(input => {
-        input.checked = false;
+    const json=createJSON();
+
+    if(!json){
+        return;
+    }
+
+    try{
+
+        await navigator.clipboard.writeText(json);
+
+        showToast(
+            "FFlags JSON copied"
+        );
+
+    }catch(e){
+
+        const preview=
+            document.getElementById("preview");
+
+        const textarea=
+            document.getElementById("jsonPreview");
+
+        textarea.value=json;
+
+        preview.style.display="block";
+
+        textarea.select();
+
+        document.execCommand("copy");
+
+        showToast(
+            "FFlags JSON copied"
+        );
+
+    }
+
+}
+
+function clearFlags(){
+
+    switches.forEach(input=>{
+
+        input.checked=false;
+
+        const value=document.querySelector(
+            `[data-value="${input.dataset.flag}"]`
+        );
+
+        if(value){
+
+            value.disabled=true;
+            value.value="";
+
+        }
+
     });
 
     saveSettings();
+
+    showToast(
+        "Flags cleared"
+    );
+
 }
 
-function resetSettings() {
+function resetSettings(){
 
     localStorage.removeItem(
         "bloxstrap_mobile_flags"
     );
 
-    switches.forEach(input => {
-        input.checked = false;
+    switches.forEach(input=>{
+
+        input.checked=false;
+
+        const value=document.querySelector(
+            `[data-value="${input.dataset.flag}"]`
+        );
+
+        if(value){
+
+            value.disabled=true;
+            value.value="";
+
+        }
+
     });
 
     updateCount();
+
+    showToast(
+        "Settings reset"
+    );
+
 }
+
+document.getElementById("search")
+.addEventListener("input",function(){
+
+    const query=this.value
+        .toLowerCase()
+        .trim();
+
+    let visible=0;
+
+    document.querySelectorAll(".flag")
+    .forEach(flag=>{
+
+        const name=flag
+            .querySelector(".flag-name")
+            .textContent
+            .toLowerCase();
+
+        const show=name.includes(query);
+
+        flag.style.display=
+            show ? "" : "none";
+
+        if(show){
+            visible++;
+        }
+
+    });
+
+    document.getElementById("empty")
+        .style.display=
+            visible===0
+            ? "block"
+            : "none";
+
+});
 
 loadSettings();
 
