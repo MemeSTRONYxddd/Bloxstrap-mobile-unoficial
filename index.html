@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bloxstrap Mobile</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f5f6f8;
+    color: #202124;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    background: #ffffff;
+    padding: 24px 20px 18px;
+    border-bottom: 1px solid #e5e7eb;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: 800;
+}
+
+.subtitle {
+    color: #777;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+.container {
+    max-width: 700px;
+    margin: auto;
+    padding: 18px;
+}
+
+.card {
+    background: white;
+    border-radius: 18px;
+    padding: 18px;
+    margin-bottom: 16px;
+    box-shadow: 0 3px 12px rgba(0,0,0,.06);
+}
+
+.category {
+    font-size: 19px;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.performance { color: #5865f2; }
+.graphics { color: #8b5cf6; }
+.network { color: #06b6d4; }
+.interface { color: #f59e0b; }
+
+.flag {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-top: 1px solid #eee;
+    gap: 10px;
+}
+
+.flag:first-of-type {
+    border-top: 0;
+}
+
+.flag-name {
+    font-size: 14px;
+    word-break: break-word;
+}
+
+.switch {
+    width: 48px;
+    height: 27px;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.switch input {
+    display: none;
+}
+
+.slider {
+    position: absolute;
+    inset: 0;
+    background: #d1d5db;
+    border-radius: 30px;
+    transition: .2s;
+}
+
+.slider:before {
+    content: "";
+    position: absolute;
+    width: 21px;
+    height: 21px;
+    left: 3px;
+    top: 3px;
+    background: white;
+    border-radius: 50%;
+    transition: .2s;
+}
+
+input:checked + .slider {
+    background: #5865f2;
+}
+
+input:checked + .slider:before {
+    transform: translateX(21px);
+}
+
+.buttons {
+    display: grid;
+    gap: 10px;
+}
+
+button {
+    border: 0;
+    border-radius: 14px;
+    padding: 15px;
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.export {
+    background: #10b981;
+}
+
+.clear {
+    background: #ef4444;
+}
+
+.reset {
+    background: #64748b;
+}
+
+.status {
+    background: #eef2ff;
+    color: #4f46e5;
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+.footer {
+    text-align: center;
+    color: #999;
+    font-size: 12px;
+    padding: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <div class="logo">Bloxstrap Mobile</div>
+    <div class="subtitle">Roblox Fast Flags Manager</div>
+</div>
+
+<div class="container">
+
+<div class="status">
+    Selected flags: <span id="count">0</span>
+</div>
+
+<div class="card">
+    <div class="category performance">Performance</div>
+
+    <div class="flag">
+        <span class="flag-name">DFIntTaskSchedulerTargetFps</span>
+        <label class="switch">
+            <input type="checkbox" data-flag="DFIntTaskSchedulerTargetFps">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="flag">
+        <span class="flag-name">FFlagDebugGraphicsPreferD3D11</span>
+        <label class="switch">
+            <input type="checkbox" data-flag="FFlagDebugGraphicsPreferD3D11">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="flag">
+        <span class="flag-name">FFlagDebugGraphicsPreferVulkan</span>
+        <label class="switch">
+            <input type="checkbox" data-flag="FFlagDebugGraphicsPreferVulkan">
+            <span class="slider"></span>
+        </label>
+    </div>
+</div>
+
+<div class="card">
+    <div class="category graphics">Graphics</div>
+
+    <div class="flag">
+        <span class="flag-name">FFlagDebugDisableDPIScale</span>
+        <label class="switch">
+            <input type="checkbox" data-flag="FFlagDebugDisableDPIScale">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="flag">
+        <span class="flag-name">FFlagDebugGraphicsDisableVulkan</span>
+        <label class="switch">
+            <input type="checkbox" data-flag="FFlagDebugGraphicsDisableVulkan">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="flag">
+        <span class="flag-name">FFlagDebugAdornRender</span>
+        <label class="switch">
+            <input type="checkbox" data-flag="FFlagDebugAdornRender">
+            <span class="slider"></span>
+        </label>
+    </div>
+</div>
+
+<div class="card">
+    <div class="category network">Network</div>
+
+    <div class="flag">
+        <span class="flag-name">DFIntHttpRbxApiRequestsPerMinute</span>
+        <label class="switch">
+            <input type="checkbox" data-flag="DFIntHttpRbxApiRequestsPerMinute">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="flag">
+        <span class="flag-name">DFIntTaskSchedulerAutoThreadLimit</span>
+        <label class="switch">
+            <input type="checkbox" data-flag="DFIntTaskSchedulerAutoThreadLimit">
+            <span class="slider"></span>
+        </label>
+    </div>
+</div>
+
+<div class="card">
+    <div class="category interface">Interface</div>
+
+    <div class="flag">
+        <span class="flag-name">FFlagDebugShowRenderStats</span>
+        <label class="switch">
+            <input type="checkbox" data-flag="FFlagDebugShowRenderStats">
+            <span class="slider"></span>
+        </label>
+    </div>
+
+    <div class="flag">
+        <span class="flag-name">FFlagHandleAltEnterFullscreenManually</span>
+        <label class="switch">
+            <input type="checkbox" data-flag="FFlagHandleAltEnterFullscreenManually">
+            <span class="slider"></span>
+        </label>
+    </div>
+</div>
+
+<div class="card buttons">
+    <button class="export" onclick="exportFlags()">
+        Export ClientAppSettings.json
+    </button>
+
+    <button class="clear" onclick="clearFlags()">
+        Clear selected flags
+    </button>
+
+    <button class="reset" onclick="resetSettings()">
+        Reset everything
+    </button>
+</div>
+
+<div class="footer">
+    Bloxstrap Mobile • Settings are stored locally in your browser.
+</div>
+
+</div>
+
+<script>
+
+const switches = document.querySelectorAll("input[data-flag]");
+
+function updateCount() {
+    let count = 0;
+
+    switches.forEach(input => {
+        if (input.checked) count++;
+    });
+
+    document.getElementById("count").textContent = count;
+}
+
+function saveSettings() {
+    const settings = {};
+
+    switches.forEach(input => {
+        settings[input.dataset.flag] = input.checked;
+    });
+
+    localStorage.setItem(
+        "bloxstrap_mobile_flags",
+        JSON.stringify(settings)
+    );
+
+    updateCount();
+}
+
+function loadSettings() {
+    const saved = localStorage.getItem(
+        "bloxstrap_mobile_flags"
+    );
+
+    if (!saved) return;
+
+    try {
+        const settings = JSON.parse(saved);
+
+        switches.forEach(input => {
+            input.checked = settings[input.dataset.flag] === true;
+        });
+    } catch (e) {
+        console.log("Could not load settings");
+    }
+
+    updateCount();
+}
+
+switches.forEach(input => {
+    input.addEventListener("change", saveSettings);
+});
+
+function exportFlags() {
+
+    const selected = {};
+
+    switches.forEach(input => {
+
+        if (input.checked) {
+            selected[input.dataset.flag] = "True";
+        }
+
+    });
+
+    if (Object.keys(selected).length === 0) {
+        alert("Select at least one Fast Flag first.");
+        return;
+    }
+
+    const json = JSON.stringify(selected, null, 2);
+
+    const blob = new Blob(
+        [json],
+        { type: "application/json" }
+    );
+
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "ClientAppSettings.json";
+
+    document.body.appendChild(link);
+    link.click();
+
+    link.remove();
+
+    URL.revokeObjectURL(url);
+}
+
+function clearFlags() {
+
+    switches.forEach(input => {
+        input.checked = false;
+    });
+
+    saveSettings();
+}
+
+function resetSettings() {
+
+    localStorage.removeItem(
+        "bloxstrap_mobile_flags"
+    );
+
+    switches.forEach(input => {
+        input.checked = false;
+    });
+
+    updateCount();
+}
+
+loadSettings();
+
+</script>
+
+</body>
+</html>
