@@ -9,11 +9,10 @@
 <style>
 :root {
     --red: #e53935;
-    --dark-red: #b71c1c;
-    --black: #151515;
+    --dark: #151515;
     --gray: #666;
     --light: #f7f7f7;
-    --white: #ffffff;
+    --white: #fff;
     --green: #35b86b;
     --blue: #4d7cff;
     --orange: #ff9f1c;
@@ -32,25 +31,8 @@ html {
 body {
     font-family: Arial, Helvetica, sans-serif;
     background: var(--light);
-    color: var(--black);
+    color: var(--dark);
     overflow-x: hidden;
-}
-
-/* Subtle paper effect */
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    opacity: .12;
-    z-index: 1000;
-    background-image:
-        repeating-linear-gradient(
-            0deg,
-            transparent 0px,
-            transparent 3px,
-            rgba(0,0,0,.04) 4px
-        );
 }
 
 /* NAVIGATION */
@@ -63,11 +45,11 @@ nav {
     width: calc(100% - 30px);
     max-width: 1050px;
     padding: 12px 18px;
-    background: rgba(255,255,255,.92);
+    background: rgba(255,255,255,.94);
     backdrop-filter: blur(12px);
-    border: 3px solid var(--black);
-    border-radius: 14px 10px 16px 9px;
-    box-shadow: 5px 5px 0 var(--black);
+    border: 3px solid var(--dark);
+    border-radius: 14px 9px 16px 10px;
+    box-shadow: 5px 5px 0 var(--dark);
     z-index: 999;
     display: flex;
     justify-content: space-between;
@@ -89,7 +71,7 @@ nav {
 }
 
 .nav-links a {
-    color: var(--black);
+    color: var(--dark);
     text-decoration: none;
     font-weight: 800;
     padding: 8px 12px;
@@ -102,25 +84,14 @@ nav {
     transform: rotate(-1deg);
 }
 
-@media (max-width: 650px) {
-    nav {
-        padding: 10px;
-    }
-
-    .nav-links a {
-        padding: 6px;
-        font-size: 12px;
-    }
-}
-
 /* HERO */
 
 .hero {
     min-height: 100vh;
     padding: 130px 20px 80px;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     text-align: center;
 }
 
@@ -133,28 +104,21 @@ nav {
     width: 155px;
     height: 155px;
     object-fit: contain;
-    filter: drop-shadow(7px 7px 0 var(--black));
+    margin-bottom: 20px;
+    filter: drop-shadow(7px 7px 0 var(--dark));
     animation: floating 3s ease-in-out infinite;
-    margin-bottom: 22px;
 }
 
 .wordmark {
     display: block;
-    max-width: min(600px, 90vw);
-    width: 100%;
+    width: min(600px, 90vw);
+    max-width: 100%;
     height: auto;
-    margin: 0 auto 20px;
-}
-
-.hero h1 {
-    font-size: clamp(40px, 8vw, 76px);
-    font-weight: 1000;
-    letter-spacing: -4px;
-    margin-bottom: 18px;
+    margin: 0 auto 22px;
 }
 
 .hero-description {
-    max-width: 650px;
+    max-width: 680px;
     margin: auto;
     color: var(--gray);
     font-size: 18px;
@@ -169,31 +133,31 @@ nav {
     gap: 15px;
 }
 
-/* HAND DRAWN BUTTONS */
+/* HAND-DRAWN BUTTONS */
 
 .sketch-btn {
     display: inline-block;
     cursor: pointer;
-    border: 3px solid var(--black);
-    background: var(--white);
-    color: var(--black);
+    border: 3px solid var(--dark);
+    background: white;
+    color: var(--dark);
     text-decoration: none;
     font-weight: 900;
     font-size: 15px;
     padding: 14px 24px;
     border-radius: 11px 7px 13px 8px;
-    box-shadow: 5px 5px 0 var(--black);
-    transition: transform .15s, box-shadow .15s;
+    box-shadow: 5px 5px 0 var(--dark);
+    transition: .15s;
 }
 
 .sketch-btn:hover {
-    transform: translate(-3px, -3px) rotate(-1deg);
-    box-shadow: 8px 8px 0 var(--black);
+    transform: translate(-3px,-3px) rotate(-1deg);
+    box-shadow: 8px 8px 0 var(--dark);
 }
 
 .sketch-btn:active {
-    transform: translate(3px, 3px);
-    box-shadow: 2px 2px 0 var(--black);
+    transform: translate(3px,3px);
+    box-shadow: 2px 2px 0 var(--dark);
 }
 
 .sketch-btn.red {
@@ -219,7 +183,7 @@ section {
 }
 
 .section-heading h2 {
-    font-size: clamp(32px, 5vw, 48px);
+    font-size: clamp(32px,5vw,48px);
     font-weight: 1000;
     letter-spacing: -2px;
 }
@@ -230,20 +194,20 @@ section {
     line-height: 1.5;
 }
 
-/* FEATURE CARDS */
+/* FEATURES */
 
 .feature-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4,1fr);
     gap: 20px;
 }
 
 .feature-card {
     background: white;
     padding: 25px;
-    border: 3px solid var(--black);
+    border: 3px solid var(--dark);
     border-radius: 15px 9px 17px 11px;
-    box-shadow: 6px 6px 0 var(--black);
+    box-shadow: 6px 6px 0 var(--dark);
     transition: .25s;
 }
 
@@ -256,18 +220,18 @@ section {
     height: 48px;
     display: grid;
     place-items: center;
-    border: 3px solid var(--black);
+    border: 3px solid var(--dark);
     border-radius: 9px 6px 10px 7px;
     margin-bottom: 18px;
     font-weight: 1000;
 }
 
 .feature-card:nth-child(1) .feature-icon {
-    background: #ffdddd;
+    background: #ffd7d7;
 }
 
 .feature-card:nth-child(2) .feature-icon {
-    background: #ffe7bd;
+    background: #ffe4b5;
 }
 
 .feature-card:nth-child(3) .feature-icon {
@@ -286,18 +250,6 @@ section {
 .feature-card p {
     color: var(--gray);
     line-height: 1.5;
-}
-
-@media (max-width: 850px) {
-    .feature-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 500px) {
-    .feature-grid {
-        grid-template-columns: 1fr;
-    }
 }
 
 /* FLAGS */
@@ -320,7 +272,7 @@ section {
 .category-line {
     height: 4px;
     flex: 1;
-    background: var(--black);
+    background: var(--dark);
     border-radius: 50%;
 }
 
@@ -331,9 +283,9 @@ section {
 
 .flag {
     background: white;
-    border: 3px solid var(--black);
+    border: 3px solid var(--dark);
     border-radius: 11px 8px 13px 7px;
-    box-shadow: 4px 4px 0 var(--black);
+    box-shadow: 4px 4px 0 var(--dark);
     padding: 18px;
     display: flex;
     align-items: center;
@@ -374,7 +326,7 @@ section {
 .flag-input {
     width: 90px;
     padding: 8px;
-    border: 3px solid var(--black);
+    border: 3px solid var(--dark);
     border-radius: 7px;
     font-weight: 800;
     outline: none;
@@ -403,7 +355,7 @@ section {
     inset: 0;
     cursor: pointer;
     background: #ddd;
-    border: 3px solid var(--black);
+    border: 3px solid var(--dark);
     border-radius: 20px;
     transition: .2s;
 }
@@ -416,7 +368,7 @@ section {
     left: 3px;
     top: 3px;
     background: white;
-    border: 2px solid var(--black);
+    border: 2px solid var(--dark);
     border-radius: 50%;
     transition: .2s;
 }
@@ -432,7 +384,7 @@ section {
 /* EXPORT */
 
 .export-box {
-    background: var(--black);
+    background: var(--dark);
     color: white;
     padding: 30px;
     border-radius: 17px 10px 19px 12px;
@@ -471,14 +423,65 @@ section {
     margin-top: 15px;
 }
 
+/* ABOUT AUTHOR */
+
+.author-section {
+    padding-top: 60px;
+    padding-bottom: 100px;
+}
+
+.author-card-large {
+    background: white;
+    border: 3px solid var(--dark);
+    border-radius: 18px 11px 20px 12px;
+    box-shadow: 8px 8px 0 var(--dark);
+    padding: 35px;
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 28px;
+    align-items: center;
+}
+
+.author-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid var(--dark);
+    object-fit: cover;
+}
+
+.author-card-large h2 {
+    font-size: 34px;
+    margin-bottom: 12px;
+}
+
+.author-card-large h2 span {
+    color: var(--red);
+}
+
+.author-card-large p {
+    color: var(--gray);
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+.author-note {
+    margin-top: 18px;
+    padding: 15px;
+    background: #fff0f0;
+    border-left: 6px solid var(--red);
+    font-weight: 700;
+    line-height: 1.5;
+}
+
 /* NON ROOT */
 
 .nonroot {
     background: white;
-    border: 3px solid var(--black);
+    border: 3px solid var(--dark);
     padding: 28px;
     border-radius: 14px 9px 16px 10px;
-    box-shadow: 6px 6px 0 var(--black);
+    box-shadow: 6px 6px 0 var(--dark);
 }
 
 .nonroot h3 {
@@ -489,26 +492,6 @@ section {
 .nonroot p {
     color: var(--gray);
     line-height: 1.6;
-}
-
-/* AUTHOR */
-
-.author {
-    text-align: center;
-    padding: 80px 20px;
-}
-
-.author-card {
-    display: inline-block;
-    background: white;
-    border: 3px solid var(--black);
-    border-radius: 13px 8px 15px 9px;
-    padding: 22px 35px;
-    box-shadow: 5px 5px 0 var(--black);
-}
-
-.author-card strong {
-    color: var(--red);
 }
 
 /* FOOTER */
@@ -540,8 +523,8 @@ footer {
     position: fixed;
     left: 50%;
     bottom: 25px;
-    transform: translate(-50%, 100px);
-    background: var(--black);
+    transform: translate(-50%,120px);
+    background: var(--dark);
     color: white;
     border: 3px solid white;
     padding: 12px 20px;
@@ -553,7 +536,7 @@ footer {
 }
 
 .toast.show {
-    transform: translate(-50%, 0);
+    transform: translate(-50%,0);
 }
 
 /* ANIMATIONS */
@@ -571,7 +554,7 @@ footer {
 }
 
 @keyframes floating {
-    0%, 100% {
+    0%,100% {
         transform: translateY(0) rotate(-2deg);
     }
 
@@ -580,13 +563,69 @@ footer {
     }
 }
 
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: .01ms !important;
-        transition-duration: .01ms !important;
-        scroll-behavior: auto !important;
+/* MOBILE */
+
+@media(max-width:850px) {
+    .feature-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .author-card-large {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .author-avatar {
+        margin: auto;
+    }
+}
+
+@media(max-width:600px) {
+    nav {
+        top: 10px;
+    }
+
+    .nav-links a {
+        font-size: 11px;
+        padding: 6px;
+    }
+
+    .nav-brand {
+        font-size: 15px;
+    }
+
+    .hero {
+        padding-top: 120px;
+    }
+
+    .logo {
+        width: 120px;
+        height: 120px;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .flag {
+        align-items: flex-start;
+    }
+
+    .flag-control {
+        flex-direction: column;
+    }
+
+    .sketch-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .author-card-large {
+        padding: 25px;
     }
 }
 </style>
@@ -603,8 +642,12 @@ footer {
         <a href="#features">Features</a>
         <a href="#flags">Flags</a>
         <a href="#export">Export</a>
+        <a href="#author">Author</a>
     </div>
 </nav>
+
+
+<!-- HERO -->
 
 <header class="hero">
     <div class="hero-content">
@@ -636,8 +679,8 @@ footer {
                 Export JSON
             </a>
 
-            <a class="sketch-btn" href="#features">
-                Learn More
+            <a class="sketch-btn" href="#author">
+                About the Author
             </a>
         </div>
 
@@ -645,13 +688,16 @@ footer {
 </header>
 
 
+<!-- FEATURES -->
+
 <section id="features" class="reveal">
 
     <div class="section-heading">
         <h2>Built for Roblox</h2>
+
         <p>
-            Simple controls for organizing and exporting your
-            client configuration.
+            Simple controls for organizing and exporting
+            your client configuration.
         </p>
     </div>
 
@@ -659,7 +705,9 @@ footer {
 
         <div class="feature-card">
             <div class="feature-icon">FPS</div>
+
             <h3>Performance</h3>
+
             <p>
                 Configure performance-related options
                 and target FPS values.
@@ -668,7 +716,9 @@ footer {
 
         <div class="feature-card">
             <div class="feature-icon">GFX</div>
+
             <h3>Graphics</h3>
+
             <p>
                 Manage graphics and rendering-related
                 client settings.
@@ -677,7 +727,9 @@ footer {
 
         <div class="feature-card">
             <div class="feature-icon">NET</div>
+
             <h3>Network</h3>
+
             <p>
                 Keep network-related configuration
                 organized in one place.
@@ -686,7 +738,9 @@ footer {
 
         <div class="feature-card">
             <div class="feature-icon">UI</div>
+
             <h3>Interface</h3>
+
             <p>
                 Configure selected interface and
                 client behavior options.
@@ -698,10 +752,13 @@ footer {
 </section>
 
 
+<!-- FAST FLAGS -->
+
 <section id="flags" class="reveal">
 
     <div class="section-heading">
         <h2>Fast Flags</h2>
+
         <p>
             Enable a setting and configure its value when available.
         </p>
@@ -720,23 +777,26 @@ footer {
         <div class="flag-list">
 
             <div class="flag">
+
                 <div class="flag-info">
                     <div class="flag-name">
                         DFIntTaskSchedulerTargetFps
                     </div>
+
                     <div class="flag-description">
                         Sets the target FPS value.
                     </div>
                 </div>
 
                 <div class="flag-control">
+
                     <input
                         class="flag-input"
                         type="number"
                         value="120"
                         min="1"
                         max="1000"
-                        data-flag="DFIntTaskSchedulerTargetFps"
+                        data-flag-input="DFIntTaskSchedulerTargetFps"
                     >
 
                     <label class="switch">
@@ -745,16 +805,22 @@ footer {
                             data-flag="DFIntTaskSchedulerTargetFps"
                             data-input="true"
                         >
+
                         <span class="switch-slider"></span>
                     </label>
+
                 </div>
+
             </div>
 
+
             <div class="flag">
+
                 <div class="flag-info">
                     <div class="flag-name">
                         FFlagDebugDisplayFPS
                     </div>
+
                     <div class="flag-description">
                         Enables the FPS display when supported.
                     </div>
@@ -766,11 +832,14 @@ footer {
                         data-flag="FFlagDebugDisplayFPS"
                         data-value="true"
                     >
+
                     <span class="switch-slider"></span>
                 </label>
+
             </div>
 
         </div>
+
     </div>
 
 
@@ -786,13 +855,15 @@ footer {
         <div class="flag-list">
 
             <div class="flag">
+
                 <div class="flag-info">
                     <div class="flag-name">
                         FFlagDebugGraphicsPreferD3D11
                     </div>
+
                     <div class="flag-description">
-                        Requests D3D11 as the preferred graphics backend
-                        on supported platforms.
+                        Requests D3D11 as the preferred graphics
+                        backend on supported platforms.
                     </div>
                 </div>
 
@@ -802,15 +873,20 @@ footer {
                         data-flag="FFlagDebugGraphicsPreferD3D11"
                         data-value="true"
                     >
+
                     <span class="switch-slider"></span>
                 </label>
+
             </div>
 
+
             <div class="flag">
+
                 <div class="flag-info">
                     <div class="flag-name">
                         FFlagDisablePostFx
                     </div>
+
                     <div class="flag-description">
                         Disables selected post-processing effects
                         when supported.
@@ -823,28 +899,34 @@ footer {
                         data-flag="FFlagDisablePostFx"
                         data-value="true"
                     >
+
                     <span class="switch-slider"></span>
                 </label>
+
             </div>
 
+
             <div class="flag">
+
                 <div class="flag-info">
                     <div class="flag-name">
                         FIntDebugForceMSAASamples
                     </div>
+
                     <div class="flag-description">
                         Sets the requested MSAA sample count.
                     </div>
                 </div>
 
                 <div class="flag-control">
+
                     <input
                         class="flag-input"
                         type="number"
                         value="0"
                         min="0"
                         max="16"
-                        data-flag="FIntDebugForceMSAASamples"
+                        data-flag-input="FIntDebugForceMSAASamples"
                     >
 
                     <label class="switch">
@@ -853,12 +935,16 @@ footer {
                             data-flag="FIntDebugForceMSAASamples"
                             data-input="true"
                         >
+
                         <span class="switch-slider"></span>
                     </label>
+
                 </div>
+
             </div>
 
         </div>
+
     </div>
 
 
@@ -874,10 +960,12 @@ footer {
         <div class="flag-list">
 
             <div class="flag">
+
                 <div class="flag-info">
                     <div class="flag-name">
                         FFlagDebugSkyGray
                     </div>
+
                     <div class="flag-description">
                         Debug rendering option for the sky.
                     </div>
@@ -889,67 +977,14 @@ footer {
                         data-flag="FFlagDebugSkyGray"
                         data-value="true"
                     >
+
                     <span class="switch-slider"></span>
                 </label>
-            </div>
 
-            <div class="flag">
-                <div class="flag-info">
-                    <div class="flag-name">
-                        FFlagDebugGraphicsPreferVulkan
-                    </div>
-                    <div class="flag-description">
-                        Requests Vulkan as the preferred graphics
-                        backend where supported.
-                    </div>
-                </div>
-
-                <label class="switch">
-                    <input
-                        type="checkbox"
-                        data-flag="FFlagDebugGraphicsPreferVulkan"
-                        data-value="true"
-                    >
-                    <span class="switch-slider"></span>
-                </label>
             </div>
 
         </div>
-    </div>
 
-
-    <!-- NETWORK -->
-
-    <div class="category">
-
-        <div class="category-title">
-            <h3>Network</h3>
-            <div class="category-line"></div>
-        </div>
-
-        <div class="flag-list">
-
-            <div class="flag">
-                <div class="flag-info">
-                    <div class="flag-name">
-                        FFlagDebugNetwork
-                    </div>
-                    <div class="flag-description">
-                        Debug network-related behavior where supported.
-                    </div>
-                </div>
-
-                <label class="switch">
-                    <input
-                        type="checkbox"
-                        data-flag="FFlagDebugNetwork"
-                        data-value="true"
-                    >
-                    <span class="switch-slider"></span>
-                </label>
-            </div>
-
-        </div>
     </div>
 
 
@@ -965,10 +1000,12 @@ footer {
         <div class="flag-list">
 
             <div class="flag">
+
                 <div class="flag-info">
                     <div class="flag-name">
                         FFlagEnableInGameMenuControls
                     </div>
+
                     <div class="flag-description">
                         Example interface configuration option.
                     </div>
@@ -980,15 +1017,20 @@ footer {
                         data-flag="FFlagEnableInGameMenuControls"
                         data-value="true"
                     >
+
                     <span class="switch-slider"></span>
                 </label>
+
             </div>
 
         </div>
+
     </div>
 
 </section>
 
+
+<!-- EXPORT -->
 
 <section id="export" class="reveal">
 
@@ -997,13 +1039,11 @@ footer {
         <h2>Export Configuration</h2>
 
         <p>
-            Generate a clean ClientAppSettings.json file
-            containing only the enabled flags.
+            Generate a ClientAppSettings.json file containing
+            your enabled Fast Flags.
         </p>
 
-        <textarea id="jsonOutput" readonly>{
-  "FFlagExample": true
-}</textarea>
+        <textarea id="jsonOutput" readonly>{}</textarea>
 
         <div class="export-buttons">
 
@@ -1035,14 +1075,19 @@ footer {
 </section>
 
 
+<!-- NON ROOT -->
+
 <section class="reveal">
 
     <div class="section-heading">
+
         <h2>Non-Root</h2>
+
         <p>
             Export your selected configuration for environments
             that support external Fast Flag configuration.
         </p>
+
     </div>
 
     <div class="nonroot">
@@ -1052,8 +1097,8 @@ footer {
         <p>
             Bloxstrap Mobile does not modify Roblox servers.
             The generated configuration is intended for supported
-            client-side environments. Availability and behavior
-            of individual Fast Flags may change over time.
+            client-side environments. Individual Fast Flags may
+            change or stop working over time.
         </p>
 
         <br>
@@ -1062,7 +1107,7 @@ footer {
             class="sketch-btn"
             onclick="generateJSON(); document.getElementById('export').scrollIntoView({behavior:'smooth'});"
         >
-            Generate Non-Root Configuration
+            Generate Configuration
         </button>
 
     </div>
@@ -1070,26 +1115,59 @@ footer {
 </section>
 
 
-<div class="author reveal">
+<!-- ABOUT THE AUTHOR -->
 
-    <div class="author-card">
+<section id="author" class="author-section reveal">
 
-        <div>Bloxstrap Mobile</div>
+    <div class="section-heading">
+        <h2>About the Author</h2>
+
+        <p>
+            The story behind Bloxstrap Mobile.
+        </p>
+    </div>
+
+
+    <div class="author-card-large">
+
+        <img
+            class="author-avatar"
+            src="file_00000000a78081f4ad75212ae5558e37.png"
+            alt="Bloxstrap Mobile"
+        >
 
         <div>
-            Created by
-            <strong>MemeSTRONYxddd</strong>
-        </div>
 
-        <small>Version 2.0</small>
+            <h2>
+                Created by
+                <span>MemeSTRONYxddd</span>
+            </h2>
+
+            <p>
+                The idea for Bloxstrap Mobile came from a simple
+                observation: the mobile Bloxstrap experience was
+                mainly available on iOS, while Android users did not
+                have the same kind of convenient mobile experience.
+            </p>
+
+            <div class="author-note">
+                The author was genuinely bothered by the fact that
+                only iOS had a mobile option, so they decided to
+                create Bloxstrap Mobile as an unofficial website
+                for Android users.
+            </div>
+
+        </div>
 
     </div>
 
-</div>
+</section>
 
 
 <footer>
     Bloxstrap Mobile — Unofficial Project
+    <br><br>
+    Created by MemeSTRONYxddd · Version 2.0
 </footer>
 
 
@@ -1100,14 +1178,12 @@ footer {
 
 <script>
 
-/* =========================
-   SCROLL REVEAL
-========================= */
+/* SCROLL REVEAL */
 
 const revealElements =
     document.querySelectorAll(".reveal");
 
-const revealObserver =
+const observer =
     new IntersectionObserver(
         entries => {
 
@@ -1126,13 +1202,11 @@ const revealObserver =
     );
 
 revealElements.forEach(element => {
-    revealObserver.observe(element);
+    observer.observe(element);
 });
 
 
-/* =========================
-   GET FLAGS
-========================= */
+/* GET ENABLED FLAGS */
 
 function getFlags() {
 
@@ -1146,48 +1220,39 @@ function getFlags() {
             return;
         }
 
-        const flagName =
+        const name =
             toggle.dataset.flag;
 
         let value =
             toggle.dataset.value;
 
-        const input =
-            document.querySelector(
-                `.flag-input[data-flag="${flagName}"]`
-            );
+        if (toggle.dataset.input === "true") {
 
-        if (input && toggle.dataset.input === "true") {
+            const input =
+                document.querySelector(
+                    `[data-flag-input="${name}"]`
+                );
 
-            value = input.value;
-
-            if (
-                value !== "" &&
-                !isNaN(value)
-            ) {
-                value = Number(value);
-            }
-
-        } else {
-
-            if (value === "true") {
-                value = true;
-            }
-
-            if (value === "false") {
-                value = false;
-            }
-
-            if (
-                value !== "" &&
-                !isNaN(value)
-            ) {
-                value = Number(value);
+            if (input) {
+                value = input.value;
             }
 
         }
 
-        flags[flagName] = value;
+        if (value === "true") {
+            value = true;
+        }
+        else if (value === "false") {
+            value = false;
+        }
+        else if (
+            value !== "" &&
+            !isNaN(value)
+        ) {
+            value = Number(value);
+        }
+
+        flags[name] = value;
 
     });
 
@@ -1195,51 +1260,49 @@ function getFlags() {
 }
 
 
-/* =========================
-   GENERATE JSON
-========================= */
+/* GENERATE */
 
 function generateJSON() {
 
     const flags = getFlags();
 
-    const json = JSON.stringify(
+    document.getElementById(
+        "jsonOutput"
+    ).value = JSON.stringify(
         flags,
         null,
         2
     );
 
-    document.getElementById(
-        "jsonOutput"
-    ).value = json;
-
 }
 
 
-/* =========================
-   COPY JSON
-========================= */
+/* COPY */
 
 async function copyJSON() {
 
     generateJSON();
 
-    const output =
+    const text =
         document.getElementById(
             "jsonOutput"
-        );
+        ).value;
 
     try {
 
-        await navigator.clipboard.writeText(
-            output.value
-        );
+        await navigator.clipboard.writeText(text);
 
         showToast("JSON copied!");
 
     } catch {
 
+        const output =
+            document.getElementById(
+                "jsonOutput"
+            );
+
         output.select();
+
         document.execCommand("copy");
 
         showToast("JSON copied!");
@@ -1249,22 +1312,20 @@ async function copyJSON() {
 }
 
 
-/* =========================
-   DOWNLOAD JSON
-========================= */
+/* DOWNLOAD */
 
 function downloadJSON() {
 
     generateJSON();
 
-    const data =
+    const text =
         document.getElementById(
             "jsonOutput"
         ).value;
 
     const blob =
         new Blob(
-            [data],
+            [text],
             {
                 type: "application/json"
             }
@@ -1277,6 +1338,7 @@ function downloadJSON() {
         document.createElement("a");
 
     link.href = url;
+
     link.download =
         "ClientAppSettings.json";
 
@@ -1288,14 +1350,14 @@ function downloadJSON() {
 
     URL.revokeObjectURL(url);
 
-    showToast("ClientAppSettings.json downloaded!");
+    showToast(
+        "ClientAppSettings.json downloaded!"
+    );
 
 }
 
 
-/* =========================
-   TOAST
-========================= */
+/* TOAST */
 
 let toastTimeout;
 
@@ -1320,9 +1382,7 @@ function showToast(message) {
 }
 
 
-/* =========================
-   SAVE SETTINGS LOCALLY
-========================= */
+/* LOCAL STORAGE */
 
 function saveSettings() {
 
@@ -1365,17 +1425,17 @@ function loadSettings() {
             'input[type="checkbox"][data-flag]'
         ).forEach(input => {
 
-            const flag =
+            const name =
                 input.dataset.flag;
 
             if (
                 Object.prototype.hasOwnProperty.call(
                     settings,
-                    flag
+                    name
                 )
             ) {
                 input.checked =
-                    settings[flag];
+                    settings[name];
             }
 
         });
