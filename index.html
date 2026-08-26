@@ -2,464 +2,591 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Bloxstrap Mobile</title>
 
 <style>
-*{
-    box-sizing:border-box;
-    -webkit-tap-highlight-color:transparent;
+:root {
+    --red: #e53935;
+    --dark-red: #b71c1c;
+    --black: #151515;
+    --gray: #666;
+    --light: #f7f7f7;
+    --white: #ffffff;
+    --green: #35b86b;
+    --blue: #4d7cff;
+    --orange: #ff9f1c;
 }
 
-html{
-    scroll-behavior:smooth;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-body{
-    margin:0;
-    font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-    background:
-        radial-gradient(circle at 15% 0%,rgba(88,101,242,.12),transparent 28%),
-        radial-gradient(circle at 90% 15%,rgba(139,92,246,.10),transparent 25%),
-        #f5f7fb;
-    color:#171923;
-    min-height:100vh;
+html {
+    scroll-behavior: smooth;
 }
 
-.header{
-    position:sticky;
-    top:0;
-    z-index:50;
-    background:rgba(255,255,255,.84);
-    backdrop-filter:blur(22px);
-    -webkit-backdrop-filter:blur(22px);
-    border-bottom:1px solid rgba(220,223,232,.8);
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--light);
+    color: var(--black);
+    overflow-x: hidden;
 }
 
-.header-inner{
-    max-width:780px;
-    margin:auto;
-    padding:22px 18px 18px;
+/* Subtle paper effect */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: .12;
+    z-index: 1000;
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            transparent 0px,
+            transparent 3px,
+            rgba(0,0,0,.04) 4px
+        );
 }
 
-.brand{
-    display:flex;
-    align-items:center;
-    gap:13px;
+/* NAVIGATION */
+
+nav {
+    position: fixed;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 30px);
+    max-width: 1050px;
+    padding: 12px 18px;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(12px);
+    border: 3px solid var(--black);
+    border-radius: 14px 10px 16px 9px;
+    box-shadow: 5px 5px 0 var(--black);
+    z-index: 999;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.logo{
-    width:48px;
-    height:48px;
-    border-radius:15px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:linear-gradient(135deg,#5865f2,#8b5cf6);
-    color:white;
-    font-size:22px;
-    font-weight:900;
-    box-shadow:0 8px 25px rgba(88,101,242,.28);
-    animation:logoFloat 3s ease-in-out infinite;
+.nav-brand {
+    font-weight: 900;
+    font-size: 18px;
 }
 
-@keyframes logoFloat{
-    0%,100%{transform:translateY(0)}
-    50%{transform:translateY(-3px)}
+.nav-brand span {
+    color: var(--red);
 }
 
-.title{
-    font-size:26px;
-    font-weight:900;
-    letter-spacing:-.8px;
+.nav-links {
+    display: flex;
+    gap: 8px;
 }
 
-.subtitle{
-    color:#858b99;
-    font-size:13px;
-    margin-top:2px;
+.nav-links a {
+    color: var(--black);
+    text-decoration: none;
+    font-weight: 800;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: .2s;
 }
 
-.container{
-    width:100%;
-    max-width:780px;
-    margin:auto;
-    padding:18px;
+.nav-links a:hover {
+    background: #eee;
+    transform: rotate(-1deg);
 }
 
-.status{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    background:linear-gradient(135deg,#eef1ff,#f5f0ff);
-    color:#5146d8;
-    border:1px solid #e1e3ff;
-    border-radius:18px;
-    padding:15px 17px;
-    margin-bottom:14px;
-    box-shadow:0 8px 25px rgba(88,101,242,.06);
-    transition:.25s ease;
-}
-
-.status.bump{
-    animation:statusPop .3s ease;
-}
-
-@keyframes statusPop{
-    0%{transform:scale(1)}
-    45%{transform:scale(1.025)}
-    100%{transform:scale(1)}
-}
-
-.search-wrap{
-    position:relative;
-    margin-bottom:16px;
-}
-
-.search{
-    width:100%;
-    border:1px solid #e0e3ea;
-    background:rgba(255,255,255,.9);
-    border-radius:17px;
-    padding:15px 17px 15px 45px;
-    outline:none;
-    font-size:15px;
-    color:#171923;
-    box-shadow:0 6px 20px rgba(20,25,40,.04);
-    transition:.25s ease;
-}
-
-.search:focus{
-    border-color:#5865f2;
-    box-shadow:0 0 0 4px rgba(88,101,242,.10);
-}
-
-.search-icon{
-    position:absolute;
-    left:16px;
-    top:50%;
-    transform:translateY(-50%);
-    color:#9298a5;
-    font-size:17px;
-    pointer-events:none;
-}
-
-.card{
-    background:rgba(255,255,255,.94);
-    border:1px solid rgba(225,228,235,.85);
-    border-radius:23px;
-    padding:18px;
-    margin-bottom:16px;
-    box-shadow:
-        0 10px 35px rgba(25,30,50,.055),
-        0 2px 8px rgba(25,30,50,.025);
-    animation:cardIn .5s cubic-bezier(.2,.8,.2,1) both;
-    transition:.25s ease;
-}
-
-.card:hover{
-    transform:translateY(-2px);
-    box-shadow:0 16px 42px rgba(25,30,50,.08);
-}
-
-@keyframes cardIn{
-    from{
-        opacity:0;
-        transform:translateY(18px) scale(.985);
+@media (max-width: 650px) {
+    nav {
+        padding: 10px;
     }
-    to{
-        opacity:1;
-        transform:translateY(0) scale(1);
+
+    .nav-links a {
+        padding: 6px;
+        font-size: 12px;
     }
 }
 
-.category{
-    display:flex;
-    align-items:center;
-    gap:9px;
-    font-size:20px;
-    font-weight:850;
-    margin-bottom:13px;
+/* HERO */
+
+.hero {
+    min-height: 100vh;
+    padding: 130px 20px 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
-.category::before{
-    content:"";
-    width:8px;
-    height:25px;
-    border-radius:8px;
+.hero-content {
+    max-width: 850px;
+    animation: heroIn .8s ease;
 }
 
-.performance{color:#5865f2}
-.performance::before{
-    background:linear-gradient(#5865f2,#7280ff);
+.logo {
+    width: 155px;
+    height: 155px;
+    object-fit: contain;
+    filter: drop-shadow(7px 7px 0 var(--black));
+    animation: floating 3s ease-in-out infinite;
+    margin-bottom: 22px;
 }
 
-.graphics{color:#8b5cf6}
-.graphics::before{
-    background:linear-gradient(#8b5cf6,#a879ff);
+.wordmark {
+    display: block;
+    max-width: min(600px, 90vw);
+    width: 100%;
+    height: auto;
+    margin: 0 auto 20px;
 }
 
-.network{color:#089dbb}
-.network::before{
-    background:linear-gradient(#06b6d4,#22d3ee);
+.hero h1 {
+    font-size: clamp(40px, 8vw, 76px);
+    font-weight: 1000;
+    letter-spacing: -4px;
+    margin-bottom: 18px;
 }
 
-.interface{color:#e99500}
-.interface::before{
-    background:linear-gradient(#f59e0b,#fbbf24);
+.hero-description {
+    max-width: 650px;
+    margin: auto;
+    color: var(--gray);
+    font-size: 18px;
+    line-height: 1.6;
 }
 
-.mode-buttons{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
+.hero-buttons {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
 }
 
-.mode{
-    border:0;
-    border-radius:15px;
-    padding:14px;
-    background:#eef0f5;
-    color:#555b68;
-    font-size:15px;
-    font-weight:800;
-    cursor:pointer;
-    transition:.2s ease;
-    box-shadow:none;
+/* HAND DRAWN BUTTONS */
+
+.sketch-btn {
+    display: inline-block;
+    cursor: pointer;
+    border: 3px solid var(--black);
+    background: var(--white);
+    color: var(--black);
+    text-decoration: none;
+    font-weight: 900;
+    font-size: 15px;
+    padding: 14px 24px;
+    border-radius: 11px 7px 13px 8px;
+    box-shadow: 5px 5px 0 var(--black);
+    transition: transform .15s, box-shadow .15s;
 }
 
-.mode:hover{
-    transform:translateY(-1px);
+.sketch-btn:hover {
+    transform: translate(-3px, -3px) rotate(-1deg);
+    box-shadow: 8px 8px 0 var(--black);
 }
 
-.mode.active{
-    color:white;
-    background:linear-gradient(135deg,#5865f2,#7c5cff);
-    box-shadow:0 8px 20px rgba(88,101,242,.22);
+.sketch-btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: 2px 2px 0 var(--black);
 }
 
-.mode-description{
-    margin-top:12px;
-    padding:12px;
-    border-radius:13px;
-    background:#f6f7fb;
-    color:#7b8190;
-    font-size:13px;
-    line-height:1.5;
+.sketch-btn.red {
+    background: var(--red);
+    color: white;
 }
 
-.flag{
-    padding:15px 0;
-    border-top:1px solid #edf0f4;
-    transition:.2s ease;
+.sketch-btn.green {
+    background: var(--green);
+    color: white;
 }
 
-.flag:first-of-type{
-    border-top:0;
+/* SECTIONS */
+
+section {
+    width: min(1100px, calc(100% - 30px));
+    margin: auto;
+    padding: 90px 0;
 }
 
-.flag:hover{
-    padding-left:4px;
+.section-heading {
+    margin-bottom: 35px;
 }
 
-.flag-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:12px;
+.section-heading h2 {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 1000;
+    letter-spacing: -2px;
 }
 
-.flag-name{
-    font-size:14px;
-    font-weight:650;
-    line-height:1.4;
-    word-break:break-word;
+.section-heading p {
+    color: var(--gray);
+    margin-top: 10px;
+    line-height: 1.5;
 }
 
-.toggle{
-    width:49px;
-    height:28px;
-    position:relative;
-    flex-shrink:0;
+/* FEATURE CARDS */
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
 }
 
-.toggle input{
-    display:none;
+.feature-card {
+    background: white;
+    padding: 25px;
+    border: 3px solid var(--black);
+    border-radius: 15px 9px 17px 11px;
+    box-shadow: 6px 6px 0 var(--black);
+    transition: .25s;
 }
 
-.slider{
-    position:absolute;
-    inset:0;
-    background:#d7dae2;
-    border-radius:30px;
-    transition:.25s cubic-bezier(.2,.8,.2,1);
+.feature-card:hover {
+    transform: translateY(-7px) rotate(-.5deg);
 }
 
-.slider::before{
-    content:"";
-    position:absolute;
-    width:22px;
-    height:22px;
-    top:3px;
-    left:3px;
-    border-radius:50%;
-    background:white;
-    box-shadow:0 2px 7px rgba(0,0,0,.22);
-    transition:.25s cubic-bezier(.2,.8,.2,1);
+.feature-icon {
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border: 3px solid var(--black);
+    border-radius: 9px 6px 10px 7px;
+    margin-bottom: 18px;
+    font-weight: 1000;
 }
 
-.toggle input:checked+.slider{
-    background:linear-gradient(135deg,#5865f2,#7c5cff);
-    box-shadow:0 5px 14px rgba(88,101,242,.28);
+.feature-card:nth-child(1) .feature-icon {
+    background: #ffdddd;
 }
 
-.toggle input:checked+.slider::before{
-    transform:translateX(21px);
+.feature-card:nth-child(2) .feature-icon {
+    background: #ffe7bd;
 }
 
-.value{
-    width:100%;
-    margin-top:10px;
-    padding:12px 13px;
-    border:1px solid #e1e4eb;
-    border-radius:14px;
-    background:#fafbfe;
-    color:#171923;
-    outline:none;
-    font-size:14px;
-    transition:.2s ease;
+.feature-card:nth-child(3) .feature-icon {
+    background: #c9f3e9;
 }
 
-.value:focus{
-    border-color:#5865f2;
-    background:white;
-    box-shadow:0 0 0 4px rgba(88,101,242,.08);
+.feature-card:nth-child(4) .feature-icon {
+    background: #d5ddff;
 }
 
-.value:disabled{
-    opacity:.4;
+.feature-card h3 {
+    font-size: 21px;
+    margin-bottom: 10px;
 }
 
-.buttons{
-    display:grid;
-    gap:10px;
+.feature-card p {
+    color: var(--gray);
+    line-height: 1.5;
 }
 
-button{
-    border:0;
-    border-radius:16px;
-    padding:15px;
-    color:white;
-    font-size:15px;
-    font-weight:800;
-    cursor:pointer;
-    transition:.15s ease;
+@media (max-width: 850px) {
+    .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
-button:active{
-    transform:scale(.965);
+@media (max-width: 500px) {
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
-.export{
-    background:linear-gradient(135deg,#10b981,#06a77b);
+/* FLAGS */
+
+.category {
+    margin-bottom: 45px;
 }
 
-.copy{
-    background:linear-gradient(135deg,#5865f2,#7c5cff);
+.category-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
 }
 
-.clear{
-    background:linear-gradient(135deg,#ef4444,#e33b58);
+.category-title h3 {
+    font-size: 25px;
 }
 
-.reset{
-    background:linear-gradient(135deg,#64748b,#536273);
+.category-line {
+    height: 4px;
+    flex: 1;
+    background: var(--black);
+    border-radius: 50%;
 }
 
-.preview{
-    display:none;
-    margin-top:15px;
+.flag-list {
+    display: grid;
+    gap: 14px;
 }
 
-.preview textarea{
-    width:100%;
-    min-height:180px;
-    resize:vertical;
-    padding:14px;
-    border:1px solid #e1e4eb;
-    border-radius:15px;
-    background:#11141c;
-    color:#dfe5ff;
-    font-family:monospace;
-    font-size:12px;
-    outline:none;
+.flag {
+    background: white;
+    border: 3px solid var(--black);
+    border-radius: 11px 8px 13px 7px;
+    box-shadow: 4px 4px 0 var(--black);
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    transition: .2s;
 }
 
-.empty{
-    display:none;
-    text-align:center;
-    color:#8c919d;
-    padding:25px;
+.flag:hover {
+    transform: translateX(3px);
 }
 
-.author{
-    text-align:center;
-    padding:14px 0 4px;
-    color:#8b909c;
-    font-size:12px;
+.flag-info {
+    min-width: 0;
 }
 
-.author strong{
-    color:#5865f2;
+.flag-name {
+    font-family: monospace;
+    font-size: 15px;
+    font-weight: 900;
+    word-break: break-word;
 }
 
-.footer{
-    text-align:center;
-    color:#a0a5b0;
-    font-size:11px;
-    padding:5px 10px 25px;
+.flag-description {
+    color: #777;
+    font-size: 13px;
+    margin-top: 5px;
+    line-height: 1.4;
 }
 
-.toast{
-    position:fixed;
-    left:50%;
-    bottom:22px;
-    transform:translate(-50%,20px);
-    background:#181b24;
-    color:white;
-    padding:12px 17px;
-    border-radius:14px;
-    font-size:13px;
-    opacity:0;
-    pointer-events:none;
-    transition:.3s ease;
-    z-index:100;
-    box-shadow:0 10px 30px rgba(0,0,0,.2);
+.flag-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
 }
 
-.toast.show{
-    opacity:1;
-    transform:translate(-50%,0);
+.flag-input {
+    width: 90px;
+    padding: 8px;
+    border: 3px solid var(--black);
+    border-radius: 7px;
+    font-weight: 800;
+    outline: none;
 }
 
-@media(max-width:500px){
-    .title{
-        font-size:23px;
+.flag-input:focus {
+    border-color: var(--red);
+}
+
+/* SWITCH */
+
+.switch {
+    width: 56px;
+    height: 31px;
+    position: relative;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.switch input {
+    display: none;
+}
+
+.switch-slider {
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+    background: #ddd;
+    border: 3px solid var(--black);
+    border-radius: 20px;
+    transition: .2s;
+}
+
+.switch-slider::before {
+    content: "";
+    position: absolute;
+    width: 19px;
+    height: 19px;
+    left: 3px;
+    top: 3px;
+    background: white;
+    border: 2px solid var(--black);
+    border-radius: 50%;
+    transition: .2s;
+}
+
+.switch input:checked + .switch-slider {
+    background: var(--red);
+}
+
+.switch input:checked + .switch-slider::before {
+    transform: translateX(23px);
+}
+
+/* EXPORT */
+
+.export-box {
+    background: var(--black);
+    color: white;
+    padding: 30px;
+    border-radius: 17px 10px 19px 12px;
+    box-shadow: 8px 8px 0 var(--red);
+}
+
+.export-box h2 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.export-box p {
+    color: #bbb;
+    line-height: 1.5;
+    margin-bottom: 22px;
+}
+
+#jsonOutput {
+    width: 100%;
+    min-height: 270px;
+    resize: vertical;
+    background: #202020;
+    color: #eee;
+    border: 3px solid white;
+    border-radius: 9px;
+    padding: 16px;
+    font-family: monospace;
+    font-size: 13px;
+    outline: none;
+}
+
+.export-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+/* NON ROOT */
+
+.nonroot {
+    background: white;
+    border: 3px solid var(--black);
+    padding: 28px;
+    border-radius: 14px 9px 16px 10px;
+    box-shadow: 6px 6px 0 var(--black);
+}
+
+.nonroot h3 {
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+
+.nonroot p {
+    color: var(--gray);
+    line-height: 1.6;
+}
+
+/* AUTHOR */
+
+.author {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.author-card {
+    display: inline-block;
+    background: white;
+    border: 3px solid var(--black);
+    border-radius: 13px 8px 15px 9px;
+    padding: 22px 35px;
+    box-shadow: 5px 5px 0 var(--black);
+}
+
+.author-card strong {
+    color: var(--red);
+}
+
+/* FOOTER */
+
+footer {
+    border-top: 3px dashed #ccc;
+    text-align: center;
+    color: #777;
+    padding: 30px 20px;
+    font-size: 13px;
+}
+
+/* REVEAL */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(35px);
+    transition: opacity .7s ease, transform .7s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* TOAST */
+
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: 25px;
+    transform: translate(-50%, 100px);
+    background: var(--black);
+    color: white;
+    border: 3px solid white;
+    padding: 12px 20px;
+    border-radius: 9px;
+    box-shadow: 4px 4px 0 var(--red);
+    font-weight: 800;
+    z-index: 2000;
+    transition: .3s;
+}
+
+.toast.show {
+    transform: translate(-50%, 0);
+}
+
+/* ANIMATIONS */
+
+@keyframes heroIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
     }
 
-    .logo{
-        width:44px;
-        height:44px;
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes floating {
+    0%, 100% {
+        transform: translateY(0) rotate(-2deg);
     }
 
-    .container{
-        padding:13px;
+    50% {
+        transform: translateY(-10px) rotate(2deg);
     }
+}
 
-    .card{
-        border-radius:20px;
-        padding:16px;
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
     }
 }
 </style>
@@ -467,734 +594,691 @@ button:active{
 
 <body>
 
-<header class="header">
+<nav>
+    <div class="nav-brand">
+        Bloxstrap <span>Mobile</span>
+    </div>
 
-<div class="header-inner">
+    <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#flags">Flags</a>
+        <a href="#export">Export</a>
+    </div>
+</nav>
 
-<div class="brand">
+<header class="hero">
+    <div class="hero-content">
 
-<div class="logo">B</div>
+        <img
+            class="logo"
+            src="file_00000000a78081f4ad75212ae5558e37.png"
+            alt="Bloxstrap Mobile Logo"
+        >
 
-<div>
-<div class="title">Bloxstrap Mobile</div>
-<div class="subtitle">Roblox Fast Flags Manager</div>
-</div>
+        <img
+            class="wordmark"
+            src="file_000000001e7081f48bb06d1e3e438a28.png"
+            alt="Bloxstrap"
+        >
 
-</div>
+        <p class="hero-description">
+            A lightweight unofficial Fast Flag manager for Roblox
+            on Android. Configure your settings, generate your
+            configuration and keep everything in one place.
+        </p>
 
-</div>
+        <div class="hero-buttons">
+            <a class="sketch-btn red" href="#flags">
+                Configure Flags
+            </a>
 
+            <a class="sketch-btn" href="#export">
+                Export JSON
+            </a>
+
+            <a class="sketch-btn" href="#features">
+                Learn More
+            </a>
+        </div>
+
+    </div>
 </header>
 
-<main class="container">
 
-<div class="status" id="status">
-<span>Selected flags</span>
-<strong id="count">0</strong>
+<section id="features" class="reveal">
+
+    <div class="section-heading">
+        <h2>Built for Roblox</h2>
+        <p>
+            Simple controls for organizing and exporting your
+            client configuration.
+        </p>
+    </div>
+
+    <div class="feature-grid">
+
+        <div class="feature-card">
+            <div class="feature-icon">FPS</div>
+            <h3>Performance</h3>
+            <p>
+                Configure performance-related options
+                and target FPS values.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">GFX</div>
+            <h3>Graphics</h3>
+            <p>
+                Manage graphics and rendering-related
+                client settings.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">NET</div>
+            <h3>Network</h3>
+            <p>
+                Keep network-related configuration
+                organized in one place.
+            </p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">UI</div>
+            <h3>Interface</h3>
+            <p>
+                Configure selected interface and
+                client behavior options.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="flags" class="reveal">
+
+    <div class="section-heading">
+        <h2>Fast Flags</h2>
+        <p>
+            Enable a setting and configure its value when available.
+        </p>
+    </div>
+
+
+    <!-- PERFORMANCE -->
+
+    <div class="category">
+
+        <div class="category-title">
+            <h3>Performance</h3>
+            <div class="category-line"></div>
+        </div>
+
+        <div class="flag-list">
+
+            <div class="flag">
+                <div class="flag-info">
+                    <div class="flag-name">
+                        DFIntTaskSchedulerTargetFps
+                    </div>
+                    <div class="flag-description">
+                        Sets the target FPS value.
+                    </div>
+                </div>
+
+                <div class="flag-control">
+                    <input
+                        class="flag-input"
+                        type="number"
+                        value="120"
+                        min="1"
+                        max="1000"
+                        data-flag="DFIntTaskSchedulerTargetFps"
+                    >
+
+                    <label class="switch">
+                        <input
+                            type="checkbox"
+                            data-flag="DFIntTaskSchedulerTargetFps"
+                            data-input="true"
+                        >
+                        <span class="switch-slider"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="flag">
+                <div class="flag-info">
+                    <div class="flag-name">
+                        FFlagDebugDisplayFPS
+                    </div>
+                    <div class="flag-description">
+                        Enables the FPS display when supported.
+                    </div>
+                </div>
+
+                <label class="switch">
+                    <input
+                        type="checkbox"
+                        data-flag="FFlagDebugDisplayFPS"
+                        data-value="true"
+                    >
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- GRAPHICS -->
+
+    <div class="category">
+
+        <div class="category-title">
+            <h3>Graphics</h3>
+            <div class="category-line"></div>
+        </div>
+
+        <div class="flag-list">
+
+            <div class="flag">
+                <div class="flag-info">
+                    <div class="flag-name">
+                        FFlagDebugGraphicsPreferD3D11
+                    </div>
+                    <div class="flag-description">
+                        Requests D3D11 as the preferred graphics backend
+                        on supported platforms.
+                    </div>
+                </div>
+
+                <label class="switch">
+                    <input
+                        type="checkbox"
+                        data-flag="FFlagDebugGraphicsPreferD3D11"
+                        data-value="true"
+                    >
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
+
+            <div class="flag">
+                <div class="flag-info">
+                    <div class="flag-name">
+                        FFlagDisablePostFx
+                    </div>
+                    <div class="flag-description">
+                        Disables selected post-processing effects
+                        when supported.
+                    </div>
+                </div>
+
+                <label class="switch">
+                    <input
+                        type="checkbox"
+                        data-flag="FFlagDisablePostFx"
+                        data-value="true"
+                    >
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
+
+            <div class="flag">
+                <div class="flag-info">
+                    <div class="flag-name">
+                        FIntDebugForceMSAASamples
+                    </div>
+                    <div class="flag-description">
+                        Sets the requested MSAA sample count.
+                    </div>
+                </div>
+
+                <div class="flag-control">
+                    <input
+                        class="flag-input"
+                        type="number"
+                        value="0"
+                        min="0"
+                        max="16"
+                        data-flag="FIntDebugForceMSAASamples"
+                    >
+
+                    <label class="switch">
+                        <input
+                            type="checkbox"
+                            data-flag="FIntDebugForceMSAASamples"
+                            data-input="true"
+                        >
+                        <span class="switch-slider"></span>
+                    </label>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- RENDERING -->
+
+    <div class="category">
+
+        <div class="category-title">
+            <h3>Rendering</h3>
+            <div class="category-line"></div>
+        </div>
+
+        <div class="flag-list">
+
+            <div class="flag">
+                <div class="flag-info">
+                    <div class="flag-name">
+                        FFlagDebugSkyGray
+                    </div>
+                    <div class="flag-description">
+                        Debug rendering option for the sky.
+                    </div>
+                </div>
+
+                <label class="switch">
+                    <input
+                        type="checkbox"
+                        data-flag="FFlagDebugSkyGray"
+                        data-value="true"
+                    >
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
+
+            <div class="flag">
+                <div class="flag-info">
+                    <div class="flag-name">
+                        FFlagDebugGraphicsPreferVulkan
+                    </div>
+                    <div class="flag-description">
+                        Requests Vulkan as the preferred graphics
+                        backend where supported.
+                    </div>
+                </div>
+
+                <label class="switch">
+                    <input
+                        type="checkbox"
+                        data-flag="FFlagDebugGraphicsPreferVulkan"
+                        data-value="true"
+                    >
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- NETWORK -->
+
+    <div class="category">
+
+        <div class="category-title">
+            <h3>Network</h3>
+            <div class="category-line"></div>
+        </div>
+
+        <div class="flag-list">
+
+            <div class="flag">
+                <div class="flag-info">
+                    <div class="flag-name">
+                        FFlagDebugNetwork
+                    </div>
+                    <div class="flag-description">
+                        Debug network-related behavior where supported.
+                    </div>
+                </div>
+
+                <label class="switch">
+                    <input
+                        type="checkbox"
+                        data-flag="FFlagDebugNetwork"
+                        data-value="true"
+                    >
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- INTERFACE -->
+
+    <div class="category">
+
+        <div class="category-title">
+            <h3>Interface</h3>
+            <div class="category-line"></div>
+        </div>
+
+        <div class="flag-list">
+
+            <div class="flag">
+                <div class="flag-info">
+                    <div class="flag-name">
+                        FFlagEnableInGameMenuControls
+                    </div>
+                    <div class="flag-description">
+                        Example interface configuration option.
+                    </div>
+                </div>
+
+                <label class="switch">
+                    <input
+                        type="checkbox"
+                        data-flag="FFlagEnableInGameMenuControls"
+                        data-value="true"
+                    >
+                    <span class="switch-slider"></span>
+                </label>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+
+<section id="export" class="reveal">
+
+    <div class="export-box">
+
+        <h2>Export Configuration</h2>
+
+        <p>
+            Generate a clean ClientAppSettings.json file
+            containing only the enabled flags.
+        </p>
+
+        <textarea id="jsonOutput" readonly>{
+  "FFlagExample": true
+}</textarea>
+
+        <div class="export-buttons">
+
+            <button
+                class="sketch-btn red"
+                onclick="generateJSON()"
+            >
+                Generate JSON
+            </button>
+
+            <button
+                class="sketch-btn"
+                onclick="copyJSON()"
+            >
+                Copy JSON
+            </button>
+
+            <button
+                class="sketch-btn green"
+                onclick="downloadJSON()"
+            >
+                Download JSON
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="reveal">
+
+    <div class="section-heading">
+        <h2>Non-Root</h2>
+        <p>
+            Export your selected configuration for environments
+            that support external Fast Flag configuration.
+        </p>
+    </div>
+
+    <div class="nonroot">
+
+        <h3>Client-side configuration</h3>
+
+        <p>
+            Bloxstrap Mobile does not modify Roblox servers.
+            The generated configuration is intended for supported
+            client-side environments. Availability and behavior
+            of individual Fast Flags may change over time.
+        </p>
+
+        <br>
+
+        <button
+            class="sketch-btn"
+            onclick="generateJSON(); document.getElementById('export').scrollIntoView({behavior:'smooth'});"
+        >
+            Generate Non-Root Configuration
+        </button>
+
+    </div>
+
+</section>
+
+
+<div class="author reveal">
+
+    <div class="author-card">
+
+        <div>Bloxstrap Mobile</div>
+
+        <div>
+            Created by
+            <strong>MemeSTRONYxddd</strong>
+        </div>
+
+        <small>Version 2.0</small>
+
+    </div>
+
 </div>
 
-<div class="search-wrap">
 
-<span class="search-icon">⌕</span>
+<footer>
+    Bloxstrap Mobile — Unofficial Project
+</footer>
 
-<input
-class="search"
-id="search"
-type="search"
-placeholder="Search Fast Flags..."
->
 
+<div id="toast" class="toast">
+    JSON copied!
 </div>
 
-<!-- INSTALLATION MODE -->
-
-<div class="card">
-
-<div class="category interface">
-Installation Mode
-</div>
-
-<div class="mode-buttons">
-
-<button
-type="button"
-class="mode active"
-id="rootMode"
-onclick="setMode('root')"
->
-Root
-</button>
-
-<button
-type="button"
-class="mode"
-id="nonRootMode"
-onclick="setMode('nonroot')"
->
-Non-Root
-</button>
-
-</div>
-
-<div class="mode-description" id="modeDescription">
-Root mode exports ClientAppSettings.json for rooted devices.
-</div>
-
-</div>
-
-<!-- PERFORMANCE -->
-
-<div class="card">
-
-<div class="category performance">
-Performance
-</div>
-
-<div class="flag">
-
-<div class="flag-top">
-
-<span class="flag-name">
-DFIntTaskSchedulerTargetFps
-</span>
-
-<label class="toggle">
-
-<input
-type="checkbox"
-data-flag="DFIntTaskSchedulerTargetFps"
->
-
-<span class="slider"></span>
-
-</label>
-
-</div>
-
-<input
-class="value"
-data-value="DFIntTaskSchedulerTargetFps"
-type="number"
-placeholder="FPS value, e.g. 120"
-disabled
->
-
-</div>
-
-<div class="flag">
-
-<div class="flag-top">
-
-<span class="flag-name">
-DFIntTaskSchedulerAutoThreadLimit
-</span>
-
-<label class="toggle">
-
-<input
-type="checkbox"
-data-flag="DFIntTaskSchedulerAutoThreadLimit"
->
-
-<span class="slider"></span>
-
-</label>
-
-</div>
-
-<input
-class="value"
-data-value="DFIntTaskSchedulerAutoThreadLimit"
-type="number"
-placeholder="Value"
-disabled
->
-
-</div>
-
-<div class="flag">
-
-<div class="flag-top">
-
-<span class="flag-name">
-FFlagDebugGraphicsPreferD3D11
-</span>
-
-<label class="toggle">
-
-<input
-type="checkbox"
-data-flag="FFlagDebugGraphicsPreferD3D11"
->
-
-<span class="slider"></span>
-
-</label>
-
-</div>
-
-</div>
-
-<div class="flag">
-
-<div class="flag-top">
-
-<span class="flag-name">
-FFlagDebugGraphicsPreferVulkan
-</span>
-
-<label class="toggle">
-
-<input
-type="checkbox"
-data-flag="FFlagDebugGraphicsPreferVulkan"
->
-
-<span class="slider"></span>
-
-</label>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- GRAPHICS -->
-
-<div class="card">
-
-<div class="category graphics">
-Graphics
-</div>
-
-<div class="flag">
-
-<div class="flag-top">
-
-<span class="flag-name">
-FFlagDebugDisableDPIScale
-</span>
-
-<label class="toggle">
-
-<input
-type="checkbox"
-data-flag="FFlagDebugDisableDPIScale"
->
-
-<span class="slider"></span>
-
-</label>
-
-</div>
-
-</div>
-
-<div class="flag">
-
-<div class="flag-top">
-
-<span class="flag-name">
-FFlagDebugGraphicsDisableVulkan
-</span>
-
-<label class="toggle">
-
-<input
-type="checkbox"
-data-flag="FFlagDebugGraphicsDisableVulkan"
->
-
-<span class="slider"></span>
-
-</label>
-
-</div>
-
-</div>
-
-<div class="flag">
-
-<div class="flag-top">
-
-<span class="flag-name">
-FFlagDebugShowRenderStats
-</span>
-
-<label class="toggle">
-
-<input
-type="checkbox"
-data-flag="FFlagDebugShowRenderStats"
->
-
-<span class="slider"></span>
-
-</label>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- NETWORK -->
-
-<div class="card">
-
-<div class="category network">
-Network
-</div>
-
-<div class="flag">
-
-<div class="flag-top">
-
-<span class="flag-name">
-DFIntHttpRbxApiRequestsPerMinute
-</span>
-
-<label class="toggle">
-
-<input
-type="checkbox"
-data-flag="DFIntHttpRbxApiRequestsPerMinute"
->
-
-<span class="slider"></span>
-
-</label>
-
-</div>
-
-<input
-class="value"
-data-value="DFIntHttpRbxApiRequestsPerMinute"
-type="number"
-placeholder="Value"
-disabled
->
-
-</div>
-
-<div class="flag">
-
-<div class="flag-top">
-
-<span class="flag-name">
-DFIntHttpConnectTimeoutMilliseconds
-</span>
-
-<label class="toggle">
-
-<input
-type="checkbox"
-data-flag="DFIntHttpConnectTimeoutMilliseconds"
->
-
-<span class="slider"></span>
-
-</label>
-
-</div>
-
-<input
-class="value"
-data-value="DFIntHttpConnectTimeoutMilliseconds"
-type="number"
-placeholder="Milliseconds"
-disabled
->
-
-</div>
-
-</div>
-
-<!-- INTERFACE -->
-
-<div class="card">
-
-<div class="category interface">
-Interface
-</div>
-
-<div class="flag">
-
-<div class="flag-top">
-
-<span class="flag-name">
-FFlagHandleAltEnterFullscreenManually
-</span>
-
-<label class="toggle">
-
-<input
-type="checkbox"
-data-flag="FFlagHandleAltEnterFullscreenManually"
->
-
-<span class="slider"></span>
-
-</label>
-
-</div>
-
-</div>
-
-<div class="flag">
-
-<div class="flag-top">
-
-<span class="flag-name">
-FFlagDebugAdornRender
-</span>
-
-<label class="toggle">
-
-<input
-type="checkbox"
-data-flag="FFlagDebugAdornRender"
->
-
-<span class="slider"></span>
-
-</label>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- ACTIONS -->
-
-<div class="card buttons">
-
-<button
-class="export"
-onclick="exportFlags()"
->
-Export ClientAppSettings.json
-</button>
-
-<button
-class="copy"
-onclick="copyFlags()"
->
-Copy FFlags JSON
-</button>
-
-<button
-class="clear"
-onclick="clearFlags()"
->
-Clear selected flags
-</button>
-
-<button
-class="reset"
-onclick="resetSettings()"
->
-Reset everything
-</button>
-
-<div class="preview" id="preview">
-
-<textarea
-id="jsonPreview"
-readonly
-></textarea>
-
-</div>
-
-</div>
-
-<div
-class="empty"
-id="empty"
->
-No Fast Flags found.
-</div>
-
-<div class="author">
-Created by <strong>@MemeSTRONYxddd</strong>
-</div>
-
-<div class="footer">
-Bloxstrap Mobile • Unofficial project
-</div>
-
-</main>
-
-<div class="toast" id="toast"></div>
 
 <script>
 
-let installationMode="root";
+/* =========================
+   SCROLL REVEAL
+========================= */
 
-const switches=document.querySelectorAll("input[data-flag]");
-const values=document.querySelectorAll("input[data-value]");
-const status=document.getElementById("status");
-const toast=document.getElementById("toast");
+const revealElements =
+    document.querySelectorAll(".reveal");
 
-function showToast(text){
+const revealObserver =
+    new IntersectionObserver(
+        entries => {
 
-    toast.textContent=text;
+            entries.forEach(entry => {
 
-    toast.classList.add("show");
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                }
 
-    setTimeout(()=>{
-        toast.classList.remove("show");
-    },1800);
+            });
 
-}
+        },
+        {
+            threshold: 0.12
+        }
+    );
 
-function setMode(mode){
+revealElements.forEach(element => {
+    revealObserver.observe(element);
+});
 
-    installationMode=mode;
 
-    const root=document.getElementById("rootMode");
-    const nonRoot=document.getElementById("nonRootMode");
-    const description=document.getElementById("modeDescription");
+/* =========================
+   GET FLAGS
+========================= */
 
-    root.classList.toggle("active",mode==="root");
-    nonRoot.classList.toggle("active",mode==="nonroot");
+function getFlags() {
 
-    if(mode==="nonroot"){
+    const flags = {};
 
-        description.textContent=
-        "Non-Root mode exports the selected Fast Flags as JSON. No root access is required.";
+    document.querySelectorAll(
+        'input[type="checkbox"][data-flag]'
+    ).forEach(toggle => {
 
-    }else{
-
-        description.textContent=
-        "Root mode exports ClientAppSettings.json for rooted devices.";
-
-    }
-
-}
-
-function updateCount(){
-
-    let count=0;
-
-    switches.forEach(input=>{
-
-        if(input.checked){
-            count++;
+        if (!toggle.checked) {
+            return;
         }
 
-    });
+        const flagName =
+            toggle.dataset.flag;
 
-    document.getElementById("count").textContent=count;
+        let value =
+            toggle.dataset.value;
 
-    status.classList.remove("bump");
-
-    void status.offsetWidth;
-
-    status.classList.add("bump");
-
-}
-
-function saveSettings(){
-
-    const settings={};
-
-    switches.forEach(input=>{
-
-        const name=input.dataset.flag;
-
-        const value=document.querySelector(
-            `[data-value="${name}"]`
-        );
-
-        settings[name]={
-
-            enabled:input.checked,
-
-            value:value ? value.value : ""
-
-        };
-
-    });
-
-    localStorage.setItem(
-        "bloxstrap_mobile_flags",
-        JSON.stringify(settings)
-    );
-
-    updateCount();
-
-}
-
-function loadSettings(){
-
-    const saved=localStorage.getItem(
-        "bloxstrap_mobile_flags"
-    );
-
-    if(!saved){
-        return;
-    }
-
-    try{
-
-        const settings=JSON.parse(saved);
-
-        switches.forEach(input=>{
-
-            const name=input.dataset.flag;
-            const data=settings[name];
-
-            if(!data){
-                return;
-            }
-
-            input.checked=data.enabled===true;
-
-            const value=document.querySelector(
-                `[data-value="${name}"]`
+        const input =
+            document.querySelector(
+                `.flag-input[data-flag="${flagName}"]`
             );
 
-            if(value){
+        if (input && toggle.dataset.input === "true") {
 
-                value.value=data.value||"";
-                value.disabled=!input.checked;
+            value = input.value;
 
+            if (
+                value !== "" &&
+                !isNaN(value)
+            ) {
+                value = Number(value);
             }
 
-        });
+        } else {
 
-    }catch(e){
+            if (value === "true") {
+                value = true;
+            }
 
-        console.log("Could not load settings.");
+            if (value === "false") {
+                value = false;
+            }
 
-    }
-
-    updateCount();
-
-}
-
-switches.forEach(input=>{
-
-    input.addEventListener("change",()=>{
-
-        const value=document.querySelector(
-            `[data-value="${input.dataset.flag}"]`
-        );
-
-        if(value){
-
-            value.disabled=!input.checked;
+            if (
+                value !== "" &&
+                !isNaN(value)
+            ) {
+                value = Number(value);
+            }
 
         }
 
-        saveSettings();
+        flags[flagName] = value;
 
     });
 
-});
+    return flags;
+}
 
-values.forEach(input=>{
 
-    input.addEventListener(
-        "input",
-        saveSettings
-    );
+/* =========================
+   GENERATE JSON
+========================= */
 
-});
+function generateJSON() {
 
-function createJSON(){
+    const flags = getFlags();
 
-    const output={};
-
-    for(const input of switches){
-
-        if(!input.checked){
-            continue;
-        }
-
-        const name=input.dataset.flag;
-
-        const value=document.querySelector(
-            `[data-value="${name}"]`
-        );
-
-        if(value){
-
-            const raw=value.value.trim();
-
-            if(raw===""){
-
-                alert(
-                    "Enter a value for "+name
-                );
-
-                value.focus();
-
-                return null;
-
-            }
-
-            if(/^-?\d+$/.test(raw)){
-
-                output[name]=Number(raw);
-
-            }else{
-
-                output[name]=raw;
-
-            }
-
-        }else{
-
-            output[name]=true;
-
-        }
-
-    }
-
-    if(Object.keys(output).length===0){
-
-        alert(
-            "Select at least one Fast Flag."
-        );
-
-        return null;
-
-    }
-
-    return JSON.stringify(
-        output,
+    const json = JSON.stringify(
+        flags,
         null,
         2
     );
 
+    document.getElementById(
+        "jsonOutput"
+    ).value = json;
+
 }
 
-function exportFlags(){
 
-    const json=createJSON();
+/* =========================
+   COPY JSON
+========================= */
 
-    if(!json){
-        return;
+async function copyJSON() {
+
+    generateJSON();
+
+    const output =
+        document.getElementById(
+            "jsonOutput"
+        );
+
+    try {
+
+        await navigator.clipboard.writeText(
+            output.value
+        );
+
+        showToast("JSON copied!");
+
+    } catch {
+
+        output.select();
+        document.execCommand("copy");
+
+        showToast("JSON copied!");
+
     }
 
-    const blob=new Blob(
-        [json],
-        {
-            type:"application/json"
-        }
-    );
+}
 
-    const url=URL.createObjectURL(blob);
 
-    const link=document.createElement("a");
+/* =========================
+   DOWNLOAD JSON
+========================= */
 
-    link.href=url;
+function downloadJSON() {
 
-    link.download="ClientAppSettings.json";
+    generateJSON();
+
+    const data =
+        document.getElementById(
+            "jsonOutput"
+        ).value;
+
+    const blob =
+        new Blob(
+            [data],
+            {
+                type: "application/json"
+            }
+        );
+
+    const url =
+        URL.createObjectURL(blob);
+
+    const link =
+        document.createElement("a");
+
+    link.href = url;
+    link.download =
+        "ClientAppSettings.json";
 
     document.body.appendChild(link);
 
@@ -1204,159 +1288,124 @@ function exportFlags(){
 
     URL.revokeObjectURL(url);
 
-    if(installationMode==="nonroot"){
-
-        showToast(
-            "FFlags JSON exported"
-        );
-
-    }else{
-
-        showToast(
-            "ClientAppSettings.json exported"
-        );
-
-    }
+    showToast("ClientAppSettings.json downloaded!");
 
 }
 
-async function copyFlags(){
 
-    const json=createJSON();
+/* =========================
+   TOAST
+========================= */
 
-    if(!json){
+let toastTimeout;
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById("toast");
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    clearTimeout(toastTimeout);
+
+    toastTimeout =
+        setTimeout(() => {
+
+            toast.classList.remove("show");
+
+        }, 2200);
+
+}
+
+
+/* =========================
+   SAVE SETTINGS LOCALLY
+========================= */
+
+function saveSettings() {
+
+    const settings = {};
+
+    document.querySelectorAll(
+        'input[type="checkbox"][data-flag]'
+    ).forEach(input => {
+
+        settings[input.dataset.flag] =
+            input.checked;
+
+    });
+
+    localStorage.setItem(
+        "bloxstrapMobileFlags",
+        JSON.stringify(settings)
+    );
+
+}
+
+
+function loadSettings() {
+
+    const saved =
+        localStorage.getItem(
+            "bloxstrapMobileFlags"
+        );
+
+    if (!saved) {
         return;
     }
 
-    try{
+    try {
 
-        await navigator.clipboard.writeText(json);
+        const settings =
+            JSON.parse(saved);
 
-        showToast(
-            "FFlags JSON copied"
-        );
+        document.querySelectorAll(
+            'input[type="checkbox"][data-flag]'
+        ).forEach(input => {
 
-    }catch(e){
+            const flag =
+                input.dataset.flag;
 
-        const preview=
-            document.getElementById("preview");
+            if (
+                Object.prototype.hasOwnProperty.call(
+                    settings,
+                    flag
+                )
+            ) {
+                input.checked =
+                    settings[flag];
+            }
 
-        const textarea=
-            document.getElementById("jsonPreview");
+        });
 
-        textarea.value=json;
+    } catch {
 
-        preview.style.display="block";
-
-        textarea.select();
-
-        document.execCommand("copy");
-
-        showToast(
-            "FFlags JSON copied"
+        localStorage.removeItem(
+            "bloxstrapMobileFlags"
         );
 
     }
 
 }
 
-function clearFlags(){
 
-    switches.forEach(input=>{
+document.querySelectorAll(
+    'input[type="checkbox"][data-flag]'
+).forEach(input => {
 
-        input.checked=false;
-
-        const value=document.querySelector(
-            `[data-value="${input.dataset.flag}"]`
-        );
-
-        if(value){
-
-            value.disabled=true;
-            value.value="";
-
-        }
-
-    });
-
-    saveSettings();
-
-    showToast(
-        "Flags cleared"
+    input.addEventListener(
+        "change",
+        saveSettings
     );
-
-}
-
-function resetSettings(){
-
-    localStorage.removeItem(
-        "bloxstrap_mobile_flags"
-    );
-
-    switches.forEach(input=>{
-
-        input.checked=false;
-
-        const value=document.querySelector(
-            `[data-value="${input.dataset.flag}"]`
-        );
-
-        if(value){
-
-            value.disabled=true;
-            value.value="";
-
-        }
-
-    });
-
-    updateCount();
-
-    showToast(
-        "Settings reset"
-    );
-
-}
-
-document.getElementById("search")
-.addEventListener("input",function(){
-
-    const query=this.value
-        .toLowerCase()
-        .trim();
-
-    let visible=0;
-
-    document.querySelectorAll(".flag")
-    .forEach(flag=>{
-
-        const name=flag
-            .querySelector(".flag-name")
-            .textContent
-            .toLowerCase();
-
-        const show=name.includes(query);
-
-        flag.style.display=
-            show ? "" : "none";
-
-        if(show){
-            visible++;
-        }
-
-    });
-
-    document.getElementById("empty")
-        .style.display=
-            visible===0
-            ? "block"
-            : "none";
 
 });
+
 
 loadSettings();
 
 </script>
 
 </body>
-</html>
+    </html>
