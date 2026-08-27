@@ -2,2266 +2,2974 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bloxstrap Mobile</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#e2231a">
+
+<title>Shidoustrap</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*{
+ box-sizing:border-box;
+ margin:0;
+ padding:0;
 }
 
-:root {
-    --red: #e2231a;
-    --red2: #ff3b30;
-    --dark-red: #8f1712;
-    --bg: #080808;
-    --panel: #111111;
-    --panel2: #171717;
-    --border: #292929;
-    --text: #fff;
-    --muted: #999;
+:root{
+ --red:#e2231a;
+ --red2:#ff3930;
+ --pink:#ff4fa3;
+ --black:#151515;
+ --bg:#f4f4f4;
+ --white:#fff;
+ --line:#dedede;
+ --text:#171717;
+ --muted:#777;
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background:
-        radial-gradient(circle at 50% -15%, #3a0b08 0%, transparent 42%),
-        var(--bg);
-    color: var(--text);
-    min-height: 100vh;
+html{
+ scroll-behavior:smooth;
 }
 
-/* HEADER */
-
-.header {
-    height: 68px;
-    background: rgba(10,10,10,.94);
-    backdrop-filter: blur(15px);
-    border-bottom: 1px solid #292929;
-
-    display: flex;
-    align-items: center;
-    gap: 22px;
-
-    padding: 0 24px;
-
-    position: sticky;
-    top: 0;
-    z-index: 100;
+body{
+ font-family:Arial,Helvetica,sans-serif;
+ background:var(--bg);
+ color:var(--text);
+ overflow-x:hidden;
 }
 
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+/* PAGE LOAD */
 
-    font-size: 21px;
-    font-weight: 900;
-    white-space: nowrap;
+body{
+ animation:pageIn .45s ease;
 }
 
-.logo-box {
-    width: 35px;
-    height: 35px;
-
-    background: var(--red);
-    border-radius: 9px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    box-shadow: 0 6px 22px rgba(226,35,26,.25);
+@keyframes pageIn{
+ from{
+  opacity:0;
+  transform:translateY(8px);
+ }
+ to{
+  opacity:1;
+  transform:translateY(0);
+ }
 }
 
-.logo-box svg {
-    width: 20px;
-    height: 20px;
-    fill: white;
+/* TOP */
+
+.top{
+ position:fixed;
+ top:0;
+ left:0;
+ right:0;
+ height:62px;
+ z-index:1000;
+
+ display:flex;
+ align-items:center;
+
+ background:rgba(255,255,255,.94);
+ backdrop-filter:blur(14px);
+
+ border-bottom:1px solid var(--line);
+
+ animation:topIn .45s ease;
 }
 
-.logo span {
-    color: var(--red);
+@keyframes topIn{
+ from{
+  transform:translateY(-100%);
+ }
+ to{
+  transform:translateY(0);
+ }
 }
 
-.nav {
-    display: flex;
-    gap: 4px;
+.logo{
+ width:245px;
+ height:62px;
+
+ display:flex;
+ align-items:center;
+ gap:11px;
+
+ padding:0 20px;
+
+ border-right:1px solid var(--line);
+
+ font-size:18px;
+ font-weight:900;
 }
 
-.nav button {
-    display: flex;
-    align-items: center;
-    gap: 7px;
+.logo-box{
+ width:34px;
+ height:34px;
 
-    background: transparent;
-    color: #999;
+ display:grid;
+ place-items:center;
 
-    border: 0;
-    border-radius: 8px;
+ border-radius:8px;
 
-    padding: 10px 12px;
+ background:linear-gradient(
+  135deg,
+  var(--red),
+  var(--pink)
+ );
 
-    cursor: pointer;
+ color:#fff;
 
-    font-size: 12px;
-    font-weight: 700;
+ box-shadow:
+  0 5px 18px rgba(226,35,26,.25);
 
-    transition: .2s;
+ transition:.25s;
 }
 
-.nav button svg {
-    width: 16px;
-    height: 16px;
-    fill: currentColor;
+.logo:hover .logo-box{
+ transform:rotate(-7deg) scale(1.08);
 }
 
-.nav button:hover {
-    color: white;
-    background: #1d1d1d;
+.logo span{
+ color:var(--red);
 }
 
-.nav button.active {
-    color: white;
-    background: var(--red);
-    box-shadow: 0 5px 18px rgba(226,35,26,.2);
+.top-right{
+ flex:1;
+
+ display:flex;
+ justify-content:flex-end;
+ align-items:center;
+
+ padding:0 24px;
 }
 
-.profile {
-    margin-left: auto;
-
-    display: flex;
-    align-items: center;
-    gap: 9px;
+.project-status{
+ font-size:11px;
+ color:#777;
 }
 
-.profile img {
-    width: 38px;
-    height: 38px;
+.dot{
+ display:inline-block;
 
-    border-radius: 50%;
-    object-fit: cover;
+ width:7px;
+ height:7px;
 
-    background: #222;
-    border: 2px solid #3a3a3a;
+ margin-right:6px;
+
+ border-radius:50%;
+
+ background:#24a148;
+
+ box-shadow:0 0 0 4px rgba(36,161,72,.1);
 }
 
-.profile-name {
-    font-size: 13px;
-    font-weight: 700;
+/* SIDEBAR */
+
+.sidebar{
+ position:fixed;
+
+ top:62px;
+ left:0;
+ bottom:0;
+
+ width:245px;
+
+ padding:18px 12px;
+
+ background:#fff;
+
+ border-right:1px solid var(--line);
+
+ z-index:900;
+
+ animation:sideIn .5s ease;
+}
+
+@keyframes sideIn{
+ from{
+  transform:translateX(-30px);
+  opacity:0;
+ }
+ to{
+  transform:translateX(0);
+  opacity:1;
+ }
+}
+
+.side-title{
+ color:#999;
+
+ font-size:10px;
+ font-weight:900;
+
+ letter-spacing:1px;
+
+ padding:10px;
+
+ text-transform:uppercase;
+}
+
+.menu{
+ display:flex;
+ flex-direction:column;
+ gap:3px;
+}
+
+.menu button{
+ border:0;
+
+ background:transparent;
+
+ color:#555;
+
+ width:100%;
+
+ padding:11px 12px;
+
+ border-radius:7px;
+
+ text-align:left;
+
+ font-size:13px;
+ font-weight:650;
+
+ display:flex;
+ align-items:center;
+
+ gap:12px;
+
+ transition:
+  background .18s,
+  color .18s,
+  transform .18s;
+}
+
+.menu button:hover{
+ background:#f3f3f3;
+ color:#111;
+ transform:translateX(3px);
+}
+
+.menu button.active{
+ background:#fff0ef;
+ color:var(--red);
+}
+
+.icon{
+ width:19px;
+ text-align:center;
+ font-weight:900;
 }
 
 /* MAIN */
 
-.container {
-    width: min(1150px, calc(100% - 30px));
-    margin: auto;
-    padding: 35px 0 60px;
+.main{
+ margin-left:245px;
+ padding-top:62px;
+
+ min-height:100vh;
 }
 
-/* HERO */
+.page{
+ max-width:1250px;
 
-.hero {
-    position: relative;
-    overflow: hidden;
+ margin:auto;
 
-    background:
-        linear-gradient(135deg, #210907, #111 65%);
+ padding:34px;
 
-    border: 1px solid #431814;
-    border-radius: 18px;
-
-    padding: 38px;
-
-    margin-bottom: 25px;
+ animation:contentIn .35s ease;
 }
 
-.hero::after {
-    content: "";
-
-    position: absolute;
-
-    width: 330px;
-    height: 330px;
-
-    right: -130px;
-    top: -180px;
-
-    background: var(--red);
-    opacity: .13;
-
-    transform: rotate(25deg);
+@keyframes contentIn{
+ from{
+  opacity:0;
+  transform:translateY(12px);
+ }
+ to{
+  opacity:1;
+  transform:translateY(0);
+ }
 }
 
-.hero-content {
-    position: relative;
-    z-index: 2;
+.hidden{
+ display:none!important;
 }
 
-.hero-label {
-    color: var(--red2);
+/* HEADER */
 
-    font-size: 11px;
-    font-weight: 900;
+.header{
+ display:flex;
 
-    letter-spacing: 2px;
+ align-items:flex-end;
+ justify-content:space-between;
 
-    margin-bottom: 9px;
+ gap:20px;
+
+ margin-bottom:25px;
 }
 
-.hero h1 {
-    font-size: 37px;
-    margin-bottom: 10px;
+.eyebrow{
+ color:var(--red);
+
+ font-size:10px;
+ font-weight:900;
+
+ letter-spacing:1px;
+
+ text-transform:uppercase;
 }
 
-.hero p {
-    color: #a2a2a2;
-    max-width: 700px;
+.header h1{
+ margin-top:5px;
 
-    font-size: 14px;
-    line-height: 1.7;
+ font-size:34px;
+
+ letter-spacing:-1.2px;
 }
 
-.status {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+.header p{
+ margin-top:7px;
 
-    margin-top: 19px;
+ color:var(--muted);
 
-    padding: 8px 12px;
-
-    background: #181818;
-    border: 1px solid #303030;
-    border-radius: 20px;
-
-    color: #aaa;
-
-    font-size: 11px;
-    font-weight: 700;
-}
-
-.status-dot {
-    width: 8px;
-    height: 8px;
-
-    background: #42d66b;
-    border-radius: 50%;
-}
-
-/* SECTIONS */
-
-.section {
-    display: none;
-    animation: fade .22s ease;
-}
-
-.section.active {
-    display: block;
-}
-
-@keyframes fade {
-    from {
-        opacity: 0;
-        transform: translateY(5px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.section-title {
-    margin-bottom: 17px;
-}
-
-.section-title h2 {
-    font-size: 23px;
-}
-
-.section-title p {
-    color: #777;
-    margin-top: 5px;
-    font-size: 13px;
-}
-
-/* GRID */
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-}
-
-/* CARD */
-
-.card {
-    background: var(--panel);
-    border: 1px solid var(--border);
-
-    border-radius: 14px;
-
-    padding: 20px;
-
-    transition: .2s;
-}
-
-.card:hover {
-    border-color: #444;
-    transform: translateY(-2px);
-}
-
-.card-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    margin-bottom: 14px;
-}
-
-.card-icon {
-    width: 31px;
-    height: 31px;
-
-    background: #2a0b09;
-    color: var(--red2);
-
-    border-radius: 8px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.card-icon svg {
-    width: 17px;
-    height: 17px;
-    fill: currentColor;
-}
-
-.card-title {
-    font-size: 15px;
-    font-weight: 800;
-}
-
-/* FLAGS */
-
-.flag {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 15px;
-
-    padding: 14px 0;
-
-    border-top: 1px solid #252525;
-}
-
-.flag:first-of-type {
-    border-top: 0;
-}
-
-.flag-info {
-    min-width: 0;
-}
-
-.flag-name {
-    font-size: 13px;
-    font-weight: 700;
-}
-
-.flag-key {
-    color: #626262;
-    font-size: 10px;
-    margin-top: 4px;
-    word-break: break-all;
-}
-
-input[type="number"],
-input[type="text"] {
-    width: 120px;
-
-    padding: 9px 10px;
-
-    color: white;
-    background: #0b0b0b;
-
-    border: 1px solid #353535;
-    border-radius: 7px;
-
-    outline: none;
-}
-
-input:focus {
-    border-color: var(--red);
-}
-
-/* TOGGLE */
-
-.toggle {
-    width: 44px;
-    height: 24px;
-
-    background: #303030;
-
-    border-radius: 20px;
-
-    position: relative;
-
-    cursor: pointer;
-
-    flex-shrink: 0;
-
-    transition: .2s;
-}
-
-.toggle::after {
-    content: "";
-
-    position: absolute;
-
-    width: 18px;
-    height: 18px;
-
-    left: 3px;
-    top: 3px;
-
-    background: #999;
-    border-radius: 50%;
-
-    transition: .2s;
-}
-
-.toggle.on {
-    background: var(--red);
-}
-
-.toggle.on::after {
-    transform: translateX(20px);
-    background: white;
+ font-size:13px;
 }
 
 /* BUTTONS */
 
-.actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-
-    margin-top: 24px;
+.primary,
+.secondary{
+ transition:
+  transform .18s,
+  box-shadow .18s,
+  background .18s;
 }
 
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+.primary{
+ border:0;
 
-    border: 0;
-    border-radius: 8px;
+ border-radius:7px;
 
-    padding: 12px 17px;
+ background:linear-gradient(
+  135deg,
+  var(--red),
+  var(--red2)
+ );
 
-    font-size: 12px;
-    font-weight: 800;
+ color:#fff;
 
-    cursor: pointer;
+ padding:12px 19px;
 
-    transition: .2s;
+ font-size:12px;
+ font-weight:800;
+
+ box-shadow:
+  0 5px 15px rgba(226,35,26,.16);
 }
 
-.btn svg {
-    width: 16px;
-    height: 16px;
-    fill: currentColor;
+.primary:hover{
+ transform:translateY(-2px);
+
+ box-shadow:
+  0 8px 22px rgba(226,35,26,.28);
 }
 
-.btn:hover {
-    transform: translateY(-1px);
-    filter: brightness(1.1);
+.primary:active{
+ transform:scale(.97);
 }
 
-.btn-primary {
-    background: var(--red);
-    color: white;
+.secondary{
+ border:1px solid var(--line);
+
+ border-radius:7px;
+
+ background:#fff;
+
+ padding:11px 17px;
+
+ font-size:12px;
+ font-weight:700;
 }
 
-.btn-secondary {
-    background: #242424;
-    color: white;
-    border: 1px solid #353535;
+.secondary:hover{
+ background:#f6f6f6;
+
+ transform:translateY(-1px);
 }
 
-.btn-danger {
-    background: #321211;
-    color: #ff7770;
-    border: 1px solid #57201c;
+/* HERO */
+
+.hero-card{
+ min-height:360px;
+
+ background:#fff;
+
+ border:1px solid var(--line);
+
+ border-radius:12px;
+
+ overflow:hidden;
+
+ display:grid;
+
+ grid-template-columns:1fr 390px;
+
+ box-shadow:
+  0 5px 25px rgba(0,0,0,.035);
+
+ animation:heroIn .55s ease;
 }
 
-/* EXPORT */
-
-.export-box {
-    background: #101010;
-    border: 1px solid #292929;
-    border-radius: 14px;
-
-    padding: 20px;
+@keyframes heroIn{
+ from{
+  opacity:0;
+  transform:scale(.98);
+ }
+ to{
+  opacity:1;
+  transform:scale(1);
+ }
 }
 
-.export-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+.hero-text{
+ padding:45px;
 
-    margin-bottom: 8px;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
 }
 
-.export-icon {
-    width: 38px;
-    height: 38px;
+.hero-text h2{
+ font-size:47px;
 
-    background: #2b0b09;
-    color: var(--red2);
+ line-height:.95;
 
-    border-radius: 9px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
+ letter-spacing:-3px;
 }
 
-.export-icon svg {
-    width: 20px;
-    height: 20px;
-    fill: currentColor;
+.hero-text h2 span{
+ color:var(--red);
 }
 
-.export-box h3 {
-    font-size: 16px;
+.hero-text p{
+ max-width:570px;
+
+ margin-top:20px;
+
+ color:var(--muted);
+
+ line-height:1.7;
+
+ font-size:14px;
 }
 
-.export-box p {
-    color: #777;
-    font-size: 13px;
-    margin-bottom: 15px;
+.hero-actions{
+ display:flex;
+ gap:10px;
+
+ margin-top:25px;
 }
 
-pre {
-    background: #070707;
+.shidou{
+ position:relative;
 
-    border: 1px solid #252525;
-    border-radius: 9px;
+ background:
+ linear-gradient(
+  145deg,
+  #ef3028,
+  #a9130e
+ );
 
-    padding: 16px;
-
-    color: #aaa;
-
-    overflow: auto;
-
-    font-size: 11px;
-    line-height: 1.5;
-
-    max-height: 300px;
+ overflow:hidden;
 }
 
-/* AUTHOR */
+.shidou:before{
+ content:"SHIDOU";
 
-.author-section {
-    margin-top: 50px;
+ position:absolute;
+
+ right:-30px;
+ bottom:70px;
+
+ color:rgba(255,255,255,.08);
+
+ font-size:90px;
+ font-weight:900;
+
+ transform:rotate(-90deg);
 }
 
-.author-title {
-    margin-bottom: 13px;
+.shidou:after{
+ content:"";
+
+ position:absolute;
+
+ width:240px;
+ height:240px;
+
+ border-radius:50%;
+
+ background:
+ radial-gradient(
+  circle,
+  rgba(255,79,163,.35),
+  transparent 70%
+ );
+
+ top:-70px;
+ right:-70px;
+
+ animation:pulse 4s infinite ease-in-out;
 }
 
-.author-title h2 {
-    font-size: 22px;
+@keyframes pulse{
+ 0%,100%{
+  transform:scale(1);
+  opacity:.6;
+ }
+ 50%{
+  transform:scale(1.25);
+  opacity:1;
+ }
 }
 
-.author-title p {
-    color: #777;
-    font-size: 13px;
-    margin-top: 4px;
+.shidou img{
+ position:absolute;
+
+ inset:0;
+
+ width:100%;
+ height:100%;
+
+ object-fit:contain;
+
+ z-index:2;
+
+ transition:transform .5s ease;
 }
 
-.author-card {
-    position: relative;
-    overflow: hidden;
-
-    display: flex;
-    align-items: center;
-    gap: 30px;
-
-    padding: 32px;
-
-    background:
-        linear-gradient(135deg, #210907, #121212 70%);
-
-    border: 1px solid #481814;
-    border-radius: 18px;
-
-    transition: .25s;
+.shidou:hover img{
+ transform:scale(1.04);
 }
 
-.author-card::before {
-    content: "";
+/* STATS */
 
-    position: absolute;
+.stats{
+ display:grid;
 
-    width: 380px;
-    height: 380px;
+ grid-template-columns:
+ repeat(4,1fr);
 
-    right: -180px;
-    top: -190px;
+ gap:10px;
 
-    background: var(--red);
-
-    opacity: .09;
-
-    transform: rotate(25deg);
+ margin-top:14px;
 }
 
-.author-card:hover {
-    border-color: #66221d;
-    transform: translateY(-2px);
+.stat{
+ background:#fff;
+
+ border:1px solid var(--line);
+
+ border-radius:9px;
+
+ padding:20px;
+
+ transition:
+  transform .2s,
+  box-shadow .2s;
 }
 
-.author-avatar-wrapper {
-    position: relative;
-    flex-shrink: 0;
-    z-index: 2;
+.stat:hover{
+ transform:translateY(-3px);
+
+ box-shadow:
+ 0 10px 25px rgba(0,0,0,.06);
 }
 
-.author-avatar {
-    width: 150px;
-    height: 150px;
+.stat strong{
+ display:block;
 
-    display: block;
-
-    object-fit: cover;
-
-    border-radius: 17px;
-
-    background: #191919;
-
-    border: 3px solid #4a2522;
-
-    box-shadow:
-        0 12px 35px rgba(0,0,0,.35);
+ font-size:22px;
 }
 
-.online-dot {
-    position: absolute;
+.stat span{
+ display:block;
 
-    right: 5px;
-    bottom: 5px;
+ color:#888;
 
-    width: 22px;
-    height: 22px;
+ margin-top:5px;
 
-    background: #42d66b;
-
-    border: 4px solid #181818;
-
-    border-radius: 50%;
+ font-size:11px;
 }
 
-.author-info {
-    position: relative;
-    z-index: 2;
+/* TOOLS */
+
+.tools{
+ display:flex;
+
+ gap:8px;
+
+ margin-bottom:12px;
 }
 
-.author-label {
-    color: var(--red2);
-
-    font-size: 11px;
-    font-weight: 900;
-
-    letter-spacing: 2px;
-
-    margin-bottom: 7px;
+input[type=file]{
+ display:none;
 }
 
-.author-info h2 {
-    font-size: 30px;
-    margin-bottom: 9px;
+/* SEARCH */
+
+.flag-toolbar{
+ display:flex;
+
+ gap:9px;
+
+ margin-bottom:12px;
 }
 
-.author-description {
-    max-width: 700px;
+.search{
+ flex:1;
 
-    color: #a0a0a0;
+ height:44px;
 
-    font-size: 14px;
-    line-height: 1.65;
+ border:1px solid var(--line);
+
+ border-radius:7px;
+
+ background:#fff;
+
+ padding:0 14px;
+
+ outline:none;
+
+ font-size:13px;
+
+ transition:
+  border .2s,
+  box-shadow .2s;
 }
 
-.author-tags {
-    display: flex;
-    flex-wrap: wrap;
+.search:focus{
+ border-color:var(--red);
 
-    gap: 7px;
-
-    margin-top: 16px;
+ box-shadow:
+ 0 0 0 3px rgba(226,35,26,.08);
 }
 
-.author-tags span {
-    background: #21100f;
+.filter{
+ width:180px;
 
-    border: 1px solid #3b1b18;
+ height:44px;
 
-    color: #bbb;
+ border:1px solid var(--line);
 
-    padding: 6px 10px;
+ border-radius:7px;
 
-    border-radius: 6px;
+ background:#fff;
 
-    font-size: 11px;
-    font-weight: 700;
+ padding:0 10px;
+
+ outline:none;
+
+ font-size:12px;
 }
 
-.profile-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+/* SUMMARY */
 
-    margin-top: 18px;
+.flag-summary{
+ display:flex;
 
-    padding: 12px 17px;
+ justify-content:space-between;
 
-    background: var(--red);
+ align-items:center;
 
-    color: white;
+ margin-bottom:9px;
 
-    text-decoration: none;
+ color:#777;
 
-    border-radius: 8px;
-
-    font-size: 12px;
-    font-weight: 800;
-
-    transition: .2s;
+ font-size:11px;
 }
 
-.profile-button:hover {
-    background: var(--red2);
-    transform: translateY(-1px);
+/* FLAG LIST */
+
+.flags{
+ background:#fff;
+
+ border:1px solid var(--line);
+
+ border-radius:10px;
+
+ overflow:hidden;
+
+ box-shadow:
+ 0 4px 18px rgba(0,0,0,.025);
 }
 
-.profile-button svg {
-    width: 15px;
-    height: 15px;
-    fill: currentColor;
+.flag-head,
+.flag{
+ display:grid;
+
+ grid-template-columns:
+ 1fr 145px;
 }
 
-/* FOOTER */
+.flag-head{
+ height:43px;
 
-.footer {
-    text-align: center;
+ align-items:center;
 
-    color: #555;
+ padding:0 20px;
 
-    font-size: 11px;
+ background:#fafafa;
 
-    margin-top: 35px;
+ border-bottom:1px solid var(--line);
+
+ color:#999;
+
+ font-size:9px;
+ font-weight:900;
+
+ text-transform:uppercase;
 }
 
-.footer strong {
-    color: #888;
+.flag{
+ min-height:91px;
+
+ padding:16px 20px;
+
+ align-items:center;
+
+ border-bottom:1px solid #eee;
+
+ transition:
+  background .18s,
+  transform .18s,
+  box-shadow .18s;
+}
+
+.flag:last-child{
+ border-bottom:0;
+}
+
+.flag:hover{
+ background:#fdfdfd;
+
+ box-shadow:
+ inset 3px 0 0 var(--red);
+}
+
+.flag-name{
+ font-size:14px;
+
+ font-weight:800;
+}
+
+.flag-key{
+ margin-top:4px;
+
+ color:#aaa;
+
+ font-family:monospace;
+
+ font-size:10px;
+}
+
+.flag-desc{
+ margin-top:5px;
+
+ color:#777;
+
+ font-size:12px;
+}
+
+.tag{
+ display:inline-block;
+
+ margin-top:7px;
+
+ padding:3px 6px;
+
+ border-radius:4px;
+
+ background:#fff0ef;
+
+ color:var(--red);
+
+ font-size:8px;
+ font-weight:900;
+
+ text-transform:uppercase;
+}
+
+.control{
+ display:flex;
+
+ justify-content:flex-end;
+
+ align-items:center;
+}
+
+.number{
+ width:105px;
+
+ height:36px;
+
+ border:1px solid var(--line);
+
+ border-radius:6px;
+
+ background:#fafafa;
+
+ text-align:center;
+
+ outline:none;
+
+ transition:.18s;
+}
+
+.number:focus{
+ border-color:var(--red);
+
+ background:#fff;
+
+ box-shadow:
+ 0 0 0 3px rgba(226,35,26,.06);
+}
+
+.select{
+ width:115px;
+
+ height:36px;
+
+ border:1px solid var(--line);
+
+ border-radius:6px;
+
+ background:#fafafa;
+
+ padding:0 7px;
+
+ outline:none;
+
+ font-size:12px;
+}
+
+/* SWITCH */
+
+.switch{
+ position:relative;
+
+ width:44px;
+ height:24px;
+}
+
+.switch input{
+ display:none;
+}
+
+.slider{
+ position:absolute;
+
+ inset:0;
+
+ border-radius:20px;
+
+ background:#c8c8c8;
+
+ cursor:pointer;
+
+ transition:.22s;
+}
+
+.slider:before{
+ content:"";
+
+ position:absolute;
+
+ width:18px;
+ height:18px;
+
+ top:3px;
+ left:3px;
+
+ border-radius:50%;
+
+ background:#fff;
+
+ box-shadow:
+ 0 1px 3px #0003;
+
+ transition:.22s;
+}
+
+.switch input:checked+.slider{
+ background:linear-gradient(
+  135deg,
+  var(--red),
+  var(--pink)
+ );
+
+ box-shadow:
+ 0 0 12px rgba(226,35,26,.25);
+}
+
+.switch input:checked+.slider:before{
+ transform:translateX(20px);
+}
+
+/* ABOUT */
+
+.about{
+ display:flex;
+
+ align-items:center;
+
+ gap:22px;
+
+ padding:25px;
+
+ background:#fff;
+
+ border:1px solid var(--line);
+
+ border-radius:10px;
+
+ box-shadow:
+ 0 5px 20px rgba(0,0,0,.03);
+}
+
+.avatar{
+ width:90px;
+ height:90px;
+
+ flex-shrink:0;
+
+ overflow:hidden;
+
+ border-radius:10px;
+
+ border:3px solid var(--red);
+
+ transition:.25s;
+}
+
+.avatar:hover{
+ transform:rotate(-3deg) scale(1.04);
+}
+
+.avatar img{
+ width:100%;
+ height:100%;
+
+ object-fit:cover;
+}
+
+.about h2{
+ font-size:22px;
+}
+
+.about p{
+ margin-top:7px;
+
+ color:#777;
+
+ font-size:13px;
+
+ line-height:1.7;
 }
 
 /* TOAST */
 
-.toast {
-    position: fixed;
+.toast{
+ position:fixed;
 
-    left: 50%;
-    bottom: 25px;
+ z-index:3000;
 
-    transform:
-        translateX(-50%)
-        translateY(20px);
+ right:22px;
+ bottom:22px;
 
-    padding: 12px 17px;
+ padding:13px 17px;
 
-    background: #202020;
+ border-radius:8px;
 
-    border: 1px solid #3b3b3b;
+ background:#191919;
 
-    border-radius: 9px;
+ color:#fff;
 
-    color: white;
+ font-size:12px;
+ font-weight:700;
 
-    font-size: 12px;
-    font-weight: 700;
+ box-shadow:
+ 0 10px 35px rgba(0,0,0,.25);
 
-    opacity: 0;
+ transform:
+ translateY(25px)
+ scale(.96);
 
-    pointer-events: none;
+ opacity:0;
 
-    transition: .25s;
+ pointer-events:none;
 
-    z-index: 200;
+ transition:.25s;
 }
 
-.toast.show {
-    opacity: 1;
+.toast.show{
+ transform:
+ translateY(0)
+ scale(1);
 
-    transform:
-        translateX(-50%)
-        translateY(0);
+ opacity:1;
+}
+
+/* EMPTY */
+
+.empty{
+ padding:45px 20px;
+
+ text-align:center;
+
+ color:#999;
+
+ font-size:13px;
+}
+
+.empty strong{
+ display:block;
+
+ color:#444;
+
+ font-size:16px;
+
+ margin-bottom:5px;
 }
 
 /* MOBILE */
 
-@media(max-width: 800px) {
+@media(max-width:850px){
 
-    .header {
-        height: 62px;
-        padding: 0 14px;
-    }
+ .logo{
+  width:auto;
+  border:0;
+ }
 
-    .nav {
-        display: none;
-    }
+ .top-right{
+  display:none;
+ }
 
-    .profile-name {
-        display: none;
-    }
+ .sidebar{
+  top:auto;
+  bottom:0;
+  left:0;
 
-    .container {
-        width: min(100% - 24px, 650px);
-        padding-top: 20px;
-    }
+  width:100%;
+  height:62px;
 
-    .hero {
-        padding: 25px;
-    }
+  padding:5px;
 
-    .hero h1 {
-        font-size: 28px;
-    }
+  border-right:0;
+  border-top:1px solid var(--line);
+ }
 
-    .grid {
-        grid-template-columns: 1fr;
-    }
+ .side-title{
+  display:none;
+ }
 
-    .author-card {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 25px;
-    }
+ .menu{
+  height:100%;
 
-    .author-avatar {
-        width: 120px;
-        height: 120px;
-    }
+  flex-direction:row;
 
-    .author-info h2 {
-        font-size: 25px;
-    }
+  justify-content:space-around;
+ }
 
+ .menu button{
+  flex:1;
+
+  justify-content:center;
+
+  padding:5px;
+
+  font-size:9px;
+
+  flex-direction:column;
+
+  gap:2px;
+ }
+
+ .icon{
+  font-size:15px;
+ }
+
+ .main{
+  margin-left:0;
+
+  padding-bottom:70px;
+ }
+
+ .page{
+  padding:22px 14px;
+ }
+
+ .header{
+  align-items:flex-start;
+
+  flex-direction:column;
+ }
+
+ .hero-card{
+  grid-template-columns:1fr;
+ }
+
+ .shidou{
+  height:300px;
+
+  order:-1;
+ }
+
+ .hero-text{
+  padding:28px;
+ }
+
+ .hero-text h2{
+  font-size:39px;
+ }
+
+ .stats{
+  grid-template-columns:
+  repeat(2,1fr);
+ }
+
+ .flag-head{
+  display:none;
+ }
+
+ .flag{
+  grid-template-columns:1fr;
+
+  gap:15px;
+
+  padding:18px;
+ }
+
+ .control{
+  justify-content:flex-start;
+ }
+
+ .flag-toolbar{
+  flex-direction:column;
+ }
+
+ .filter{
+  width:100%;
+ }
+
+ .about{
+  flex-direction:column;
+
+  text-align:center;
+ }
 }
 
-@media(max-width: 430px) {
+@media(max-width:500px){
 
-    .hero {
-        padding: 21px;
-    }
+ .stats{
+  grid-template-columns:1fr;
+ }
 
-    .hero h1 {
-        font-size: 25px;
-    }
+ .hero-actions{
+  flex-direction:column;
+ }
 
-    .flag {
-        align-items: flex-start;
-    }
+ .hero-actions button{
+  width:100%;
+ }
 
-    input[type="number"],
-    input[type="text"] {
-        width: 100px;
-    }
+ .tools{
+  flex-wrap:wrap;
+ }
 
+ .tools>*{
+  flex:1;
+  text-align:center;
+ }
 }
 </style>
 </head>
 
 <body>
 
-<header class="header">
+<header class="top">
 
-    <div class="logo">
+ <div class="logo">
 
-        <div class="logo-box">
+  <div class="logo-box">
+   S
+  </div>
 
-            <svg viewBox="0 0 24 24">
-                <path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/>
-            </svg>
+  Shidou<span>strap</span>
 
-        </div>
+ </div>
 
-        Blox<span>strap</span>
+ <div class="top-right">
 
-    </div>
+  <div class="project-status">
+   <span class="dot"></span>
+   Official Project
+  </div>
 
-
-    <nav class="nav">
-
-        <button
-            class="active"
-            onclick="showSection('performance', this)"
-        >
-
-            <svg viewBox="0 0 24 24">
-                <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
-            </svg>
-
-            Performance
-
-        </button>
-
-
-        <button
-            onclick="showSection('graphics', this)"
-        >
-
-            <svg viewBox="0 0 24 24">
-                <path d="M12 3a9 9 0 100 18 9 9 0 000-18zm1 4h-2v6h6v-2h-4V7z"/>
-            </svg>
-
-            Graphics
-
-        </button>
-
-
-        <button
-            onclick="showSection('network', this)"
-        >
-
-            <svg viewBox="0 0 24 24">
-                <path d="M12 18a2 2 0 110-4 2 2 0 010 4zm-6-4a8 8 0 0112 0l-2 1.5a5.5 5.5 0 00-8 0L6 14zm-3-4a12 12 0 0118 0l-2 1.5a9.5 9.5 0 00-14 0L3 10z"/>
-            </svg>
-
-            Network
-
-        </button>
-
-
-        <button
-            onclick="showSection('interface', this)"
-        >
-
-            <svg viewBox="0 0 24 24">
-                <path d="M4 4h16v16H4V4zm3 3v3h3V7H7zm0 5v5h3v-5H7zm5-5v10h5V7h-5z"/>
-            </svg>
-
-            Interface
-
-        </button>
-
-
-        <button
-            onclick="showSection('export', this)"
-        >
-
-            <svg viewBox="0 0 24 24">
-                <path d="M5 20h14v-2H5v2zM12 3l-5 5h3v6h4V8h3l-5-5z"/>
-            </svg>
-
-            Export
-
-        </button>
-
-    </nav>
-
-
-    <div class="profile">
-
-        <img
-            id="headerAvatar"
-            src="awatar.webp"
-            alt="MemeSTRONYxddd"
-        >
-
-        <span class="profile-name">
-            MemeSTRONYxddd
-        </span>
-
-    </div>
+ </div>
 
 </header>
 
 
-<main class="container">
+<aside class="sidebar">
 
-    <!-- HERO -->
+ <div class="side-title">
+  Dashboard
+ </div>
 
-    <section class="hero">
+ <div class="menu">
 
-        <div class="hero-content">
+  <button
+   class="active"
+   onclick="page('home',this)"
+  >
+   <span class="icon">⌂</span>
+   Home
+  </button>
 
-            <div class="hero-label">
-                UNOFFICIAL ROBLOX TOOL
-            </div>
+  <button onclick="page('flags',this)">
+   <span class="icon">⚙</span>
+   Fast Flags
+  </button>
 
-            <h1>
-                Bloxstrap Mobile
-            </h1>
+  <button onclick="page('performance',this)">
+   <span class="icon">⚡</span>
+   Performance
+  </button>
 
-            <p>
-                A simple interface for configuring supported
-                Roblox client settings on mobile.
-                Configure your settings and export your
-                configuration as ClientAppSettings.json.
-            </p>
+  <button onclick="page('graphics',this)">
+   <span class="icon">◈</span>
+   Graphics
+  </button>
 
-            <div class="status">
+  <button onclick="page('about',this)">
+   <span class="icon">ⓘ</span>
+   About
+  </button>
 
-                <span class="status-dot"></span>
+ </div>
 
-                Configuration ready
-
-            </div>
-
-        </div>
-
-    </section>
+</aside>
 
 
-    <!-- PERFORMANCE -->
+<main class="main">
 
-    <section
-        id="performance"
-        class="section active"
+<!-- HOME -->
+
+<section id="home" class="page">
+
+ <div class="header">
+
+  <div>
+   <div class="eyebrow">
+    Official Project
+   </div>
+
+   <h1>
+    Shidoustrap
+   </h1>
+
+   <p>
+    Roblox-inspired Fast Flag configuration dashboard.
+   </p>
+  </div>
+
+  <button
+   class="primary"
+   onclick="openFlags()"
+  >
+   Configure Fast Flags
+  </button>
+
+ </div>
+
+
+ <div class="hero-card">
+
+  <div class="hero-text">
+
+   <h2>
+    Your Roblox.<br>
+    <span>Your settings.</span>
+   </h2>
+
+   <p>
+    Configure supported client settings through a
+    clean interface designed around the Roblox
+    dashboard experience.
+   </p>
+
+   <div class="hero-actions">
+
+    <button
+     class="primary"
+     onclick="openFlags()"
     >
+     Open Configuration
+    </button>
 
-        <div class="section-title">
-
-            <h2>Performance</h2>
-
-            <p>
-                Configure performance-related settings.
-            </p>
-
-        </div>
-
-
-        <div class="grid">
-
-            <div class="card">
-
-                <div class="card-header">
-
-                    <div class="card-icon">
-
-                        <svg viewBox="0 0 24 24">
-                            <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
-                        </svg>
-
-                    </div>
-
-                    <span class="card-title">
-                        Frame Rate
-                    </span>
-
-                </div>
-
-
-                <div class="flag">
-
-                    <div class="flag-info">
-
-                        <div class="flag-name">
-                            Target FPS
-                        </div>
-
-                        <div class="flag-key">
-                            DFIntTaskSchedulerTargetFps
-                        </div>
-
-                    </div>
-
-                    <input
-                        type="number"
-                        id="fps"
-                        value="120"
-                        min="1"
-                        max="1000"
-                    >
-
-                </div>
-
-
-                <div class="flag">
-
-                    <div class="flag-info">
-
-                        <div class="flag-name">
-                            Disable VSync
-                        </div>
-
-                        <div class="flag-key">
-                            FFlagDebugDisableVsync
-                        </div>
-
-                    </div>
-
-                    <div
-                        class="toggle"
-                        data-flag="FFlagDebugDisableVsync"
-                        onclick="toggleFlag(this)"
-                    ></div>
-
-                </div>
-
-            </div>
-
-
-            <div class="card">
-
-                <div class="card-header">
-
-                    <div class="card-icon">
-
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 2l3 6 7 .8-5 4.8 1.5 6.9L12 17l-6.5 3.5L7 13.6 2 8.8 9 8l3-6z"/>
-                        </svg>
-
-                    </div>
-
-                    <span class="card-title">
-                        Rendering
-                    </span>
-
-                </div>
-
-
-                <div class="flag">
-
-                    <div class="flag-info">
-
-                        <div class="flag-name">
-                            Disable Shadows
-                        </div>
-
-                        <div class="flag-key">
-                            FFlagDisableDynamicShadows
-                        </div>
-
-                    </div>
-
-                    <div
-                        class="toggle"
-                        data-flag="FFlagDisableDynamicShadows"
-                        onclick="toggleFlag(this)"
-                    ></div>
-
-                </div>
-
-
-                <div class="flag">
-
-                    <div class="flag-info">
-
-                        <div class="flag-name">
-                            Disable Post Effects
-                        </div>
-
-                        <div class="flag-key">
-                            FFlagDisablePostFx
-                        </div>
-
-                    </div>
-
-                    <div
-                        class="toggle"
-                        data-flag="FFlagDisablePostFx"
-                        onclick="toggleFlag(this)"
-                    ></div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- GRAPHICS -->
-
-    <section
-        id="graphics"
-        class="section"
+    <button
+     class="secondary"
+     onclick="exportFlags()"
     >
+     Export JSON
+    </button>
 
-        <div class="section-title">
+   </div>
 
-            <h2>Graphics</h2>
+  </div>
 
-            <p>
-                Configure visual quality settings.
-            </p>
 
-        </div>
+  <div class="shidou">
 
+   <img
+    src="shidou.png"
+    alt="Ryusei Shidou"
+   >
 
-        <div class="grid">
+  </div>
 
-            <div class="card">
+ </div>
 
-                <div class="card-header">
 
-                    <div class="card-icon">
+ <div class="stats">
 
-                        <svg viewBox="0 0 24 24">
-                            <path d="M4 4h16v16H4V4zm3 3v10h10V7H7z"/>
-                        </svg>
+  <div class="stat">
+   <strong id="statFlags">24</strong>
+   <span>Available settings</span>
+  </div>
 
-                    </div>
+  <div class="stat">
+   <strong id="statActive">0</strong>
+   <span>Enabled flags</span>
+  </div>
 
-                    <span class="card-title">
-                        Quality
-                    </span>
+  <div class="stat">
+   <strong>JSON</strong>
+   <span>Configuration export</span>
+  </div>
 
-                </div>
+  <div class="stat">
+   <strong>RED</strong>
+   <span>Shidoustrap identity</span>
+  </div>
 
+ </div>
 
-                <div class="flag">
+</section>
 
-                    <div class="flag-info">
 
-                        <div class="flag-name">
-                            Texture Quality
-                        </div>
+<!-- FLAGS -->
 
-                        <div class="flag-key">
-                            DFIntTextureQualityOverride
-                        </div>
+<section id="flags" class="page hidden">
 
-                    </div>
+ <div class="header">
 
-                    <input
-                        type="number"
-                        id="texture"
-                        value="1"
-                        min="0"
-                        max="3"
-                    >
+  <div>
+   <div class="eyebrow">
+    Configuration
+   </div>
 
-                </div>
+   <h1>
+    Fast Flags
+   </h1>
 
+   <p>
+    Manage your client configuration.
+   </p>
+  </div>
 
-                <div class="flag">
+  <button
+   class="primary"
+   onclick="exportFlags()"
+  >
+   Export JSON
+  </button>
 
-                    <div class="flag-info">
+ </div>
 
-                        <div class="flag-name">
-                            Disable Grass
-                        </div>
 
-                        <div class="flag-key">
-                            FFlagDisableGrassRendering
-                        </div>
+ <div class="tools">
 
-                    </div>
+  <label class="secondary">
+   Import JSON
 
-                    <div
-                        class="toggle"
-                        data-flag="FFlagDisableGrassRendering"
-                        onclick="toggleFlag(this)"
-                    ></div>
+   <input
+    type="file"
+    accept=".json"
+    onchange="importFlags(event)"
+   >
+  </label>
 
-                </div>
+  <button
+   class="secondary"
+   onclick="resetFlags()"
+  >
+   Reset All
+  </button>
 
-            </div>
+ </div>
 
 
-            <div class="card">
+ <div class="flag-toolbar">
 
-                <div class="card-header">
+  <input
+   class="search"
+   id="search"
+   placeholder="Search Fast Flags..."
+   oninput="filterFlags()"
+  >
 
-                    <div class="card-icon">
+  <select
+   class="filter"
+   id="filter"
+   onchange="filterFlags()"
+  >
 
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 5h-2v5H7v2h6V7z"/>
-                        </svg>
+   <option value="all">
+    All Categories
+   </option>
 
-                    </div>
+   <option value="performance">
+    Performance
+   </option>
 
-                    <span class="card-title">
-                        Visual Effects
-                    </span>
+   <option value="graphics">
+    Graphics
+   </option>
 
-                </div>
+   <option value="network">
+    Network
+   </option>
 
+   <option value="interface">
+    Interface
+   </option>
 
-                <div class="flag">
+ </select>
 
-                    <div class="flag-info">
+ </div>
 
-                        <div class="flag-name">
-                            Disable Bloom
-                        </div>
 
-                        <div class="flag-key">
-                            FFlagDisableBloom
-                        </div>
+ <div class="flag-summary">
 
-                    </div>
+  <span id="resultText">
+   24 settings
+  </span>
 
-                    <div
-                        class="toggle"
-                        data-flag="FFlagDisableBloom"
-                        onclick="toggleFlag(this)"
-                    ></div>
+  <span>
+   Local configuration
+  </span>
 
-                </div>
+ </div>
 
 
-                <div class="flag">
+ <div class="flags">
 
-                    <div class="flag-info">
+  <div class="flag-head">
+   <span>Setting</span>
+   <span>Value</span>
+  </div>
 
-                        <div class="flag-name">
-                            Disable Shadows
-                        </div>
 
-                        <div class="flag-key">
-                            FFlagDisableDynamicShadows
-                        </div>
+  <!-- PERFORMANCE -->
 
-                    </div>
+  <div class="flag"
+   data-category="performance"
+   data-name="target fps framerate">
 
-                    <div
-                        class="toggle"
-                        data-flag="FFlagDisableDynamicShadows"
-                        onclick="toggleFlag(this)"
-                    ></div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- NETWORK -->
-
-    <section
-        id="network"
-        class="section"
-    >
-
-        <div class="section-title">
-
-            <h2>Network</h2>
-
-            <p>
-                Network-related configuration.
-            </p>
-
-        </div>
-
-
-        <div class="grid">
-
-            <div class="card">
-
-                <div class="card-header">
-
-                    <div class="card-icon">
-
-                        <svg viewBox="0 0 24 24">
-                            <path d="M12 18a2 2 0 110-4 2 2 0 010 4zm-6-4a8 8 0 0112 0l-2 1.5a5.5 5.5 0 00-8 0L6 14zm-3-4a12 12 0 0118 0l-2 1.5a9.5 9.5 0 00-14 0L3 10z"/>
-                        </svg>
-
-                    </div>
-
-                    <span class="card-title">
-                        Network Settings
-                    </span>
-
-                </div>
-
-
-                <div class="flag">
-
-                    <div class="flag-info">
-
-                        <div class="flag-name">
-                            Network Ownership
-                        </div>
-
-                        <div class="flag-key">
-                            FFlagNetworkOwnershipRule
-                        </div>
-
-                    </div>
-
-                    <input
-                        type="text"
-                        id="networkRule"
-                        value="Default"
-                    >
-
-                </div>
-
-
-                <div class="flag">
-
-                    <div class="flag-info">
-
-                        <div class="flag-name">
-                            Optimize Network
-                        </div>
-
-                        <div class="flag-key">
-                            FFlagOptimizeNetwork
-                        </div>
-
-                    </div>
-
-                    <div
-                        class="toggle"
-                        data-flag="FFlagOptimizeNetwork"
-                        onclick="toggleFlag(this)"
-                    ></div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- INTERFACE -->
-
-    <section
-        id="interface"
-        class="section"
-    >
-
-        <div class="section-title">
-
-            <h2>Interface</h2>
-
-            <p>
-                Configure interface-related options.
-            </p>
-
-        </div>
-
-
-        <div class="grid">
-
-            <div class="card">
-
-                <div class="card-header">
-
-                    <div class="card-icon">
-
-                        <svg viewBox="0 0 24 24">
-                            <path d="M4 4h16v16H4V4zm3 3v3h3V7H7zm0 5v5h3v-5H7zm5-5v10h5V7h-5z"/>
-                        </svg>
-
-                    </div>
-
-                    <span class="card-title">
-                        User Interface
-                    </span>
-
-                </div>
-
-
-                <div class="flag">
-
-                    <div class="flag-info">
-
-                        <div class="flag-name">
-                            New UI
-                        </div>
-
-                        <div class="flag-key">
-                            FFlagEnableNewUI
-                        </div>
-
-                    </div>
-
-                    <div
-                        class="toggle"
-                        data-flag="FFlagEnableNewUI"
-                        onclick="toggleFlag(this)"
-                    ></div>
-
-                </div>
-
-
-                <div class="flag">
-
-                    <div class="flag-info">
-
-                        <div class="flag-name">
-                            Disable Ads
-                        </div>
-
-                        <div class="flag-key">
-                            FFlagDisableAds
-                        </div>
-
-                    </div>
-
-                    <div
-                        class="toggle"
-                        data-flag="FFlagDisableAds"
-                        onclick="toggleFlag(this)"
-                    ></div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- EXPORT -->
-
-    <section
-        id="export"
-        class="section"
-    >
-
-        <div class="section-title">
-
-            <h2>Export</h2>
-
-            <p>
-                Export your current configuration.
-            </p>
-
-        </div>
-
-
-        <div class="export-box">
-
-            <div class="export-header">
-
-                <div class="export-icon">
-
-                    <svg viewBox="0 0 24 24">
-                        <path d="M5 20h14v-2H5v2zM12 3l-5 5h3v6h4V8h3l-5-5z"/>
-                    </svg>
-
-                </div>
-
-                <h3>
-                    ClientAppSettings.json
-                </h3>
-
-            </div>
-
-
-            <p>
-                Your current configuration will appear here.
-            </p>
-
-
-            <pre id="jsonOutput">{}</pre>
-
-
-            <div class="actions">
-
-                <button
-                    class="btn btn-primary"
-                    onclick="exportJSON()"
-                >
-
-                    <svg viewBox="0 0 24 24">
-                        <path d="M5 20h14v-2H5v2zM12 3l-5 5h3v6h4V8h3l-5-5z"/>
-                    </svg>
-
-                    Download JSON
-
-                </button>
-
-
-                <button
-                    class="btn btn-secondary"
-                    onclick="copyJSON()"
-                >
-
-                    <svg viewBox="0 0 24 24">
-                        <path d="M8 7V5h11v11h-2V7H8zm-3 3h10v9H5v-9z"/>
-                    </svg>
-
-                    Copy JSON
-
-                </button>
-
-
-                <button
-                    class="btn btn-danger"
-                    onclick="resetFlags()"
-                >
-
-                    <svg viewBox="0 0 24 24">
-                        <path d="M6 7h12l-1 14H7L6 7zm3-3h6l1 2H8l1-2z"/>
-                    </svg>
-
-                    Reset
-
-                </button>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- GLOBAL ACTIONS -->
-
-    <div class="actions">
-
-        <button
-            class="btn btn-primary"
-            onclick="generateJSON(); showToast('Configuration applied')"
-        >
-
-            <svg viewBox="0 0 24 24">
-                <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/>
-            </svg>
-
-            Apply Configuration
-
-        </button>
-
-
-        <button
-            class="btn btn-secondary"
-            onclick="openExport()"
-        >
-
-            <svg viewBox="0 0 24 24">
-                <path d="M5 20h14v-2H5v2zM12 3l-5 5h3v6h4V8h3l-5-5z"/>
-            </svg>
-
-            Open Export
-
-        </button>
-
+   <div>
+    <div class="flag-name">
+     Target FPS
     </div>
 
+    <div class="flag-key">
+     FFlagGameBasicSettingsFramerateCap
+    </div>
 
-    <!-- ABOUT AUTHOR -->
+    <div class="flag-desc">
+     Configure the preferred frame-rate value.
+    </div>
 
-    <section class="author-section">
+    <span class="tag">
+     Performance
+    </span>
+   </div>
 
-        <div class="author-title">
+   <div class="control">
+    <input
+     class="number setting"
+     type="number"
+     min="1"
+     max="1000"
+     value="120"
+     data-flag="FFlagGameBasicSettingsFramerateCap"
+    >
+   </div>
 
-            <h2>
-                About the Author
-            </h2>
-
-            <p>
-                Information about the creator of Bloxstrap Mobile.
-            </p>
-
-        </div>
-
-
-        <div class="author-card">
-
-            <div class="author-avatar-wrapper">
-
-                <img
-                    class="author-avatar"
-                    src="awatar.webp"
-                    alt="MemeSTRONYxddd"
-                >
-
-                <div class="online-dot"></div>
-
-            </div>
+  </div>
 
 
-            <div class="author-info">
+  <div class="flag"
+   data-category="performance"
+   data-name="performance mode">
 
-                <div class="author-label">
-                    ABOUT THE AUTHOR
-                </div>
+   <div>
+    <div class="flag-name">
+     Performance Mode
+    </div>
 
+    <div class="flag-key">
+     FFlagDebugPerformanceMode
+    </div>
 
-                <h2>
-                    MemeSTRONYxddd
-                </h2>
+    <div class="flag-desc">
+     Toggle performance configuration.
+    </div>
 
+    <span class="tag">
+     Performance
+    </span>
+   </div>
 
-                <p class="author-description">
-                    Creator of Bloxstrap Mobile, an unofficial
-                    Roblox configuration project focused on
-                    providing a simple and clean interface for
-                    managing supported client settings.
-                </p>
+   <div class="control">
+    <label class="switch">
+     <input
+      class="setting"
+      type="checkbox"
+      data-flag="FFlagDebugPerformanceMode"
+     >
+     <span class="slider"></span>
+    </label>
+   </div>
 
-
-                <div class="author-tags">
-
-                    <span>
-                        Developer
-                    </span>
-
-                    <span>
-                        Roblox
-                    </span>
-
-                    <span>
-                        Bloxstrap Mobile
-                    </span>
-
-                </div>
-
-
-                <a
-                    class="profile-button"
-                    href="https://www.roblox.com/pl/users/11251088118/profile"
-                    target="_blank"
-                    rel="noopener"
-                >
-
-                    <svg viewBox="0 0 24 24">
-                        <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 5h-2v5H7v2h6V7z"/>
-                    </svg>
-
-                    View Roblox Profile
-
-                </a>
-
-            </div>
-
-        </div>
-
-    </section>
+  </div>
 
 
-    <footer class="footer">
+  <div class="flag"
+   data-category="performance"
+   data-name="low memory">
 
-        Bloxstrap Mobile • Unofficial project<br>
+   <div>
+    <div class="flag-name">
+     Low Memory Mode
+    </div>
 
-        <strong>
-            Created by MemeSTRONYxddd
-        </strong>
+    <div class="flag-key">
+     FFlagDebugLowMemoryMode
+    </div>
 
-    </footer>
+    <div class="flag-desc">
+     Toggle the low-memory configuration.
+    </div>
+
+    <span class="tag">
+     Performance
+    </span>
+   </div>
+
+   <div class="control">
+    <label class="switch">
+     <input
+      class="setting"
+      type="checkbox"
+      data-flag="FFlagDebugLowMemoryMode"
+     >
+     <span class="slider"></span>
+    </label>
+   </div>
+
+  </div>
+
+
+  <div class="flag"
+   data-category="performance"
+   data-name="rendering distance">
+
+   <div>
+    <div class="flag-name">
+     Rendering Distance
+    </div>
+
+    <div class="flag-key">
+     DFIntRenderDistance
+    </div>
+
+    <div class="flag-desc">
+     Configure the rendering distance value.
+    </div>
+
+    <span class="tag">
+     Performance
+    </span>
+   </div>
+
+   <div class="control">
+    <input
+     class="number setting"
+     type="number"
+     value="1000"
+     data-flag="DFIntRenderDistance"
+    >
+   </div>
+
+  </div>
+
+
+  <div class="flag"
+   data-category="performance"
+   data-name="frame limiter">
+
+   <div>
+    <div class="flag-name">
+     Frame Limiter
+    </div>
+
+    <div class="flag-key">
+     FFlagFrameRateLimiter
+    </div>
+
+    <div class="flag-desc">
+     Toggle the frame-rate limiter.
+    </div>
+
+    <span class="tag">
+     Performance
+    </span>
+   </div>
+
+   <div class="control">
+    <label class="switch">
+     <input
+      class="setting"
+      type="checkbox"
+      data-flag="FFlagFrameRateLimiter"
+     >
+     <span class="slider"></span>
+    </label>
+   </div>
+
+  </div>
+
+
+  <div class="flag"
+   data-category="performance"
+   data-name="scheduler">
+
+   <div>
+    <div class="flag-name">
+     Scheduler Optimization
+    </div>
+
+    <div class="flag-key">
+     FFlagTaskSchedulerOptimization
+    </div>
+
+    <div class="flag-desc">
+     Toggle scheduler optimization.
+    </div>
+
+    <span class="tag">
+     Performance
+    </span>
+   </div>
+
+   <div class="control">
+    <label class="switch">
+     <input
+      class="setting"
+      type="checkbox"
+      data-flag="FFlagTaskSchedulerOptimization"
+     >
+     <span class="slider"></span>
+    </label>
+   </div>
+
+  </div>
+
+
+  <!-- GRAPHICS -->
+
+  <div class="flag"
+   data-category="graphics"
+   data-name="texture quality">
+
+   <div>
+    <div class="flag-name">
+     Texture Quality
+    </div>
+
+    <div class="flag-key">
+     DFFlagTextureQualityOverride
+    </div>
+
+    <div class="flag-desc">
+     Select texture quality.
+    </div>
+
+    <span class="tag">
+     Graphics
+    </span>
+   </div>
+
+   <div class="control">
+    <select
+     class="select setting"
+     data-flag="DFFlagTextureQualityOverride"
+    >
+     <option value="0">Low</option>
+     <option value="1" selected>Medium</option>
+     <option value="2">High</option>
+    </select>
+   </div>
+
+  </div>
+
+
+  <div class="flag"
+   data-category="graphics"
+   data-name="disable shadows">
+
+   <div>
+    <div class="flag-name">
+     Disable Shadows
+    </div>
+
+    <div class="flag-key">
+     FFlagDisableShadows
+    </div>
+
+    <div class="flag-desc">
+     Toggle supported shadow rendering.
+    </div>
+
+    <span class="tag">
+     Graphics
+    </span>
+   </div>
+
+   <div class="control">
+    <label class="switch">
+     <input
+      class="setting"
+      type="checkbox"
+      data-flag="FFlagDisableShadows"
+     >
+     <span class="slider"></span>
+    </label>
+   </div>
+
+  </div>
+
+
+  <div class="flag"
+   data-category="graphics"
+   data-name="particle effects">
+
+   <div>
+    <div class="flag-name">
+     Particle Effects
+    </div>
+
+    <div class="flag-key">
+     FFlagEnableParticleEffects
+    </div>
+
+    <div class="flag-desc">
+     Toggle particle effects.
+    </div>
+
+    <span class="tag">
+     Graphics
+    </span>
+   </div>
+
+   <div class="control">
+    <label class="switch">
+     <input
+      class="setting"
+      type="checkbox"
+      data-flag="FFlagEnableParticleEffects"
+     >
+     <span class="slider"></span>
+    </label>
+   </div>
+
+  </div>
+
+
+  <div class="flag"
+   data-category="graphics"
+   data-name="post processing">
+
+   <div>
+    <div class="flag-name">
+     Post Processing
+    </div>
+
+    <div class="flag-key">
+     FFlagEnablePostProcessing
+    </div>
+
+    <div class="flag-desc">
+     Toggle post-processing effects.
+    </div>
+
+    <span class="tag">
+     Graphics
+    </span>
+   </div>
+
+   <div class="control">
+    <label class="switch">
+     <input
+      class="setting"
+      type="checkbox"
+      data-flag="FFlagEnablePostProcessing"
+     >
+     <span class="slider"></span>
+    </label>
+   </div>
+
+  </div>
+
+
+  <div class="flag"
+   data-category="graphics"
+   data-name="anti aliasing">
+
+   <div>
+    <div class="flag-name">
+     Anti-Aliasing
+    </div>
+
+    <div class="flag-key">
+     FFlagEnableAntiAliasing
+    </div>
+
+    <div class="flag-desc">
+     Toggle anti-aliasing.
+    </div>
+
+    <span class="tag">
+     Graphics
+    </span>
+   </div>
+
+   <div class="control">
+    <label class="switch">
+     <input
+      class="setting"
+      type="checkbox"
+      data-flag="FFlagEnableAntiAliasing"
+     >
+     <span class="slider"></span>
+    </label>
+   </div>
+
+  </div>
+
+
+  <div class="flag"
+   data-category="graphics"
+   data-name="graphics quality">
+
+   <div>
+    <div class="flag-name">
+     Graphics Quality
+    </div>
+
+    <div class="flag-key">
+     DFIntGraphicsQuality
+    </div>
+
+    <div class="flag-desc">
+     Select a graphics quality level.
+    </div>
+
+    <span class="tag">
+     Graphics
+    </span>
+   </div>
+
+   <div class="control">
+    <select
+     class="select setting"
+     data-flag="DFIntGraphicsQuality"
+    >
+     <option value="1">1</option>
+     <option value="5" selected>5</option>
+     <option value="10">10</option>
+    </select>
+   </div>
+
+  </div>
+
+
+  <!-- NETWORK -->
+
+  <div class="flag"
+   data-category="network"
+   data-name="network optimization">
+
+   <div>
+    <div class="flag-name">
+     Network Optimization
+    </div>
+
+    <div class="flag-key">
+     FFlagOptimizeNetwork
+    </div>
+
+    <div class="flag-desc">
+     Configure supported network behavior.
+    </div>
+
+    <span class="tag">
+     Network
+    </span>
+   </div>
+
+   <div class="control">
+    <label class="switch">
+     <input
+      class="setting"
+      type="checkbox"
+      data-flag="FFlagOptimizeNetwork"
+     >
+     <span class="slider"></span>
+    </label>
+   </div>
+
+  </div>
+
+
+  <div class="flag"
+   data-category="network"
+   data-name="network statistics">
+
+   <div>
+    <div class="flag-name">
+     Network Statistics
+    </div>
+
+    <div class="flag-key">
+     FFlagShowNetworkStats
+    </div>
+
+    <div class="flag-desc">
+     Toggle network statistics.
+    </div>
+
+    <span class="tag">
+     Network
+    </span>
+   </div>
+
+   <div class="control">
+    <label class="switch">
+     <input
+      class="setting"
+      type="checkbox"
+      data-flag="FFlagShowNetworkStats"
+     >
+     <span class="slider"></span>
+    </label>
+   </div>
+
+  </div>
+
+
+  <div class="flag"
+   data-category="network"
+   data-name="network ping">
+
+   <div>
+    <div class="flag-name">
+     Network Ping Display
+    </div>
+
+    <div class="flag-key">
+     FFlagShowPing
+    </div>
+
+    <div class="flag-desc">
+     Toggle the ping display.
+    </div>
+
+    <span class="tag">
+     Network
+    </span>
+   </div>
+
+   <div class="control">
+    <label class="switch">
+     <input
+      class="setting"
+      type="checkbox"
+      data-flag="FFlagShowPing"
+     >
+     <span class="slider"></span>
+    </label>
+   </div>
+
+  </div>
+
+
+  <div class="flag"
+   data-category="network"
+   data-name="connection timeout">
+
+   <div>
+    <div class="flag-name">
+     Connection Timeout
+    </div>
+
+    <div class="flag-key">
+     DFIntConnectionTimeout
+    </div>
+
+    <div class="flag-desc">
+     Configure connection timeout value.
+    </div>
+
+    <span class="tag">
+     Network
+    </span>
+   </div>
+
+   <div class="control">
+    <input
+     class="number setting"
+     type="number"
+     value="30"
+     data-flag="DFIntConnectionTimeout"
+    >
+   </div>
+
+  </div>
+
+
+  <div class="flag"
+   data-category="network"
+   data-name="network buffer">
+
+   <div>
+    <div class="flag-name">
+     Network Buffer
+    </div>
+
+    <div class="flag-key">
+     DFIntNetworkBuffer
+    </div>
+
+    <div class="flag-desc">
+     Configure network buffer value.
+    </div>
+
+    <span class="tag">
+     Network
+    </span>
+   </div>
+
+   <div class="control">
+    <input
+     class="number setting"
+     type="number"
+     value="256"
+     data-flag="DFIntNetworkBuffer"
+    >
+   </div>
+
+  </div>
+
+
+  <!-- INTERFACE -->
+
+  <div class="flag"
+   data-category="interface"
+   data-name="settings interface">
+
+   <div>
+    <div class="flag-name">
+     Settings Interface
+    </div>
+
+    <div class="flag-key">
+     FFlagEnableNewSettingsMenu
+    </div>
+
+    <div class="flag-desc">
+     Configure the selected interface option.
+    </div>
+
+    <span class="tag">
+     Interface
+    </span>
+   </div>
+
+   <div class="control">
+    <label class="switch">
+     <input
+      class="setting"
+      type="checkbox"
+      data-flag="FFlagEnableNewSettingsMenu"
+     >
+     <span class="slider"></span>
+    </label>
+   </div>
+
+  </div>
+
+
+  <div class="flag"
+   data-category="interface"
+   data-name="chat">
+
+   <div>
+    <div class="flag-name">
+     Chat Interface
+    </div>
+
+    <div class="flag-key">
+     FFlagEnableChatInterface
+    </div>
+
+    <div class="flag-desc">
+     Toggle the selected chat interface.
+    </div>
+
+    <span class="tag">
+     Interface
+    </span>
+   </div>
+
+   <div class="control">
+    <label class="switch">
+     <input
+      class="setting"
+      type="checkbox"
+      data-flag="FFlagEnableChatInterface"
+     >
+     <span class="slider"></span>
+    </label>
+   </div>
+
+  </div>
+
+
+  <div class="flag"
+   data-category="interface"
+   data-name="fullscreen">
+
+   <div>
+    <div class="flag-name">
+     Fullscreen Mode
+    </div>
+
+    <div class="flag-key">
+     FFlagFullscreenMode
+    </div>
+
+    <div class="flag-desc">
+     Toggle fullscreen configuration.
+    </div>
+
+    <span class="tag">
+     Interface
+    </span>
+   </div>
+
+   <div class="control">
+    <label class="switch">
+     <input
+      class="setting"
+      type="checkbox"
+      data-flag="FFlagFullscreenMode"
+     >
+     <span class="slider"></span>
+    </label>
+   </div>
+
+  </div>
+
+
+  <div class="flag"
+   data-category="interface"
+   data-name="ui scale">
+
+   <div>
+    <div class="flag-name">
+     UI Scale
+    </div>
+
+    <div class="flag-key">
+     DFIntUIScale
+    </div>
+
+    <div class="flag-desc">
+     Configure interface scale.
+    </div>
+
+    <span class="tag">
+     Interface
+    </span>
+   </div>
+
+   <div class="control">
+    <select
+     class="select setting"
+     data-flag="DFIntUIScale"
+    >
+     <option value="80">80%</option>
+     <option value="100" selected>100%</option>
+     <option value="120">120%</option>
+     <option value="140">140%</option>
+    </select>
+   </div>
+
+  </div>
+
+
+  <div class="flag"
+   data-category="interface"
+   data-name="notifications">
+
+   <div>
+    <div class="flag-name">
+     Notifications
+    </div>
+
+    <div class="flag-key">
+     FFlagEnableNotifications
+    </div>
+
+    <div class="flag-desc">
+     Toggle interface notifications.
+    </div>
+
+    <span class="tag">
+     Interface
+    </span>
+   </div>
+
+   <div class="control">
+    <label class="switch">
+     <input
+      class="setting"
+      type="checkbox"
+      data-flag="FFlagEnableNotifications"
+     >
+     <span class="slider"></span>
+    </label>
+   </div>
+
+  </div>
+
+
+  <div class="flag"
+   data-category="interface"
+   data-name="cursor">
+
+   <div>
+    <div class="flag-name">
+     Custom Cursor
+    </div>
+
+    <div class="flag-key">
+     FFlagEnableCustomCursor
+    </div>
+
+    <div class="flag-desc">
+     Toggle custom cursor behavior.
+    </div>
+
+    <span class="tag">
+     Interface
+    </span>
+   </div>
+
+   <div class="control">
+    <label class="switch">
+     <input
+      class="setting"
+      type="checkbox"
+      data-flag="FFlagEnableCustomCursor"
+     >
+     <span class="slider"></span>
+    </label>
+   </div>
+
+  </div>
+
+ </div>
+
+</section>
+
+
+<!-- PERFORMANCE -->
+
+<section
+ id="performance"
+ class="page hidden"
+>
+
+ <div class="header">
+
+  <div>
+   <div class="eyebrow">
+    Category
+   </div>
+
+   <h1>
+    Performance
+   </h1>
+
+   <p>
+    Performance-related configuration.
+   </p>
+  </div>
+
+ </div>
+
+ <div class="flags">
+
+  <div class="flag">
+
+   <div>
+    <div class="flag-name">
+     Target FPS
+    </div>
+
+    <div class="flag-key">
+     FFlagGameBasicSettingsFramerateCap
+    </div>
+
+    <div class="flag-desc">
+     Preferred frame-rate value.
+    </div>
+   </div>
+
+   <div class="control">
+    <input
+     class="number setting"
+     type="number"
+     value="120"
+     data-flag="FFlagGameBasicSettingsFramerateCap"
+    >
+   </div>
+
+  </div>
+
+ </div>
+
+</section>
+
+
+<!-- GRAPHICS -->
+
+<section
+ id="graphics"
+ class="page hidden"
+>
+
+ <div class="header">
+
+  <div>
+   <div class="eyebrow">
+    Category
+   </div>
+
+   <h1>
+    Graphics
+   </h1>
+
+   <p>
+    Graphics-related configuration.
+   </p>
+  </div>
+
+ </div>
+
+ <div class="flags">
+
+  <div class="flag">
+
+   <div>
+    <div class="flag-name">
+     Texture Quality
+    </div>
+
+    <div class="flag-key">
+     DFFlagTextureQualityOverride
+    </div>
+
+    <div class="flag-desc">
+     Select texture quality.
+    </div>
+   </div>
+
+   <div class="control">
+
+    <select
+     class="select setting"
+     data-flag="DFFlagTextureQualityOverride"
+    >
+
+     <option value="0">
+      Low
+     </option>
+
+     <option value="1" selected>
+      Medium
+     </option>
+
+     <option value="2">
+      High
+     </option>
+
+    </select>
+
+   </div>
+
+  </div>
+
+ </div>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section
+ id="about"
+ class="page hidden"
+>
+
+ <div class="header">
+
+  <div>
+   <div class="eyebrow">
+    Shidoustrap
+   </div>
+
+   <h1>
+    About
+   </h1>
+
+   <p>
+    Official project information.
+   </p>
+
+  </div>
+
+ </div>
+
+
+ <div class="about">
+
+  <div class="avatar">
+
+   <img
+    src="awatar.webp"
+    alt="Author"
+   >
+
+  </div>
+
+  <div>
+
+   <h2>
+    Shidoustrap Developer
+   </h2>
+
+   <p>
+    Shidoustrap is an official project focused on
+    providing a clean configuration interface for
+    supported Roblox client settings.
+   </p>
+
+  </div>
+
+ </div>
+
+</section>
 
 </main>
 
 
 <div
-    class="toast"
-    id="toast"
->
-    Configuration updated
-</div>
+ id="toast"
+ class="toast"
+></div>
 
 
 <script>
 
-/* =========================
-   FLAGS
-========================= */
+/* NAVIGATION */
 
-let flags = {};
+function page(id,button){
 
+ document.querySelectorAll(".page")
+ .forEach(p=>{
+  p.classList.add("hidden");
+ });
 
-/* =========================
-   NAVIGATION
-========================= */
+ const target=
+ document.getElementById(id);
 
-function showSection(id, button) {
+ target.classList.remove("hidden");
 
-    document
-        .querySelectorAll(".section")
-        .forEach(section => {
-            section.classList.remove("active");
-        });
+ document.querySelectorAll(".menu button")
+ .forEach(b=>{
+  b.classList.remove("active");
+ });
 
-    const section =
-        document.getElementById(id);
+ if(button)
+  button.classList.add("active");
 
-    if (section) {
-        section.classList.add("active");
-    }
-
-    document
-        .querySelectorAll(".nav button")
-        .forEach(btn => {
-            btn.classList.remove("active");
-        });
-
-    if (button) {
-        button.classList.add("active");
-    }
-
+ window.scrollTo({
+  top:0,
+  behavior:"smooth"
+ });
 }
 
 
-/* =========================
-   OPEN EXPORT
-========================= */
+function openFlags(){
 
-function openExport() {
+ const buttons=
+ document.querySelectorAll(".menu button");
 
-    const exportButton =
-        document.querySelector(
-            ".nav button:last-child"
-        );
+ let target=null;
 
-    showSection(
-        "export",
-        exportButton
-    );
+ buttons.forEach(b=>{
 
+  if(
+   b.textContent
+   .toLowerCase()
+   .includes("fast flags")
+  ){
+   target=b;
+  }
+
+ });
+
+ page("flags",target);
 }
 
 
-/* =========================
-   TOGGLES
-========================= */
+/* SEARCH */
 
-function toggleFlag(element) {
+function filterFlags(){
 
-    element.classList.toggle("on");
+ const query=
+ document
+ .getElementById("search")
+ .value
+ .toLowerCase();
 
-    const flag =
-        element.dataset.flag;
+ const category=
+ document
+ .getElementById("filter")
+ .value;
 
-    if (
-        element.classList.contains("on")
-    ) {
+ const rows=
+ document.querySelectorAll(
+  "#flags .flag"
+ );
 
-        flags[flag] = true;
+ let visible=0;
 
-    } else {
+ rows.forEach(row=>{
 
-        delete flags[flag];
+  const name=
+   row.dataset.name || "";
 
-    }
+  const cat=
+   row.dataset.category || "";
 
-    saveSettings();
-    generateJSON();
+  const okName=
+   name.includes(query);
 
-    showToast(
-        element.classList.contains("on")
-            ? "Flag enabled"
-            : "Flag disabled"
-    );
+  const okCategory=
+   category==="all" ||
+   cat===category;
 
+  if(okName && okCategory){
+
+   row.style.display="grid";
+
+   visible++;
+
+  }else{
+
+   row.style.display="none";
+
+  }
+
+ });
+
+ document.getElementById("resultText")
+ .textContent=
+ visible+
+ (
+  visible===1
+  ? " setting"
+  : " settings"
+ );
 }
 
 
-/* =========================
-   GENERATE JSON
-========================= */
+/* EXPORT */
 
-function generateJSON() {
+function exportFlags(){
 
-    const fps =
-        Number(
-            document.getElementById("fps").value
-        );
+ const output={};
 
-    const texture =
-        Number(
-            document.getElementById("texture").value
-        );
+ document.querySelectorAll(
+  "#flags [data-flag]"
+ )
+ .forEach(field=>{
 
-    const networkRule =
-        document.getElementById(
-            "networkRule"
-        ).value;
+  const key=
+   field.dataset.flag;
 
+  if(field.type==="checkbox"){
 
-    const output = {
+   output[key]=field.checked;
 
-        ...flags,
+  }else if(field.type==="number"){
 
-        DFIntTaskSchedulerTargetFps:
-            fps,
+   output[key]=Number(field.value);
 
-        DFIntTextureQualityOverride:
-            texture,
+  }else{
 
-        FFlagNetworkOwnershipRule:
-            networkRule
+   output[key]=field.value;
 
-    };
+  }
+
+ });
 
 
-    document.getElementById(
-        "jsonOutput"
-    ).textContent =
-        JSON.stringify(
-            output,
-            null,
-            2
-        );
+ const blob=
+ new Blob(
+  [JSON.stringify(output,null,2)],
+  {
+   type:"application/json"
+  }
+ );
 
+ const url=
+ URL.createObjectURL(blob);
 
-    saveSettings();
+ const a=
+ document.createElement("a");
 
+ a.href=url;
+
+ a.download=
+ "ClientAppSettings.json";
+
+ document.body.appendChild(a);
+
+ a.click();
+
+ a.remove();
+
+ URL.revokeObjectURL(url);
+
+ save();
+
+ toast(
+  "Configuration exported"
+ );
 }
 
 
-/* =========================
-   EXPORT JSON
-========================= */
+/* IMPORT */
 
-function exportJSON() {
+function importFlags(event){
 
-    generateJSON();
+ const file=
+ event.target.files[0];
 
-    const data =
-        document.getElementById(
-            "jsonOutput"
-        ).textContent;
+ if(!file)
+  return;
 
+ const reader=
+ new FileReader();
 
-    const blob =
-        new Blob(
-            [data],
-            {
-                type: "application/json"
-            }
-        );
+ reader.onload=function(){
 
+  try{
 
-    const url =
-        URL.createObjectURL(blob);
+   const data=
+   JSON.parse(reader.result);
 
+   document.querySelectorAll(
+    "[data-flag]"
+   )
+   .forEach(field=>{
 
-    const link =
-        document.createElement("a");
+    const key=
+     field.dataset.flag;
 
+    if(!(key in data))
+     return;
 
-    link.href = url;
+    if(field.type==="checkbox"){
 
-    link.download =
-        "ClientAppSettings.json";
+     field.checked=
+      Boolean(data[key]);
 
+    }else{
 
-    document.body.appendChild(link);
-
-    link.click();
-
-    link.remove();
-
-
-    URL.revokeObjectURL(url);
-
-
-    showToast(
-        "ClientAppSettings.json exported"
-    );
-
-}
-
-
-/* =========================
-   COPY JSON
-========================= */
-
-function copyJSON() {
-
-    generateJSON();
-
-    const data =
-        document.getElementById(
-            "jsonOutput"
-        ).textContent;
-
-
-    if (
-        navigator.clipboard &&
-        navigator.clipboard.writeText
-    ) {
-
-        navigator.clipboard.writeText(data);
-
-        showToast(
-            "JSON copied"
-        );
-
-    } else {
-
-        showToast(
-            "Clipboard unavailable"
-        );
+     field.value=
+      data[key];
 
     }
 
+   });
+
+   save();
+
+   updateStats();
+
+   toast(
+    "Configuration imported"
+   );
+
+  }catch{
+
+   toast(
+    "Invalid JSON file"
+   );
+
+  }
+
+ };
+
+ reader.readAsText(file);
 }
 
 
-/* =========================
-   RESET
-========================= */
+/* RESET */
 
-function resetFlags() {
+function resetFlags(){
 
-    flags = {};
+ document.querySelectorAll(
+  "#flags [data-flag]"
+ )
+ .forEach(field=>{
 
-    document
-        .querySelectorAll(".toggle")
-        .forEach(toggle => {
-            toggle.classList.remove("on");
-        });
+  if(field.type==="checkbox"){
 
+   field.checked=false;
 
-    document.getElementById("fps")
-        .value = 120;
+  }else if(
+   field.dataset.flag==="FFlagGameBasicSettingsFramerateCap"
+  ){
 
+   field.value=120;
 
-    document.getElementById("texture")
-        .value = 1;
+  }else if(
+   field.type==="number"
+  ){
 
+   field.value=
+    field.dataset.flag==="DFIntRenderDistance"
+    ? 1000
+    : field.dataset.flag==="DFIntConnectionTimeout"
+    ? 30
+    : field.dataset.flag==="DFIntNetworkBuffer"
+    ? 256
+    : 0;
 
-    document.getElementById("networkRule")
-        .value = "Default";
+  }else{
 
+   field.selectedIndex=0;
 
-    localStorage.removeItem(
-        "bloxstrapMobileSettings"
-    );
+  }
 
+ });
 
-    generateJSON();
+ localStorage.removeItem(
+  "shidoustrap"
+ );
 
-    showToast(
-        "Configuration reset"
-    );
+ updateStats();
 
+ toast(
+  "Configuration reset"
+ );
 }
 
 
-/* =========================
-   SAVE
-========================= */
+/* SAVE */
 
-function saveSettings() {
+function save(){
 
-    const settings = {
+ const data={};
 
-        flags: flags,
+ document.querySelectorAll(
+  "#flags [data-flag]"
+ )
+ .forEach(field=>{
 
-        fps:
-            document.getElementById(
-                "fps"
-            ).value,
+  const key=
+   field.dataset.flag;
 
-        texture:
-            document.getElementById(
-                "texture"
-            ).value,
+  if(field.type==="checkbox"){
 
-        networkRule:
-            document.getElementById(
-                "networkRule"
-            ).value
+   data[key]=field.checked;
 
-    };
+  }else{
 
+   data[key]=field.value;
 
-    localStorage.setItem(
-        "bloxstrapMobileSettings",
-        JSON.stringify(settings)
-    );
+  }
 
+ });
+
+ localStorage.setItem(
+  "shidoustrap",
+  JSON.stringify(data)
+ );
 }
 
 
-/* =========================
-   LOAD
-========================= */
+/* LOAD */
 
-function loadSettings() {
+function load(){
 
-    const saved =
-        localStorage.getItem(
-            "bloxstrapMobileSettings"
-        );
+ const raw=
+ localStorage.getItem(
+  "shidoustrap"
+ );
 
+ if(!raw)
+  return;
 
-    if (!saved) {
+ try{
 
-        generateJSON();
+  const data=
+   JSON.parse(raw);
 
-        return;
+  document.querySelectorAll(
+   "[data-flag]"
+  )
+  .forEach(field=>{
 
-    }
+   const key=
+    field.dataset.flag;
 
+   if(!(key in data))
+    return;
 
-    try {
+   if(field.type==="checkbox"){
 
-        const settings =
-            JSON.parse(saved);
+    field.checked=
+     Boolean(data[key]);
 
+   }else{
 
-        flags =
-            settings.flags || {};
+    field.value=
+     data[key];
 
+   }
 
-        if (
-            settings.fps !== undefined
-        ) {
+  });
 
-            document.getElementById(
-                "fps"
-            ).value =
-                settings.fps;
-
-        }
-
-
-        if (
-            settings.texture !== undefined
-        ) {
-
-            document.getElementById(
-                "texture"
-            ).value =
-                settings.texture;
-
-        }
-
-
-        if (
-            settings.networkRule !== undefined
-        ) {
-
-            document.getElementById(
-                "networkRule"
-            ).value =
-                settings.networkRule;
-
-        }
-
-
-        document
-            .querySelectorAll(".toggle")
-            .forEach(toggle => {
-
-                const flag =
-                    toggle.dataset.flag;
-
-                if (
-                    flags[flag] === true
-                ) {
-
-                    toggle.classList.add("on");
-
-                }
-
-            });
-
-    } catch (error) {
-
-        console.error(
-            "Could not load settings:",
-            error
-        );
-
-        flags = {};
-
-    }
-
-
-    generateJSON();
+ }catch{}
 
 }
 
 
-/* =========================
-   TOAST
-========================= */
+/* STATS */
 
-function showToast(message) {
+function updateStats(){
 
-    const toast =
-        document.getElementById(
-            "toast"
-        );
+ let active=0;
 
+ document.querySelectorAll(
+  "#flags input[type=checkbox]"
+ )
+ .forEach(input=>{
 
-    toast.textContent =
-        message;
+  if(input.checked)
+   active++;
 
+ });
 
-    toast.classList.add("show");
-
-
-    clearTimeout(
-        window.toastTimer
-    );
-
-
-    window.toastTimer =
-        setTimeout(() => {
-
-            toast.classList.remove(
-                "show"
-            );
-
-        }, 1800);
-
+ document.getElementById(
+  "statActive"
+ ).textContent=active;
 }
 
 
-/* =========================
-   INPUT EVENTS
-========================= */
+/* CHANGE EVENTS */
 
-document
-    .getElementById("fps")
-    .addEventListener(
-        "input",
-        generateJSON
-    );
+document.addEventListener(
+ "change",
+ function(e){
 
+  if(
+   e.target.matches(
+    "[data-flag]"
+   )
+  ){
 
-document
-    .getElementById("texture")
-    .addEventListener(
-        "input",
-        generateJSON
-    );
+   save();
 
+   updateStats();
 
-document
-    .getElementById("networkRule")
-    .addEventListener(
-        "input",
-        generateJSON
-    );
+   toast(
+    "Setting saved"
+   );
+
+  }
+
+ }
+);
 
 
-/* =========================
-   START
-========================= */
+/* TOAST */
 
-loadSettings();
+let toastTimer;
+
+function toast(message){
+
+ const el=
+  document.getElementById("toast");
+
+ el.textContent=message;
+
+ el.classList.add("show");
+
+ clearTimeout(toastTimer);
+
+ toastTimer=
+  setTimeout(()=>{
+   el.classList.remove("show");
+  },2200);
+}
+
+
+/* START */
+
+load();
+
+updateStats();
 
 </script>
 
 </body>
-    </html>
+      </html>
