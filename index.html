@@ -6,1083 +6,1342 @@
 <title>Bloxstrap Mobile</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Permanent+Marker&display=swap');
-
-:root {
-    --red: #e53935;
-    --red-dark: #b71c1c;
-    --ink: #171717;
-    --paper: #fffdf8;
-    --gray: #737373;
-    --blue: #4c7dff;
-    --green: #35b86b;
-    --yellow: #ffd84d;
-}
-
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-html {
-    scroll-behavior: smooth;
+:root {
+    --red: #e2231a;
+    --red2: #ff3b30;
+    --dark-red: #8f1712;
+    --bg: #080808;
+    --panel: #111111;
+    --panel2: #171717;
+    --border: #292929;
+    --text: #fff;
+    --muted: #999;
 }
 
 body {
-    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
     background:
-        radial-gradient(circle at 15% 20%, rgba(0,0,0,.035) 1px, transparent 2px),
-        radial-gradient(circle at 80% 70%, rgba(0,0,0,.025) 1px, transparent 2px),
-        var(--paper);
-    background-size: 23px 23px, 31px 31px;
-    color: var(--ink);
-    font-family: "Patrick Hand", cursive;
-    overflow-x: hidden;
-}
-
-/* Paper texture */
-
-body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 9999;
-    opacity: .12;
-    background:
-        repeating-linear-gradient(
-            0deg,
-            transparent 0,
-            transparent 4px,
-            rgba(0,0,0,.025) 5px
-        );
-}
-
-/* Little sketch decorations */
-
-.doodle {
-    position: absolute;
-    pointer-events: none;
-    color: var(--ink);
-    font-family: "Permanent Marker", cursive;
-    opacity: .65;
-}
-
-.doodle.star {
-    font-size: 32px;
-    transform: rotate(-15deg);
-}
-
-.doodle.arrow {
-    font-size: 50px;
-    transform: rotate(12deg);
-}
-
-.doodle.circle {
-    width: 75px;
-    height: 42px;
-    border: 3px solid var(--red);
-    border-radius: 50%;
-    transform: rotate(-12deg);
-}
-
-/* Navigation */
-
-.nav {
-    position: fixed;
-    top: 16px;
-    left: 50%;
-    transform: translateX(-50%) rotate(-.3deg);
-    width: min(900px, calc(100% - 25px));
-    z-index: 500;
-    background: rgba(255,253,248,.94);
-    border: 3px solid var(--ink);
-    border-radius: 13px 8px 15px 10px;
-    box-shadow: 5px 5px 0 var(--ink);
-    padding: 10px 15px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.nav-logo {
-    font-family: "Permanent Marker", cursive;
-    font-size: 20px;
-}
-
-.nav-logo span {
-    color: var(--red);
-}
-
-.nav-links {
-    display: flex;
-    gap: 5px;
-}
-
-.nav-links a {
-    color: var(--ink);
-    text-decoration: none;
-    font-size: 17px;
-    padding: 5px 9px;
-    transition: .2s;
-}
-
-.nav-links a:hover {
-    color: var(--red);
-    transform: rotate(-3deg) scale(1.05);
-}
-
-/* Hero */
-
-.hero {
+        radial-gradient(circle at 50% -15%, #3a0b08 0%, transparent 42%),
+        var(--bg);
+    color: var(--text);
     min-height: 100vh;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 130px 20px 80px;
 }
 
-.hero-inner {
-    max-width: 850px;
-    animation: appear .8s ease;
+/* HEADER */
+
+.header {
+    height: 68px;
+    background: rgba(10,10,10,.94);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid #292929;
+
+    display: flex;
+    align-items: center;
+    gap: 22px;
+
+    padding: 0 24px;
+
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .logo {
-    width: 175px;
-    height: 175px;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto 15px;
-    animation: wobble 3.2s ease-in-out infinite;
-    filter: drop-shadow(6px 6px 0 var(--ink));
-}
+    display: flex;
+    align-items: center;
+    gap: 10px;
 
-.wordmark {
-    width: min(600px, 90vw);
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 0 auto 22px;
-}
-
-.hero-title {
-    font-family: "Permanent Marker", cursive;
-    font-size: clamp(36px, 8vw, 70px);
-    line-height: 1;
-    transform: rotate(-1deg);
-    margin-bottom: 18px;
-}
-
-.hero-title span {
-    color: var(--red);
-}
-
-.hero-text {
-    max-width: 650px;
-    margin: auto;
-    color: #555;
     font-size: 21px;
-    line-height: 1.4;
+    font-weight: 900;
+    white-space: nowrap;
 }
 
-.hero-buttons {
-    margin-top: 28px;
+.logo-box {
+    width: 35px;
+    height: 35px;
+
+    background: var(--red);
+    border-radius: 9px;
+
     display: flex;
+    align-items: center;
     justify-content: center;
-    flex-wrap: wrap;
-    gap: 15px;
+
+    box-shadow: 0 6px 22px rgba(226,35,26,.25);
 }
 
-/* Sketch buttons */
-
-.sketch-button {
-    position: relative;
-    display: inline-block;
-    border: 3px solid var(--ink);
-    border-radius: 12px 7px 14px 9px;
-    padding: 12px 23px;
-    background: white;
-    color: var(--ink);
-    text-decoration: none;
-    font-size: 19px;
-    font-family: "Patrick Hand", cursive;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 5px 5px 0 var(--ink);
-    transition: .18s ease;
+.logo-box svg {
+    width: 20px;
+    height: 20px;
+    fill: white;
 }
 
-.sketch-button::after {
-    content: "";
-    position: absolute;
-    inset: -4px;
-    border: 2px solid var(--ink);
-    border-radius: 8px 13px 7px 12px;
-    opacity: .25;
-    transform: rotate(.7deg);
-}
-
-.sketch-button:hover {
-    transform: translate(-3px,-4px) rotate(-1.5deg);
-    box-shadow: 8px 8px 0 var(--ink);
-}
-
-.sketch-button:active {
-    transform: translate(3px,3px);
-    box-shadow: 2px 2px 0 var(--ink);
-}
-
-.sketch-button.red {
-    background: var(--red);
-    color: white;
-}
-
-.sketch-button.yellow {
-    background: var(--yellow);
-}
-
-.sketch-button.green {
-    background: var(--green);
-    color: white;
-}
-
-/* Sections */
-
-.section {
-    width: min(1050px, calc(100% - 30px));
-    margin: auto;
-    padding: 85px 0;
-    position: relative;
-}
-
-.section-title {
-    display: inline-block;
-    font-family: "Permanent Marker", cursive;
-    font-size: clamp(35px, 6vw, 52px);
-    transform: rotate(-1.5deg);
-    margin-bottom: 8px;
-}
-
-.section-title::after {
-    content: "";
-    display: block;
-    height: 6px;
-    width: 85%;
-    background: var(--red);
-    border-radius: 50%;
-    transform: rotate(-2deg);
-    margin-top: 3px;
-}
-
-.section-subtitle {
-    color: var(--gray);
-    font-size: 20px;
-    margin-bottom: 35px;
-}
-
-/* Feature area */
-
-.features {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 25px;
-}
-
-.feature {
-    padding: 25px;
-    background: white;
-    border: 3px solid var(--ink);
-    box-shadow: 6px 6px 0 var(--ink);
-    transition: .25s;
-}
-
-.feature:nth-child(1) {
-    border-radius: 17px 8px 13px 11px;
-    transform: rotate(-.7deg);
-}
-
-.feature:nth-child(2) {
-    border-radius: 8px 15px 10px 16px;
-    transform: rotate(.7deg);
-}
-
-.feature:nth-child(3) {
-    border-radius: 11px 16px 8px 14px;
-    transform: rotate(.5deg);
-}
-
-.feature:nth-child(4) {
-    border-radius: 15px 9px 17px 7px;
-    transform: rotate(-.6deg);
-}
-
-.feature:hover {
-    transform: translateY(-6px) rotate(0);
-}
-
-.feature-number {
-    font-family: "Permanent Marker", cursive;
-    font-size: 28px;
+.logo span {
     color: var(--red);
 }
 
-.feature h3 {
-    font-size: 27px;
-    margin: 5px 0;
+.nav {
+    display: flex;
+    gap: 4px;
 }
 
-.feature p {
-    color: var(--gray);
-    font-size: 18px;
-    line-height: 1.4;
-}
-
-/* Flags */
-
-.flags-paper {
-    position: relative;
-    background: #fff;
-    border: 3px solid var(--ink);
-    padding: 28px;
-    box-shadow: 8px 8px 0 var(--ink);
-    border-radius: 14px 8px 18px 10px;
-    transform: rotate(.25deg);
-}
-
-.category {
-    margin-bottom: 38px;
-}
-
-.category:last-child {
-    margin-bottom: 0;
-}
-
-.category-heading {
+.nav button {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 15px;
-}
+    gap: 7px;
 
-.category-heading h3 {
-    font-family: "Permanent Marker", cursive;
-    font-size: 27px;
-}
+    background: transparent;
+    color: #999;
 
-.category-line {
-    height: 3px;
-    flex: 1;
-    border-top: 3px dashed var(--ink);
-}
+    border: 0;
+    border-radius: 8px;
 
-.flag-list {
-    display: grid;
-    gap: 13px;
-}
+    padding: 10px 12px;
 
-.flag {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    padding: 15px;
-    background: #fffdf8;
-    border: 2px solid var(--ink);
-    border-radius: 8px 5px 10px 6px;
+    cursor: pointer;
+
+    font-size: 12px;
+    font-weight: 700;
+
     transition: .2s;
 }
 
-.flag:hover {
-    transform: translateX(4px) rotate(-.3deg);
+.nav button svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
 }
 
-.flag-name {
-    font-family: monospace;
-    font-size: 14px;
-    font-weight: bold;
-    word-break: break-word;
+.nav button:hover {
+    color: white;
+    background: #1d1d1d;
 }
 
-.flag-description {
-    color: #777;
-    font-size: 16px;
-    margin-top: 3px;
+.nav button.active {
+    color: white;
+    background: var(--red);
+    box-shadow: 0 5px 18px rgba(226,35,26,.2);
 }
 
-.flag-control {
+.profile {
+    margin-left: auto;
+
     display: flex;
     align-items: center;
     gap: 9px;
-    flex-shrink: 0;
 }
 
-.number-input {
-    width: 80px;
-    padding: 7px;
-    border: 2px solid var(--ink);
-    border-radius: 6px 4px 7px 5px;
-    font-family: "Patrick Hand", cursive;
-    font-size: 17px;
-    outline: none;
-}
+.profile img {
+    width: 38px;
+    height: 38px;
 
-/* Hand-drawn switch */
-
-.switch {
-    position: relative;
-    width: 55px;
-    height: 30px;
-    flex-shrink: 0;
-}
-
-.switch input {
-    display: none;
-}
-
-.slider {
-    position: absolute;
-    inset: 0;
-    background: #ddd;
-    border: 3px solid var(--ink);
-    border-radius: 18px 14px 17px 13px;
-    cursor: pointer;
-}
-
-.slider::before {
-    content: "";
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    left: 3px;
-    top: 3px;
-    background: white;
-    border: 2px solid var(--ink);
     border-radius: 50%;
-    transition: .2s;
+    object-fit: cover;
+
+    background: #222;
+    border: 2px solid #3a3a3a;
 }
 
-.switch input:checked + .slider {
-    background: var(--red);
-}
-
-.switch input:checked + .slider::before {
-    transform: translateX(22px) rotate(15deg);
-}
-
-/* Export */
-
-.export {
-    background: var(--ink);
-    color: white;
-    border: 3px solid var(--ink);
-    border-radius: 15px 9px 18px 11px;
-    padding: 30px;
-    box-shadow: 8px 8px 0 var(--red);
-    transform: rotate(-.3deg);
-}
-
-.export h2 {
-    font-family: "Permanent Marker", cursive;
-    font-size: 38px;
-    margin-bottom: 8px;
-}
-
-.export p {
-    color: #ccc;
-    font-size: 19px;
-    margin-bottom: 20px;
-}
-
-#jsonOutput {
-    width: 100%;
-    min-height: 250px;
-    resize: vertical;
-    background: #202020;
-    color: #fff;
-    border: 3px solid white;
-    border-radius: 8px;
-    padding: 15px;
-    font-family: monospace;
+.profile-name {
     font-size: 13px;
-    outline: none;
+    font-weight: 700;
 }
 
-.export-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 15px;
+/* MAIN */
+
+.container {
+    width: min(1150px, calc(100% - 30px));
+    margin: auto;
+    padding: 35px 0 60px;
 }
 
-/* Author */
+/* HERO */
 
-.author-box {
+.hero {
     position: relative;
-    background: white;
-    border: 3px solid var(--ink);
-    border-radius: 15px 9px 18px 11px;
-    box-shadow: 7px 7px 0 var(--ink);
-    padding: 35px;
-    transform: rotate(.4deg);
+    overflow: hidden;
+
+    background:
+        linear-gradient(135deg, #210907, #111 65%);
+
+    border: 1px solid #431814;
+    border-radius: 18px;
+
+    padding: 38px;
+
+    margin-bottom: 25px;
 }
 
-.author-box h2 {
-    font-family: "Permanent Marker", cursive;
-    font-size: 39px;
-    margin-bottom: 15px;
-}
+.hero::after {
+    content: "";
 
-.author-box h2 span {
-    color: var(--red);
-}
+    position: absolute;
 
-.author-box p {
-    color: #555;
-    font-size: 20px;
-    line-height: 1.5;
-    max-width: 850px;
-}
+    width: 330px;
+    height: 330px;
 
-.author-note {
-    margin-top: 22px;
-    padding: 18px;
-    background: #fff0f0;
-    border: 3px dashed var(--red);
-    border-radius: 8px 12px 7px 10px;
-    font-size: 20px;
-    line-height: 1.45;
-}
+    right: -130px;
+    top: -180px;
 
-/* Disclaimer */
-
-.disclaimer {
-    margin-top: 25px;
-    color: #777;
-    font-size: 15px;
-    line-height: 1.5;
-}
-
-/* Footer */
-
-footer {
-    text-align: center;
-    border-top: 3px dashed #aaa;
-    padding: 35px 20px;
-    color: #777;
-    font-size: 17px;
-}
-
-/* Reveal animation */
-
-.reveal {
-    opacity: 0;
-    transform: translateY(35px);
-    transition: opacity .7s ease, transform .7s ease;
-}
-
-.reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Toast */
-
-.toast {
-    position: fixed;
-    left: 50%;
-    bottom: 25px;
-    transform: translate(-50%,120px) rotate(-1deg);
     background: var(--red);
-    color: white;
-    border: 3px solid var(--ink);
-    padding: 11px 20px;
-    font-size: 19px;
-    box-shadow: 5px 5px 0 var(--ink);
-    border-radius: 9px 6px 11px 7px;
-    z-index: 5000;
-    transition: .3s;
+    opacity: .13;
+
+    transform: rotate(25deg);
 }
 
-.toast.show {
-    transform: translate(-50%,0) rotate(-1deg);
+.hero-content {
+    position: relative;
+    z-index: 2;
 }
 
-/* Animations */
+.hero-label {
+    color: var(--red2);
 
-@keyframes appear {
+    font-size: 11px;
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 9px;
+}
+
+.hero h1 {
+    font-size: 37px;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    color: #a2a2a2;
+    max-width: 700px;
+
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-top: 19px;
+
+    padding: 8px 12px;
+
+    background: #181818;
+    border: 1px solid #303030;
+    border-radius: 20px;
+
+    color: #aaa;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+
+    background: #42d66b;
+    border-radius: 50%;
+}
+
+/* SECTIONS */
+
+.section {
+    display: none;
+    animation: fade .22s ease;
+}
+
+.section.active {
+    display: block;
+}
+
+@keyframes fade {
     from {
         opacity: 0;
-        transform: translateY(35px);
+        transform: translateY(5px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-@keyframes wobble {
-    0%,100% {
-        transform: rotate(-2deg) translateY(0);
-    }
-
-    50% {
-        transform: rotate(2deg) translateY(-9px);
-    }
+.section-title {
+    margin-bottom: 17px;
 }
 
-/* Mobile */
+.section-title h2 {
+    font-size: 23px;
+}
 
-@media(max-width:700px) {
+.section-title p {
+    color: #777;
+    margin-top: 5px;
+    font-size: 13px;
+}
+
+/* GRID */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+/* CARD */
+
+.card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    padding: 20px;
+
+    transition: .2s;
+}
+
+.card:hover {
+    border-color: #444;
+    transform: translateY(-2px);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 14px;
+}
+
+.card-icon {
+    width: 31px;
+    height: 31px;
+
+    background: #2a0b09;
+    color: var(--red2);
+
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-icon svg {
+    width: 17px;
+    height: 17px;
+    fill: currentColor;
+}
+
+.card-title {
+    font-size: 15px;
+    font-weight: 800;
+}
+
+/* FLAGS */
+
+.flag {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 14px 0;
+
+    border-top: 1px solid #252525;
+}
+
+.flag:first-of-type {
+    border-top: 0;
+}
+
+.flag-info {
+    min-width: 0;
+}
+
+.flag-name {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.flag-key {
+    color: #626262;
+    font-size: 10px;
+    margin-top: 4px;
+    word-break: break-all;
+}
+
+input[type="number"],
+input[type="text"] {
+    width: 120px;
+
+    padding: 9px 10px;
+
+    color: white;
+    background: #0b0b0b;
+
+    border: 1px solid #353535;
+    border-radius: 7px;
+
+    outline: none;
+}
+
+input:focus {
+    border-color: var(--red);
+}
+
+/* TOGGLE */
+
+.toggle {
+    width: 44px;
+    height: 24px;
+
+    background: #303030;
+
+    border-radius: 20px;
+
+    position: relative;
+
+    cursor: pointer;
+
+    flex-shrink: 0;
+
+    transition: .2s;
+}
+
+.toggle::after {
+    content: "";
+
+    position: absolute;
+
+    width: 18px;
+    height: 18px;
+
+    left: 3px;
+    top: 3px;
+
+    background: #999;
+    border-radius: 50%;
+
+    transition: .2s;
+}
+
+.toggle.on {
+    background: var(--red);
+}
+
+.toggle.on::after {
+    transform: translateX(20px);
+    background: white;
+}
+
+/* BUTTONS */
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    margin-top: 24px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    border: 0;
+    border-radius: 8px;
+
+    padding: 12px 17px;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.btn svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.1);
+}
+
+.btn-primary {
+    background: var(--red);
+    color: white;
+}
+
+.btn-secondary {
+    background: #242424;
+    color: white;
+    border: 1px solid #353535;
+}
+
+.btn-danger {
+    background: #321211;
+    color: #ff7770;
+    border: 1px solid #57201c;
+}
+
+/* EXPORT */
+
+.export-box {
+    background: #101010;
+    border: 1px solid #292929;
+    border-radius: 14px;
+
+    padding: 20px;
+}
+
+.export-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 8px;
+}
+
+.export-icon {
+    width: 38px;
+    height: 38px;
+
+    background: #2b0b09;
+    color: var(--red2);
+
+    border-radius: 9px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.export-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+.export-box h3 {
+    font-size: 16px;
+}
+
+.export-box p {
+    color: #777;
+    font-size: 13px;
+    margin-bottom: 15px;
+}
+
+pre {
+    background: #070707;
+
+    border: 1px solid #252525;
+    border-radius: 9px;
+
+    padding: 16px;
+
+    color: #aaa;
+
+    overflow: auto;
+
+    font-size: 11px;
+    line-height: 1.5;
+
+    max-height: 300px;
+}
+
+/* AUTHOR */
+
+.author-section {
+    margin-top: 50px;
+}
+
+.author-title {
+    margin-bottom: 13px;
+}
+
+.author-title h2 {
+    font-size: 22px;
+}
+
+.author-title p {
+    color: #777;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.author-card {
+    position: relative;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    padding: 32px;
+
+    background:
+        linear-gradient(135deg, #210907, #121212 70%);
+
+    border: 1px solid #481814;
+    border-radius: 18px;
+
+    transition: .25s;
+}
+
+.author-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 380px;
+    height: 380px;
+
+    right: -180px;
+    top: -190px;
+
+    background: var(--red);
+
+    opacity: .09;
+
+    transform: rotate(25deg);
+}
+
+.author-card:hover {
+    border-color: #66221d;
+    transform: translateY(-2px);
+}
+
+.author-avatar-wrapper {
+    position: relative;
+    flex-shrink: 0;
+    z-index: 2;
+}
+
+.author-avatar {
+    width: 150px;
+    height: 150px;
+
+    display: block;
+
+    object-fit: cover;
+
+    border-radius: 17px;
+
+    background: #191919;
+
+    border: 3px solid #4a2522;
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.35);
+}
+
+.online-dot {
+    position: absolute;
+
+    right: 5px;
+    bottom: 5px;
+
+    width: 22px;
+    height: 22px;
+
+    background: #42d66b;
+
+    border: 4px solid #181818;
+
+    border-radius: 50%;
+}
+
+.author-info {
+    position: relative;
+    z-index: 2;
+}
+
+.author-label {
+    color: var(--red2);
+
+    font-size: 11px;
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 7px;
+}
+
+.author-info h2 {
+    font-size: 30px;
+    margin-bottom: 9px;
+}
+
+.author-description {
+    max-width: 700px;
+
+    color: #a0a0a0;
+
+    font-size: 14px;
+    line-height: 1.65;
+}
+
+.author-tags {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+    margin-top: 16px;
+}
+
+.author-tags span {
+    background: #21100f;
+
+    border: 1px solid #3b1b18;
+
+    color: #bbb;
+
+    padding: 6px 10px;
+
+    border-radius: 6px;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.profile-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-top: 18px;
+
+    padding: 12px 17px;
+
+    background: var(--red);
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    transition: .2s;
+}
+
+.profile-button:hover {
+    background: var(--red2);
+    transform: translateY(-1px);
+}
+
+.profile-button svg {
+    width: 15px;
+    height: 15px;
+    fill: currentColor;
+}
+
+/* FOOTER */
+
+.footer {
+    text-align: center;
+
+    color: #555;
+
+    font-size: 11px;
+
+    margin-top: 35px;
+}
+
+.footer strong {
+    color: #888;
+}
+
+/* TOAST */
+
+.toast {
+    position: fixed;
+
+    left: 50%;
+    bottom: 25px;
+
+    transform:
+        translateX(-50%)
+        translateY(20px);
+
+    padding: 12px 17px;
+
+    background: #202020;
+
+    border: 1px solid #3b3b3b;
+
+    border-radius: 9px;
+
+    color: white;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transition: .25s;
+
+    z-index: 200;
+}
+
+.toast.show {
+    opacity: 1;
+
+    transform:
+        translateX(-50%)
+        translateY(0);
+}
+
+/* MOBILE */
+
+@media(max-width: 800px) {
+
+    .header {
+        height: 62px;
+        padding: 0 14px;
+    }
 
     .nav {
-        top: 8px;
+        display: none;
     }
 
-    .nav-links a {
-        font-size: 14px;
-        padding: 4px;
+    .profile-name {
+        display: none;
     }
 
-    .nav-logo {
-        font-size: 16px;
+    .container {
+        width: min(100% - 24px, 650px);
+        padding-top: 20px;
     }
 
     .hero {
-        padding-top: 120px;
+        padding: 25px;
     }
 
-    .logo {
-        width: 130px;
-        height: 130px;
+    .hero h1 {
+        font-size: 28px;
     }
 
-    .features {
+    .grid {
         grid-template-columns: 1fr;
     }
 
-    .flags-paper {
-        padding: 17px;
+    .author-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 25px;
+    }
+
+    .author-avatar {
+        width: 120px;
+        height: 120px;
+    }
+
+    .author-info h2 {
+        font-size: 25px;
+    }
+
+}
+
+@media(max-width: 430px) {
+
+    .hero {
+        padding: 21px;
+    }
+
+    .hero h1 {
+        font-size: 25px;
     }
 
     .flag {
         align-items: flex-start;
     }
 
-    .flag-control {
-        flex-direction: column;
+    input[type="number"],
+    input[type="text"] {
+        width: 100px;
     }
 
-    .export {
-        padding: 22px;
-    }
-
-    .author-box {
-        padding: 25px;
-    }
-
-    .hero-buttons,
-    .export-buttons {
-        flex-direction: column;
-    }
-
-    .sketch-button {
-        width: 100%;
-        text-align: center;
-    }
 }
 </style>
 </head>
 
 <body>
 
-<!-- NAV -->
+<header class="header">
 
-<nav class="nav">
-    <div class="nav-logo">
-        Bloxstrap <span>Mobile</span>
-    </div>
+    <div class="logo">
 
-    <div class="nav-links">
-        <a href="#features">About</a>
-        <a href="#flags">Flags</a>
-        <a href="#export">Export</a>
-        <a href="#author">Author</a>
-    </div>
-</nav>
+        <div class="logo-box">
 
+            <svg viewBox="0 0 24 24">
+                <path d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z"/>
+            </svg>
 
-<!-- HERO -->
-
-<header class="hero">
-
-    <div class="doodle star" style="left:8%;top:28%;">
-        *
-    </div>
-
-    <div class="doodle star" style="right:10%;top:37%;">
-        +
-    </div>
-
-    <div class="doodle circle" style="left:12%;bottom:22%;"></div>
-
-    <div class="doodle arrow" style="right:12%;bottom:20%;">
-        ↙
-    </div>
-
-    <div class="hero-inner">
-
-        <img
-            class="logo"
-            src="file_00000000a78081f4ad75212ae5558e37.png"
-            alt="Bloxstrap Mobile Logo"
-        >
-
-        <img
-            class="wordmark"
-            src="file_000000001e7081f48bb06d1e3e438a28.png"
-            alt="Bloxstrap"
-        >
-
-        <h1 class="hero-title">
-            Bloxstrap <span>Mobile</span>
-        </h1>
-
-        <p class="hero-text">
-            A fan-made mobile Fast Flag configuration tool
-            designed for Roblox users who want a simple,
-            sketchy and easy-to-use interface.
-        </p>
-
-        <div class="hero-buttons">
-            <a href="#flags" class="sketch-button red">
-                Draw My Flags →
-            </a>
-
-            <a href="#export" class="sketch-button">
-                Export JSON
-            </a>
         </div>
+
+        Blox<span>strap</span>
+
+    </div>
+
+
+    <nav class="nav">
+
+        <button
+            class="active"
+            onclick="showSection('performance', this)"
+        >
+
+            <svg viewBox="0 0 24 24">
+                <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
+            </svg>
+
+            Performance
+
+        </button>
+
+
+        <button
+            onclick="showSection('graphics', this)"
+        >
+
+            <svg viewBox="0 0 24 24">
+                <path d="M12 3a9 9 0 100 18 9 9 0 000-18zm1 4h-2v6h6v-2h-4V7z"/>
+            </svg>
+
+            Graphics
+
+        </button>
+
+
+        <button
+            onclick="showSection('network', this)"
+        >
+
+            <svg viewBox="0 0 24 24">
+                <path d="M12 18a2 2 0 110-4 2 2 0 010 4zm-6-4a8 8 0 0112 0l-2 1.5a5.5 5.5 0 00-8 0L6 14zm-3-4a12 12 0 0118 0l-2 1.5a9.5 9.5 0 00-14 0L3 10z"/>
+            </svg>
+
+            Network
+
+        </button>
+
+
+        <button
+            onclick="showSection('interface', this)"
+        >
+
+            <svg viewBox="0 0 24 24">
+                <path d="M4 4h16v16H4V4zm3 3v3h3V7H7zm0 5v5h3v-5H7zm5-5v10h5V7h-5z"/>
+            </svg>
+
+            Interface
+
+        </button>
+
+
+        <button
+            onclick="showSection('export', this)"
+        >
+
+            <svg viewBox="0 0 24 24">
+                <path d="M5 20h14v-2H5v2zM12 3l-5 5h3v6h4V8h3l-5-5z"/>
+            </svg>
+
+            Export
+
+        </button>
+
+    </nav>
+
+
+    <div class="profile">
+
+        <img
+            id="headerAvatar"
+            src="awatar.webp"
+            alt="MemeSTRONYxddd"
+        >
+
+        <span class="profile-name">
+            MemeSTRONYxddd
+        </span>
 
     </div>
 
 </header>
 
 
-<!-- FEATURES -->
+<main class="container">
 
-<section id="features" class="section reveal">
+    <!-- HERO -->
 
-    <h2 class="section-title">What's inside?</h2>
+    <section class="hero">
 
-    <p class="section-subtitle">
-        Simple. Lightweight. A little messy on purpose.
-    </p>
+        <div class="hero-content">
 
-    <div class="features">
-
-        <div class="feature">
-            <div class="feature-number">01</div>
-            <h3>Performance</h3>
-            <p>
-                Configure supported performance-related
-                Fast Flags and FPS values.
-            </p>
-        </div>
-
-        <div class="feature">
-            <div class="feature-number">02</div>
-            <h3>Graphics</h3>
-            <p>
-                Organize graphics and rendering
-                configuration in one place.
-            </p>
-        </div>
-
-        <div class="feature">
-            <div class="feature-number">03</div>
-            <h3>Easy Export</h3>
-            <p>
-                Select your settings and instantly
-                create a ClientAppSettings.json file.
-            </p>
-        </div>
-
-        <div class="feature">
-            <div class="feature-number">04</div>
-            <h3>Mobile First</h3>
-            <p>
-                Designed to be comfortable to use
-                directly from your phone.
-            </p>
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- FLAGS -->
-
-<section id="flags" class="section reveal">
-
-    <h2 class="section-title">Fast Flags</h2>
-
-    <p class="section-subtitle">
-        Pick your settings. Toggle them on. Done.
-    </p>
-
-    <div class="flags-paper">
-
-        <!-- PERFORMANCE -->
-
-        <div class="category">
-
-            <div class="category-heading">
-                <h3>Performance</h3>
-                <div class="category-line"></div>
+            <div class="hero-label">
+                UNOFFICIAL ROBLOX TOOL
             </div>
 
-            <div class="flag-list">
+            <h1>
+                Bloxstrap Mobile
+            </h1>
+
+            <p>
+                A simple interface for configuring supported
+                Roblox client settings on mobile.
+                Configure your settings and export your
+                configuration as ClientAppSettings.json.
+            </p>
+
+            <div class="status">
+
+                <span class="status-dot"></span>
+
+                Configuration ready
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PERFORMANCE -->
+
+    <section
+        id="performance"
+        class="section active"
+    >
+
+        <div class="section-title">
+
+            <h2>Performance</h2>
+
+            <p>
+                Configure performance-related settings.
+            </p>
+
+        </div>
+
+
+        <div class="grid">
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div class="card-icon">
+
+                        <svg viewBox="0 0 24 24">
+                            <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
+                        </svg>
+
+                    </div>
+
+                    <span class="card-title">
+                        Frame Rate
+                    </span>
+
+                </div>
+
 
                 <div class="flag">
 
-                    <div>
+                    <div class="flag-info">
+
                         <div class="flag-name">
+                            Target FPS
+                        </div>
+
+                        <div class="flag-key">
                             DFIntTaskSchedulerTargetFps
                         </div>
 
-                        <div class="flag-description">
-                            Target FPS value.
-                        </div>
                     </div>
 
-                    <div class="flag-control">
-
-                        <input
-                            class="number-input"
-                            type="number"
-                            value="120"
-                            min="1"
-                            max="1000"
-                            data-value-for="DFIntTaskSchedulerTargetFps"
-                        >
-
-                        <label class="switch">
-                            <input
-                                type="checkbox"
-                                data-flag="DFIntTaskSchedulerTargetFps"
-                                data-number="true"
-                            >
-                            <span class="slider"></span>
-                        </label>
-
-                    </div>
+                    <input
+                        type="number"
+                        id="fps"
+                        value="120"
+                        min="1"
+                        max="1000"
+                    >
 
                 </div>
 
 
                 <div class="flag">
 
-                    <div>
+                    <div class="flag-info">
+
                         <div class="flag-name">
-                            FFlagDebugDisplayFPS
+                            Disable VSync
                         </div>
 
-                        <div class="flag-description">
-                            Enables an FPS display where supported.
+                        <div class="flag-key">
+                            FFlagDebugDisableVsync
                         </div>
+
                     </div>
 
-                    <label class="switch">
-                        <input
-                            type="checkbox"
-                            data-flag="FFlagDebugDisplayFPS"
-                            data-value="true"
-                        >
-                        <span class="slider"></span>
-                    </label>
+                    <div
+                        class="toggle"
+                        data-flag="FFlagDebugDisableVsync"
+                        onclick="toggleFlag(this)"
+                    ></div>
 
                 </div>
 
             </div>
 
-        </div>
 
+            <div class="card">
 
-        <!-- GRAPHICS -->
+                <div class="card-header">
 
-        <div class="category">
+                    <div class="card-icon">
 
-            <div class="category-heading">
-                <h3>Graphics</h3>
-                <div class="category-line"></div>
-            </div>
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2l3 6 7 .8-5 4.8 1.5 6.9L12 17l-6.5 3.5L7 13.6 2 8.8 9 8l3-6z"/>
+                        </svg>
 
-            <div class="flag-list">
-
-                <div class="flag">
-
-                    <div>
-                        <div class="flag-name">
-                            FFlagDebugGraphicsPreferD3D11
-                        </div>
-
-                        <div class="flag-description">
-                            Requests D3D11 where supported.
-                        </div>
                     </div>
 
-                    <label class="switch">
-                        <input
-                            type="checkbox"
-                            data-flag="FFlagDebugGraphicsPreferD3D11"
-                            data-value="true"
-                        >
-                        <span class="slider"></span>
-                    </label>
+                    <span class="card-title">
+                        Rendering
+                    </span>
 
                 </div>
 
 
                 <div class="flag">
 
-                    <div>
+                    <div class="flag-info">
+
                         <div class="flag-name">
+                            Disable Shadows
+                        </div>
+
+                        <div class="flag-key">
+                            FFlagDisableDynamicShadows
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="toggle"
+                        data-flag="FFlagDisableDynamicShadows"
+                        onclick="toggleFlag(this)"
+                    ></div>
+
+                </div>
+
+
+                <div class="flag">
+
+                    <div class="flag-info">
+
+                        <div class="flag-name">
+                            Disable Post Effects
+                        </div>
+
+                        <div class="flag-key">
                             FFlagDisablePostFx
                         </div>
 
-                        <div class="flag-description">
-                            Disables selected post-processing effects
-                            where supported.
-                        </div>
                     </div>
 
-                    <label class="switch">
-                        <input
-                            type="checkbox"
-                            data-flag="FFlagDisablePostFx"
-                            data-value="true"
-                        >
-                        <span class="slider"></span>
-                    </label>
+                    <div
+                        class="toggle"
+                        data-flag="FFlagDisablePostFx"
+                        onclick="toggleFlag(this)"
+                    ></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- GRAPHICS -->
+
+    <section
+        id="graphics"
+        class="section"
+    >
+
+        <div class="section-title">
+
+            <h2>Graphics</h2>
+
+            <p>
+                Configure visual quality settings.
+            </p>
+
+        </div>
+
+
+        <div class="grid">
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div class="card-icon">
+
+                        <svg viewBox="0 0 24 24">
+                            <path d="M4 4h16v16H4V4zm3 3v10h10V7H7z"/>
+                        </svg>
+
+                    </div>
+
+                    <span class="card-title">
+                        Quality
+                    </span>
 
                 </div>
 
 
                 <div class="flag">
 
-                    <div>
+                    <div class="flag-info">
+
                         <div class="flag-name">
-                            FIntDebugForceMSAASamples
+                            Texture Quality
                         </div>
 
-                        <div class="flag-description">
-                            Requested MSAA sample count.
+                        <div class="flag-key">
+                            DFIntTextureQualityOverride
                         </div>
-                    </div>
-
-                    <div class="flag-control">
-
-                        <input
-                            class="number-input"
-                            type="number"
-                            value="0"
-                            min="0"
-                            max="16"
-                            data-value-for="FIntDebugForceMSAASamples"
-                        >
-
-                        <label class="switch">
-                            <input
-                                type="checkbox"
-                                data-flag="FIntDebugForceMSAASamples"
-                                data-number="true"
-                            >
-                            <span class="slider"></span>
-                        </label>
 
                     </div>
+
+                    <input
+                        type="number"
+                        id="texture"
+                        value="1"
+                        min="0"
+                        max="3"
+                    >
 
                 </div>
 
-            </div>
-
-        </div>
-
-
-        <!-- RENDERING -->
-
-        <div class="category">
-
-            <div class="category-heading">
-                <h3>Rendering</h3>
-                <div class="category-line"></div>
-            </div>
-
-            <div class="flag-list">
 
                 <div class="flag">
 
-                    <div>
+                    <div class="flag-info">
+
                         <div class="flag-name">
-                            FFlagDebugSkyGray
+                            Disable Grass
                         </div>
 
-                        <div class="flag-description">
-                            Debug sky rendering option.
+                        <div class="flag-key">
+                            FFlagDisableGrassRendering
                         </div>
+
                     </div>
 
-                    <label class="switch">
-                        <input
-                            type="checkbox"
-                            data-flag="FFlagDebugSkyGray"
-                            data-value="true"
-                        >
-                        <span class="slider"></span>
-                    </label>
+                    <div
+                        class="toggle"
+                        data-flag="FFlagDisableGrassRendering"
+                        onclick="toggleFlag(this)"
+                    ></div>
 
                 </div>
 
             </div>
 
-        </div>
 
+            <div class="card">
 
-        <!-- INTERFACE -->
+                <div class="card-header">
 
-        <div class="category">
+                    <div class="card-icon">
 
-            <div class="category-heading">
-                <h3>Interface</h3>
-                <div class="category-line"></div>
-            </div>
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 5h-2v5H7v2h6V7z"/>
+                        </svg>
 
-            <div class="flag-list">
+                    </div>
+
+                    <span class="card-title">
+                        Visual Effects
+                    </span>
+
+                </div>
+
 
                 <div class="flag">
 
-                    <div>
+                    <div class="flag-info">
+
                         <div class="flag-name">
-                            FFlagEnableInGameMenuControls
+                            Disable Bloom
                         </div>
 
-                        <div class="flag-description">
-                            Example interface configuration option.
+                        <div class="flag-key">
+                            FFlagDisableBloom
                         </div>
+
                     </div>
 
-                    <label class="switch">
-                        <input
-                            type="checkbox"
-                            data-flag="FFlagEnableInGameMenuControls"
-                            data-value="true"
-                        >
-                        <span class="slider"></span>
-                    </label>
+                    <div
+                        class="toggle"
+                        data-flag="FFlagDisableBloom"
+                        onclick="toggleFlag(this)"
+                    ></div>
+
+                </div>
+
+
+                <div class="flag">
+
+                    <div class="flag-info">
+
+                        <div class="flag-name">
+                            Disable Shadows
+                        </div>
+
+                        <div class="flag-key">
+                            FFlagDisableDynamicShadows
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="toggle"
+                        data-flag="FFlagDisableDynamicShadows"
+                        onclick="toggleFlag(this)"
+                    ></div>
 
                 </div>
 
@@ -1090,298 +1349,616 @@ footer {
 
         </div>
 
-    </div>
-
-</section>
+    </section>
 
 
-<!-- EXPORT -->
+    <!-- NETWORK -->
 
-<section id="export" class="section reveal">
+    <section
+        id="network"
+        class="section"
+    >
 
-    <div class="export">
+        <div class="section-title">
 
-        <h2>Export your drawing.</h2>
+            <h2>Network</h2>
 
-        <p>
-            Generate a ClientAppSettings.json containing
-            only the flags you selected.
-        </p>
-
-        <textarea id="jsonOutput" readonly>{}</textarea>
-
-        <div class="export-buttons">
-
-            <button
-                class="sketch-button red"
-                onclick="generateJSON()"
-            >
-                Generate JSON
-            </button>
-
-            <button
-                class="sketch-button yellow"
-                onclick="copyJSON()"
-            >
-                Copy
-            </button>
-
-            <button
-                class="sketch-button green"
-                onclick="downloadJSON()"
-            >
-                Download
-            </button>
+            <p>
+                Network-related configuration.
+            </p>
 
         </div>
 
-    </div>
 
-</section>
+        <div class="grid">
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div class="card-icon">
+
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 18a2 2 0 110-4 2 2 0 010 4zm-6-4a8 8 0 0112 0l-2 1.5a5.5 5.5 0 00-8 0L6 14zm-3-4a12 12 0 0118 0l-2 1.5a9.5 9.5 0 00-14 0L3 10z"/>
+                        </svg>
+
+                    </div>
+
+                    <span class="card-title">
+                        Network Settings
+                    </span>
+
+                </div>
 
 
-<!-- NON ROOT -->
+                <div class="flag">
 
-<section class="section reveal">
+                    <div class="flag-info">
 
-    <h2 class="section-title">Non-Root</h2>
+                        <div class="flag-name">
+                            Network Ownership
+                        </div>
 
-    <p class="section-subtitle">
-        A configuration export for supported client-side environments.
-    </p>
+                        <div class="flag-key">
+                            FFlagNetworkOwnershipRule
+                        </div>
 
-    <div class="feature">
+                    </div>
 
-        <h3>Keep it simple.</h3>
+                    <input
+                        type="text"
+                        id="networkRule"
+                        value="Default"
+                    >
 
-        <p>
-            Bloxstrap Mobile generates configuration data locally
-            in your browser. It does not modify Roblox servers.
-            Individual Fast Flags may change or stop working over time.
-        </p>
+                </div>
 
-        <br>
+
+                <div class="flag">
+
+                    <div class="flag-info">
+
+                        <div class="flag-name">
+                            Optimize Network
+                        </div>
+
+                        <div class="flag-key">
+                            FFlagOptimizeNetwork
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="toggle"
+                        data-flag="FFlagOptimizeNetwork"
+                        onclick="toggleFlag(this)"
+                    ></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- INTERFACE -->
+
+    <section
+        id="interface"
+        class="section"
+    >
+
+        <div class="section-title">
+
+            <h2>Interface</h2>
+
+            <p>
+                Configure interface-related options.
+            </p>
+
+        </div>
+
+
+        <div class="grid">
+
+            <div class="card">
+
+                <div class="card-header">
+
+                    <div class="card-icon">
+
+                        <svg viewBox="0 0 24 24">
+                            <path d="M4 4h16v16H4V4zm3 3v3h3V7H7zm0 5v5h3v-5H7zm5-5v10h5V7h-5z"/>
+                        </svg>
+
+                    </div>
+
+                    <span class="card-title">
+                        User Interface
+                    </span>
+
+                </div>
+
+
+                <div class="flag">
+
+                    <div class="flag-info">
+
+                        <div class="flag-name">
+                            New UI
+                        </div>
+
+                        <div class="flag-key">
+                            FFlagEnableNewUI
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="toggle"
+                        data-flag="FFlagEnableNewUI"
+                        onclick="toggleFlag(this)"
+                    ></div>
+
+                </div>
+
+
+                <div class="flag">
+
+                    <div class="flag-info">
+
+                        <div class="flag-name">
+                            Disable Ads
+                        </div>
+
+                        <div class="flag-key">
+                            FFlagDisableAds
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="toggle"
+                        data-flag="FFlagDisableAds"
+                        onclick="toggleFlag(this)"
+                    ></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- EXPORT -->
+
+    <section
+        id="export"
+        class="section"
+    >
+
+        <div class="section-title">
+
+            <h2>Export</h2>
+
+            <p>
+                Export your current configuration.
+            </p>
+
+        </div>
+
+
+        <div class="export-box">
+
+            <div class="export-header">
+
+                <div class="export-icon">
+
+                    <svg viewBox="0 0 24 24">
+                        <path d="M5 20h14v-2H5v2zM12 3l-5 5h3v6h4V8h3l-5-5z"/>
+                    </svg>
+
+                </div>
+
+                <h3>
+                    ClientAppSettings.json
+                </h3>
+
+            </div>
+
+
+            <p>
+                Your current configuration will appear here.
+            </p>
+
+
+            <pre id="jsonOutput">{}</pre>
+
+
+            <div class="actions">
+
+                <button
+                    class="btn btn-primary"
+                    onclick="exportJSON()"
+                >
+
+                    <svg viewBox="0 0 24 24">
+                        <path d="M5 20h14v-2H5v2zM12 3l-5 5h3v6h4V8h3l-5-5z"/>
+                    </svg>
+
+                    Download JSON
+
+                </button>
+
+
+                <button
+                    class="btn btn-secondary"
+                    onclick="copyJSON()"
+                >
+
+                    <svg viewBox="0 0 24 24">
+                        <path d="M8 7V5h11v11h-2V7H8zm-3 3h10v9H5v-9z"/>
+                    </svg>
+
+                    Copy JSON
+
+                </button>
+
+
+                <button
+                    class="btn btn-danger"
+                    onclick="resetFlags()"
+                >
+
+                    <svg viewBox="0 0 24 24">
+                        <path d="M6 7h12l-1 14H7L6 7zm3-3h6l1 2H8l1-2z"/>
+                    </svg>
+
+                    Reset
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- GLOBAL ACTIONS -->
+
+    <div class="actions">
 
         <button
-            class="sketch-button red"
-            onclick="generateJSON(); document.getElementById('export').scrollIntoView({behavior:'smooth'});"
+            class="btn btn-primary"
+            onclick="generateJSON(); showToast('Configuration applied')"
         >
-            Generate Configuration
+
+            <svg viewBox="0 0 24 24">
+                <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/>
+            </svg>
+
+            Apply Configuration
+
+        </button>
+
+
+        <button
+            class="btn btn-secondary"
+            onclick="openExport()"
+        >
+
+            <svg viewBox="0 0 24 24">
+                <path d="M5 20h14v-2H5v2zM12 3l-5 5h3v6h4V8h3l-5-5z"/>
+            </svg>
+
+            Open Export
+
         </button>
 
     </div>
 
-</section>
 
+    <!-- ABOUT AUTHOR -->
 
-<!-- AUTHOR -->
+    <section class="author-section">
 
-<section id="author" class="section reveal">
+        <div class="author-title">
 
-    <div class="author-box">
+            <h2>
+                About the Author
+            </h2>
 
-        <h2>
-            About the Author:
-            <span>MemeSTRONYxddd</span>
-        </h2>
+            <p>
+                Information about the creator of Bloxstrap Mobile.
+            </p>
 
-        <p>
-            Bloxstrap Mobile started with a simple thought:
-            why should iOS users have a mobile Bloxstrap option
-            while Android users do not get the same kind of experience?
-        </p>
-
-        <div class="author-note">
-            The author was genuinely bothered by that situation,
-            so instead of just complaining about it, they decided
-            to create this website for Android users.
-            That is how Bloxstrap Mobile began.
         </div>
 
-        <p class="disclaimer">
-            Bloxstrap Mobile is an unofficial fan-made project
-            and is not affiliated with Roblox or the original
-            Bloxstrap project.
-        </p>
 
-    </div>
+        <div class="author-card">
 
-</section>
+            <div class="author-avatar-wrapper">
 
+                <img
+                    class="author-avatar"
+                    src="awatar.webp"
+                    alt="MemeSTRONYxddd"
+                >
 
-<footer>
-    Bloxstrap Mobile — Unofficial Fan Project
-    <br>
-    Created by MemeSTRONYxddd · Version 2.0
-</footer>
+                <div class="online-dot"></div>
+
+            </div>
 
 
-<div id="toast" class="toast">
-    JSON copied!
+            <div class="author-info">
+
+                <div class="author-label">
+                    ABOUT THE AUTHOR
+                </div>
+
+
+                <h2>
+                    MemeSTRONYxddd
+                </h2>
+
+
+                <p class="author-description">
+                    Creator of Bloxstrap Mobile, an unofficial
+                    Roblox configuration project focused on
+                    providing a simple and clean interface for
+                    managing supported client settings.
+                </p>
+
+
+                <div class="author-tags">
+
+                    <span>
+                        Developer
+                    </span>
+
+                    <span>
+                        Roblox
+                    </span>
+
+                    <span>
+                        Bloxstrap Mobile
+                    </span>
+
+                </div>
+
+
+                <a
+                    class="profile-button"
+                    href="https://www.roblox.com/pl/users/11251088118/profile"
+                    target="_blank"
+                    rel="noopener"
+                >
+
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 5h-2v5H7v2h6V7z"/>
+                    </svg>
+
+                    View Roblox Profile
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <footer class="footer">
+
+        Bloxstrap Mobile • Unofficial project<br>
+
+        <strong>
+            Created by MemeSTRONYxddd
+        </strong>
+
+    </footer>
+
+</main>
+
+
+<div
+    class="toast"
+    id="toast"
+>
+    Configuration updated
 </div>
 
 
 <script>
 
-/* Reveal animation */
+/* =========================
+   FLAGS
+========================= */
 
-const revealElements =
-    document.querySelectorAll(".reveal");
-
-const observer =
-    new IntersectionObserver(
-        entries => {
-
-            entries.forEach(entry => {
-
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("visible");
-                }
-
-            });
-
-        },
-        {
-            threshold: .1
-        }
-    );
-
-revealElements.forEach(element => {
-    observer.observe(element);
-});
+let flags = {};
 
 
-/* Get selected flags */
+/* =========================
+   NAVIGATION
+========================= */
 
-function getFlags() {
+function showSection(id, button) {
 
-    const flags = {};
+    document
+        .querySelectorAll(".section")
+        .forEach(section => {
+            section.classList.remove("active");
+        });
 
-    document.querySelectorAll(
-        'input[type="checkbox"][data-flag]'
-    ).forEach(toggle => {
+    const section =
+        document.getElementById(id);
 
-        if (!toggle.checked) {
-            return;
-        }
+    if (section) {
+        section.classList.add("active");
+    }
 
-        const name =
-            toggle.dataset.flag;
+    document
+        .querySelectorAll(".nav button")
+        .forEach(btn => {
+            btn.classList.remove("active");
+        });
 
-        let value =
-            toggle.dataset.value;
-
-        if (toggle.dataset.number === "true") {
-
-            const input =
-                document.querySelector(
-                    `[data-value-for="${name}"]`
-                );
-
-            if (input) {
-                value = input.value;
-            }
-
-        }
-
-        if (value === "true") {
-            value = true;
-        }
-        else if (value === "false") {
-            value = false;
-        }
-        else if (
-            value !== undefined &&
-            value !== "" &&
-            !isNaN(value)
-        ) {
-            value = Number(value);
-        }
-
-        flags[name] = value;
-
-    });
-
-    return flags;
-}
-
-
-/* Generate */
-
-function generateJSON() {
-
-    const flags = getFlags();
-
-    document.getElementById(
-        "jsonOutput"
-    ).value =
-        JSON.stringify(flags, null, 2);
-
-}
-
-
-/* Copy */
-
-async function copyJSON() {
-
-    generateJSON();
-
-    const text =
-        document.getElementById(
-            "jsonOutput"
-        ).value;
-
-    try {
-
-        await navigator.clipboard.writeText(text);
-
-        showToast("Copied!");
-
-    } catch {
-
-        const output =
-            document.getElementById(
-                "jsonOutput"
-            );
-
-        output.select();
-
-        document.execCommand("copy");
-
-        showToast("Copied!");
-
+    if (button) {
+        button.classList.add("active");
     }
 
 }
 
 
-/* Download */
+/* =========================
+   OPEN EXPORT
+========================= */
 
-function downloadJSON() {
+function openExport() {
+
+    const exportButton =
+        document.querySelector(
+            ".nav button:last-child"
+        );
+
+    showSection(
+        "export",
+        exportButton
+    );
+
+}
+
+
+/* =========================
+   TOGGLES
+========================= */
+
+function toggleFlag(element) {
+
+    element.classList.toggle("on");
+
+    const flag =
+        element.dataset.flag;
+
+    if (
+        element.classList.contains("on")
+    ) {
+
+        flags[flag] = true;
+
+    } else {
+
+        delete flags[flag];
+
+    }
+
+    saveSettings();
+    generateJSON();
+
+    showToast(
+        element.classList.contains("on")
+            ? "Flag enabled"
+            : "Flag disabled"
+    );
+
+}
+
+
+/* =========================
+   GENERATE JSON
+========================= */
+
+function generateJSON() {
+
+    const fps =
+        Number(
+            document.getElementById("fps").value
+        );
+
+    const texture =
+        Number(
+            document.getElementById("texture").value
+        );
+
+    const networkRule =
+        document.getElementById(
+            "networkRule"
+        ).value;
+
+
+    const output = {
+
+        ...flags,
+
+        DFIntTaskSchedulerTargetFps:
+            fps,
+
+        DFIntTextureQualityOverride:
+            texture,
+
+        FFlagNetworkOwnershipRule:
+            networkRule
+
+    };
+
+
+    document.getElementById(
+        "jsonOutput"
+    ).textContent =
+        JSON.stringify(
+            output,
+            null,
+            2
+        );
+
+
+    saveSettings();
+
+}
+
+
+/* =========================
+   EXPORT JSON
+========================= */
+
+function exportJSON() {
 
     generateJSON();
 
-    const text =
+    const data =
         document.getElementById(
             "jsonOutput"
-        ).value;
+        ).textContent;
+
 
     const blob =
         new Blob(
-            [text],
+            [data],
             {
                 type: "application/json"
             }
         );
 
+
     const url =
         URL.createObjectURL(blob);
+
 
     const link =
         document.createElement("a");
 
+
     link.href = url;
-    link.download = "ClientAppSettings.json";
+
+    link.download =
+        "ClientAppSettings.json";
+
 
     document.body.appendChild(link);
 
@@ -1389,121 +1966,302 @@ function downloadJSON() {
 
     link.remove();
 
+
     URL.revokeObjectURL(url);
 
-    showToast("ClientAppSettings.json saved!");
 
-}
-
-
-/* Toast */
-
-let toastTimer;
-
-function showToast(message) {
-
-    const toast =
-        document.getElementById("toast");
-
-    toast.textContent = message;
-
-    toast.classList.add("show");
-
-    clearTimeout(toastTimer);
-
-    toastTimer =
-        setTimeout(() => {
-
-            toast.classList.remove("show");
-
-        }, 2200);
-
-}
-
-
-/* Local settings */
-
-function saveSettings() {
-
-    const data = {};
-
-    document.querySelectorAll(
-        'input[type="checkbox"][data-flag]'
-    ).forEach(input => {
-
-        data[input.dataset.flag] =
-            input.checked;
-
-    });
-
-    localStorage.setItem(
-        "bloxstrapMobileFlags",
-        JSON.stringify(data)
+    showToast(
+        "ClientAppSettings.json exported"
     );
 
 }
 
+
+/* =========================
+   COPY JSON
+========================= */
+
+function copyJSON() {
+
+    generateJSON();
+
+    const data =
+        document.getElementById(
+            "jsonOutput"
+        ).textContent;
+
+
+    if (
+        navigator.clipboard &&
+        navigator.clipboard.writeText
+    ) {
+
+        navigator.clipboard.writeText(data);
+
+        showToast(
+            "JSON copied"
+        );
+
+    } else {
+
+        showToast(
+            "Clipboard unavailable"
+        );
+
+    }
+
+}
+
+
+/* =========================
+   RESET
+========================= */
+
+function resetFlags() {
+
+    flags = {};
+
+    document
+        .querySelectorAll(".toggle")
+        .forEach(toggle => {
+            toggle.classList.remove("on");
+        });
+
+
+    document.getElementById("fps")
+        .value = 120;
+
+
+    document.getElementById("texture")
+        .value = 1;
+
+
+    document.getElementById("networkRule")
+        .value = "Default";
+
+
+    localStorage.removeItem(
+        "bloxstrapMobileSettings"
+    );
+
+
+    generateJSON();
+
+    showToast(
+        "Configuration reset"
+    );
+
+}
+
+
+/* =========================
+   SAVE
+========================= */
+
+function saveSettings() {
+
+    const settings = {
+
+        flags: flags,
+
+        fps:
+            document.getElementById(
+                "fps"
+            ).value,
+
+        texture:
+            document.getElementById(
+                "texture"
+            ).value,
+
+        networkRule:
+            document.getElementById(
+                "networkRule"
+            ).value
+
+    };
+
+
+    localStorage.setItem(
+        "bloxstrapMobileSettings",
+        JSON.stringify(settings)
+    );
+
+}
+
+
+/* =========================
+   LOAD
+========================= */
 
 function loadSettings() {
 
     const saved =
         localStorage.getItem(
-            "bloxstrapMobileFlags"
+            "bloxstrapMobileSettings"
         );
 
+
     if (!saved) {
+
+        generateJSON();
+
         return;
+
     }
+
 
     try {
 
-        const data =
+        const settings =
             JSON.parse(saved);
 
-        document.querySelectorAll(
-            'input[type="checkbox"][data-flag]'
-        ).forEach(input => {
 
-            const name =
-                input.dataset.flag;
+        flags =
+            settings.flags || {};
 
-            if (
-                Object.prototype.hasOwnProperty.call(
-                    data,
-                    name
-                )
-            ) {
-                input.checked =
-                    data[name];
-            }
 
-        });
+        if (
+            settings.fps !== undefined
+        ) {
 
-    } catch {
+            document.getElementById(
+                "fps"
+            ).value =
+                settings.fps;
 
-        localStorage.removeItem(
-            "bloxstrapMobileFlags"
+        }
+
+
+        if (
+            settings.texture !== undefined
+        ) {
+
+            document.getElementById(
+                "texture"
+            ).value =
+                settings.texture;
+
+        }
+
+
+        if (
+            settings.networkRule !== undefined
+        ) {
+
+            document.getElementById(
+                "networkRule"
+            ).value =
+                settings.networkRule;
+
+        }
+
+
+        document
+            .querySelectorAll(".toggle")
+            .forEach(toggle => {
+
+                const flag =
+                    toggle.dataset.flag;
+
+                if (
+                    flags[flag] === true
+                ) {
+
+                    toggle.classList.add("on");
+
+                }
+
+            });
+
+    } catch (error) {
+
+        console.error(
+            "Could not load settings:",
+            error
         );
 
+        flags = {};
+
     }
+
+
+    generateJSON();
 
 }
 
 
-document.querySelectorAll(
-    'input[type="checkbox"][data-flag]'
-).forEach(input => {
+/* =========================
+   TOAST
+========================= */
 
-    input.addEventListener(
-        "change",
-        saveSettings
+function showToast(message) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add("show");
+
+
+    clearTimeout(
+        window.toastTimer
     );
 
-});
+
+    window.toastTimer =
+        setTimeout(() => {
+
+            toast.classList.remove(
+                "show"
+            );
+
+        }, 1800);
+
+}
+
+
+/* =========================
+   INPUT EVENTS
+========================= */
+
+document
+    .getElementById("fps")
+    .addEventListener(
+        "input",
+        generateJSON
+    );
+
+
+document
+    .getElementById("texture")
+    .addEventListener(
+        "input",
+        generateJSON
+    );
+
+
+document
+    .getElementById("networkRule")
+    .addEventListener(
+        "input",
+        generateJSON
+    );
+
+
+/* =========================
+   START
+========================= */
 
 loadSettings();
 
 </script>
 
 </body>
-</html>
+    </html>
